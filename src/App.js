@@ -1,21 +1,38 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Typography from "material-ui/Typography";
+import { withStyles } from "material-ui";
+
+// components
+import RegionForm from "./RegionForm";
+
+const styles = {
+  root: { width: "100%", maxWidth: 1200, margin: "0 auto" }
+};
 
 class App extends Component {
   render() {
+    const { classes } = this.props;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className={classes.root}>
+        <Typography variant="display3" gutterBottom align="right">
+          <a
+            style={{ color: "inherit", textDecoration: "none" }}
+            href="http://climod.nrcc.cornell.edu/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            CLIMOD
+          </a>
+        </Typography>
+
+        <Typography variant="display1" gutterBottom>
+          Hourly Observations
+        </Typography>
+
+        <RegionForm />
       </div>
     );
   }
 }
 
-export default App;
+export default withStyles(styles)(App);
