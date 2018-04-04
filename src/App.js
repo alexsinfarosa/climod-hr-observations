@@ -6,7 +6,10 @@ import { withStyles } from "material-ui";
 import RegionForm from "./RegionForm";
 
 const styles = {
-  root: { width: "100%", maxWidth: 1200, margin: "0 auto" }
+  root: { width: "100%", maxWidth: 1200, margin: "0 auto" },
+  main: { display: "flex", marginTop: "2rem" },
+  left: { flex: 1 },
+  right: { flex: 2 }
 };
 
 class App extends Component {
@@ -29,7 +32,18 @@ class App extends Component {
           Hourly Observations
         </Typography>
 
-        <RegionForm />
+        <main className={classes.main}>
+          <section className={classes.left}>
+            <RegionForm />
+          </section>
+          <section className={classes.right}>
+            {" "}
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae
+            molestiae voluptates repellendus, quaerat at deserunt sunt corrupti
+            placeat tempore optio pariatur deleniti atque! Quod, reiciendis
+            impedit ea similique reprehenderit sed!
+          </section>
+        </main>
       </div>
     );
   }
