@@ -19,8 +19,6 @@ const styles = theme => ({
   root: {
     display: "flex",
     justifyContent: "space-between"
-    // flexDirection: "column"
-    // background: "teal"
   },
   formControl: {
     width: "100%",
@@ -77,7 +75,7 @@ class RegionForm extends Component {
         {/*DATE PICKERS*/}
 
         <DatePicker
-          style={{ minWidth: 150 }}
+          style={{ minWidth: 160, width: 160 }}
           label="Start Date"
           value={sDate}
           onChange={setStartDate}
@@ -95,7 +93,7 @@ class RegionForm extends Component {
         />
 
         <DatePicker
-          style={{ minWidth: 150 }}
+          style={{ minWidth: 160, width: 160 }}
           label="End Date"
           value={eDate}
           onChange={setEndDate}
