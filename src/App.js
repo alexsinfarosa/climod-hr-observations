@@ -7,10 +7,16 @@ import withRoot from "./withRoot";
 // components
 import RegionForm from "./components/RegionForm";
 import USMap from "./components/USMap";
+import CheckBoxes from "./components/CheckBoxes";
 
 const styles = {
   root: { width: "100%", maxWidth: 1200, margin: "0 auto", padding: "1rem" },
-  main: { width: "100%", display: "flex", marginTop: "2rem" },
+  main: {
+    width: "100%",
+    display: "flex",
+    marginTop: "2rem",
+    flexDirection: "column"
+  },
   left: { flex: 1, marginRight: "1rem" },
   right: { flex: 2 }
 };
@@ -25,26 +31,37 @@ class App extends Component {
     } = this.props.rootStore.paramsStore;
     return (
       <div className={classes.root}>
-        <Typography variant="display3" gutterBottom align="right">
-          <a
-            style={{ color: "inherit", textDecoration: "none" }}
-            href="http://climod.nrcc.cornell.edu/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            CLIMOD
-          </a>
-        </Typography>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
+          <Typography variant="display2" gutterBottom>
+            Hourly Observations
+          </Typography>
 
-        <Typography variant="display1" gutterBottom>
-          Hourly Observations
-        </Typography>
+          <Typography variant="display2" gutterBottom align="right">
+            <a
+              style={{ color: "inherit", textDecoration: "none" }}
+              href="http://climod.nrcc.cornell.edu/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              CLIMOD
+            </a>
+          </Typography>
+        </div>
 
         <main className={classes.main}>
-          <section className={classes.left}>
+          <section>
             <RegionForm />
           </section>
-          <section className={classes.right}>
+          <section style={{ marginTop: "2rem" }}>
+            <CheckBoxes />
+          </section>
+          <section style={{ marginTop: "2rem" }}>
             <Typography variant="headline" gutterBottom align="center">
               {station ? `${station.name}, ${station.id}` : ""}
             </Typography>
