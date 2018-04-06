@@ -1,14 +1,19 @@
-import { decorate, observable, computed, action, when } from "mobx";
+import { decorate, observable, computed, action, when, reaction } from "mobx";
 import { states } from "../assets/states";
 import axios from "axios";
 
 // fetch
-// import fetchData from "../utils/fetchData";
+import { fetchCurrentStationHourlyData } from "../utils/fetchData";
 // import cleanFetchedData from "../utils/cleanFetchedData";
 // import currentModel from "../utils/currentModel";
 
 // utils
-import { idAdjustment, vXDef } from "../utils/utils";
+import {
+  idAdjustment,
+  vXDef,
+  dailyToHourlyDates,
+  flatten
+} from "../utils/utils";
 
 // date-fns
 import { format } from "date-fns";
@@ -21,6 +26,13 @@ const url = `${
 export default class ParamsStore {
   constructor() {
     when(() => this.stations.length === 0, () => this.loadStations());
+    reaction(
+      () => this.asJson,
+      () =>
+        this.stationID === "" || this.sDate === null
+          ? null
+          : this.setData(this.params)
+    );
   }
 
   isLoading = false;
@@ -71,7 +83,7 @@ export default class ParamsStore {
   };
 
   // Dates
-  sDate = new Date();
+  sDate = null;
   setStartDate = d => (this.sDate = d);
   eDate = new Date();
   setEndDate = d => (this.eDate = d);
@@ -88,14 +100,49 @@ export default class ParamsStore {
 
   // parameters to make the call
   get params() {
-    return {
-      sid: `${idAdjustment(this.station)} ${this.station.network}`,
-      sdate: format(this.sDate, "YYYY-MM-DD"),
-      edate: format(this.eDate, "YYYY-MM-DD"),
-      elems: [vXDef[this.station.network]["temp"]],
-      meta: "tzo"
-    };
+    const { station, sDate, eDate } = this;
+    if (station) {
+      return {
+        sid: `${idAdjustment(station)} ${station.network}`,
+        sdate: format(sDate, "YYYY-MM-DD"),
+        edate: format(eDate, "YYYY-MM-DD"),
+        elems: Object.values(vXDef[this.station.network]),
+        meta: "tzo"
+      };
+    }
   }
+
+  data = [];
+  tzo;
+  setData = async params => {
+    this.isLoading = true;
+
+    // fetching data
+    await fetchCurrentStationHourlyData(params).then(res => {
+      this.tzo = res.meta.tzo;
+
+      // transform data
+      console.log(res.data);
+      const dates = res.data.map(arr => arr[0]);
+      const hrDates = dailyToHourlyDates(dates);
+
+      const temperature = flatten(res.data.map(arr => arr[1]));
+      const relativeHumidity = flatten(res.data.map(arr => arr[2]));
+      const dewpoint = flatten(res.data.map(arr => arr[2]));
+
+      this.data = hrDates.map((hr, i) => {
+        return {
+          date: hr,
+          temperature: temperature[i],
+          relativeHumidity: relativeHumidity[i],
+          dewpoint: dewpoint[i]
+        };
+      });
+    });
+
+    this.isLoading = false;
+    console.log(this.data.slice());
+  };
 }
 
 decorate(ParamsStore, {
@@ -118,5 +165,6 @@ decorate(ParamsStore, {
   eDate: observable,
   setEndDate: action,
   asJson: computed,
-  params: computed
+  params: computed,
+  data: observable
 });

@@ -44,6 +44,20 @@ export const matchIconsToStations = (station, state) => {
   }
 };
 
+export const elements = {
+  pcpn: "Hourly Precipitation",
+  temp: "Temperature",
+  rhum: "Relative Humidity",
+  lwet: "Leaf Wetness",
+  wspd: "Wind Speed",
+  wdir: "Wind Direction",
+  srad: "Solar Radiation",
+  dwpt: "Dewpoint",
+  st4i: "Soil Temperature",
+  sm4i: "Soil Tension",
+  tsky: "Total Sky Cover"
+};
+
 export const vXDef = {
   newa: {
     pcpn: 5,
@@ -56,7 +70,15 @@ export const vXDef = {
     st4i: 120,
     sm4i: 65
   },
-  icao: { pcpn: 5, temp: 23, rhum: 24, wspd: 28, wdir: 27, dwpt: 22 },
+  icao: {
+    pcpn: 5,
+    temp: 23,
+    rhum: 24,
+    wspd: 28,
+    wdir: 27,
+    dwpt: 22,
+    tsky: 33
+  },
   cu_log: {
     pcpn: 5,
     temp: 126,
@@ -75,8 +97,21 @@ export const vXDef = {
     wdir: 130,
     srad: 132
   },
-  njwx: { pcpn: 5, temp: 23, rhum: 24, wspd: 28, wdir: 27, srad: 149 },
-  miwx: { pcpn: 5, temp: 126, rhum: 143, lwet: 118, srad: 132 },
+  njwx: {
+    pcpn: 5,
+    temp: 23,
+    rhum: 24,
+    wspd: 28,
+    wdir: 27,
+    srad: 149
+  },
+  miwx: {
+    pcpn: 5,
+    temp: 126,
+    rhum: 143,
+    lwet: 118,
+    srad: 132
+  },
   oardc: {
     pcpn: 5,
     temp: 23,
@@ -197,6 +232,18 @@ export const average = data => {
   //  calculating average
   let results = data.map(e => parseFloat(e));
   return Math.round(results.reduce((acc, val) => acc + val, 0) / data.length);
+};
+
+export const dailyToHourlyDates = arr => {
+  let results = [];
+  arr.forEach(day => {
+    for (let h = 0; h < 24; h++) {
+      let hour = h;
+      if (h >= 0 && h <= 9) hour = `0${h}`;
+      results.push(`${day} ${hour}:00`);
+    }
+  });
+  return results;
 };
 
 // convert time in local standard time to local time (based on time zone and dst)

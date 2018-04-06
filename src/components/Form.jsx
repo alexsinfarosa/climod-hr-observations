@@ -18,7 +18,9 @@ import DatePicker from "material-ui-pickers/DatePicker";
 const styles = theme => ({
   root: {
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-around",
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 5
   },
   formControl: {
     width: "100%",
@@ -27,9 +29,9 @@ const styles = theme => ({
   }
 });
 
-class RegionForm extends Component {
+class Form extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, value } = this.props;
     const {
       postalCode,
       setPostalCode,
@@ -44,36 +46,39 @@ class RegionForm extends Component {
 
     return (
       <form className={classes.root} autoComplete="off">
-        <FormControl style={{ minWidth: 150 }}>
-          <InputLabel htmlFor="postalCode">Select State</InputLabel>
-          <Select
-            // disabled={this.state.station.length === 0 ? false : true}
-            value={postalCode}
-            onChange={setPostalCode}
-            inputProps={{
-              name: "postalCode",
-              id: "postalCode"
-            }}
-          >
-            {states.map(state => (
-              <MenuItem key={state.id} value={state.id}>
-                {state.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        {value === "map" && (
+          <FormControl style={{ minWidth: 150 }}>
+            <InputLabel htmlFor="postalCode">Select State</InputLabel>
+            <Select
+              // disabled={this.state.station.length === 0 ? false : true}
+              value={postalCode}
+              onChange={setPostalCode}
+              inputProps={{
+                name: "postalCode",
+                id: "postalCode"
+              }}
+            >
+              {states.map(state => (
+                <MenuItem key={state.id} value={state.id}>
+                  {state.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
 
-        <TextField
-          // disabled={this.state.state.length === 0 ? false : true}
-          style={{ minWidth: 150 }}
-          id="station"
-          label="Station ID (e.g. ktol)"
-          value={stationID}
-          onChange={setStationID}
-        />
+        {value === "user" && (
+          <TextField
+            // disabled={this.state.state.length === 0 ? false : true}
+            style={{ minWidth: 150 }}
+            id="station"
+            label="Station ID (e.g. ktol)"
+            value={stationID}
+            onChange={setStationID}
+          />
+        )}
 
         {/*DATE PICKERS*/}
-
         <DatePicker
           style={{ minWidth: 160, width: 160 }}
           label="Start Date"
@@ -115,5 +120,5 @@ class RegionForm extends Component {
 }
 
 export default withRoot(
-  withStyles(styles)(inject("rootStore")(observer(RegionForm)))
+  withStyles(styles)(inject("rootStore")(observer(Form)))
 );

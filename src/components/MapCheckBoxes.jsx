@@ -5,8 +5,6 @@ import withRoot from "../withRoot";
 
 import { FormGroup, FormControlLabel } from "material-ui/Form";
 import Checkbox from "material-ui/Checkbox";
-import CheckBoxOutlineBlankIcon from "material-ui-icons/CheckBoxOutlineBlank";
-import CheckBoxIcon from "material-ui-icons/CheckBox";
 import Select from "material-ui/Select";
 import { MenuItem } from "material-ui";
 
@@ -14,15 +12,14 @@ const styles = theme => ({
   root: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3
   },
   row: {
     width: 260,
     display: "flex",
-    flexDirection: "column",
-    border: "1px solid #DCDCDC",
-    borderRadius: 5,
-    padding: 10
+    flexDirection: "column"
   },
   rowEl: {
     display: "flex",
@@ -81,8 +78,8 @@ class CheckBoxes extends Component {
               value={"F"}
               // onChange={this.handleChange}
               inputProps={{
-                name: "temperature",
-                id: "temperature"
+                name: "dewpoint",
+                id: "dewpoint"
               }}
             >
               <MenuItem value={"F˚"}>F˚</MenuItem>
@@ -108,8 +105,35 @@ class CheckBoxes extends Component {
               value={"F"}
               // onChange={this.handleChange}
               inputProps={{
-                name: "temperature",
-                id: "temperature"
+                name: "relativeHumidity",
+                id: "relativeHumidity"
+              }}
+            >
+              <MenuItem value={"F˚"}>F˚</MenuItem>
+              <MenuItem value={"C˚"}>C˚</MenuItem>
+            </Select>
+          </div>
+
+          <div className={classes.rowEl}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={true}
+                  // onChange={this.handleChange("checkedB")}
+                  value="heatIndex"
+                  color="primary"
+                />
+              }
+              label="Heat Index"
+            />
+            <Select
+              autoWidth={true}
+              style={{ marginBottom: 12 }}
+              value={"F"}
+              // onChange={this.handleChange}
+              inputProps={{
+                name: "heatIndex",
+                id: "heatIndex"
               }}
             >
               <MenuItem value={"F˚"}>F˚</MenuItem>
@@ -137,8 +161,8 @@ class CheckBoxes extends Component {
               value={"F"}
               // onChange={this.handleChange}
               inputProps={{
-                name: "temperature",
-                id: "temperature"
+                name: "WindDirection",
+                id: "WindDirection"
               }}
             >
               <MenuItem value={"F˚"}>F˚</MenuItem>
@@ -164,8 +188,8 @@ class CheckBoxes extends Component {
               value={"F"}
               // onChange={this.handleChange}
               inputProps={{
-                name: "temperature",
-                id: "temperature"
+                name: "windSpeed",
+                id: "windSpeed"
               }}
             >
               <MenuItem value={"F˚"}>F˚</MenuItem>
@@ -179,11 +203,11 @@ class CheckBoxes extends Component {
                 <Checkbox
                   checked={true}
                   // onChange={this.handleChange("checkedB")}
-                  value="windGusts"
+                  value="windChill"
                   color="primary"
                 />
               }
-              label="Wind Gusts"
+              label="Wind Chill"
             />
             <Select
               autoWidth={true}
@@ -191,8 +215,8 @@ class CheckBoxes extends Component {
               value={"F"}
               // onChange={this.handleChange}
               inputProps={{
-                name: "temperature",
-                id: "temperature"
+                name: "windChill",
+                id: "windChill"
               }}
             >
               <MenuItem value={"F˚"}>F˚</MenuItem>
@@ -220,8 +244,8 @@ class CheckBoxes extends Component {
               value={"F"}
               // onChange={this.handleChange}
               inputProps={{
-                name: "temperature",
-                id: "temperature"
+                name: "totalSkyCover",
+                id: "totalSkyCover"
               }}
             >
               <MenuItem value={"F˚"}>F˚</MenuItem>
@@ -229,62 +253,6 @@ class CheckBoxes extends Component {
             </Select>
           </div>
 
-          <div className={classes.rowEl}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={true}
-                  // onChange={this.handleChange("checkedB")}
-                  value="visibility"
-                  color="primary"
-                />
-              }
-              label="Visibility"
-            />
-            <Select
-              autoWidth={true}
-              style={{ marginBottom: 12 }}
-              value={"F"}
-              // onChange={this.handleChange}
-              inputProps={{
-                name: "temperature",
-                id: "temperature"
-              }}
-            >
-              <MenuItem value={"F˚"}>F˚</MenuItem>
-              <MenuItem value={"C˚"}>C˚</MenuItem>
-            </Select>
-          </div>
-
-          <div className={classes.rowEl}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={true}
-                  // onChange={this.handleChange("checkedB")}
-                  value="weatherConditions"
-                  color="primary"
-                />
-              }
-              label="Weather Conditions"
-            />
-            <Select
-              autoWidth={true}
-              style={{ marginBottom: 12 }}
-              value={"F"}
-              // onChange={this.handleChange}
-              inputProps={{
-                name: "temperature",
-                id: "temperature"
-              }}
-            >
-              <MenuItem value={"F˚"}>F˚</MenuItem>
-              <MenuItem value={"C˚"}>C˚</MenuItem>
-            </Select>
-          </div>
-        </div>
-
-        <div className={classes.row}>
           <div className={classes.rowEl}>
             <FormControlLabel
               control={
@@ -303,62 +271,8 @@ class CheckBoxes extends Component {
               value={"F"}
               // onChange={this.handleChange}
               inputProps={{
-                name: "temperature",
-                id: "temperature"
-              }}
-            >
-              <MenuItem value={"F˚"}>F˚</MenuItem>
-              <MenuItem value={"C˚"}>C˚</MenuItem>
-            </Select>
-          </div>
-
-          <div className={classes.rowEl}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={true}
-                  // onChange={this.handleChange("checkedB")}
-                  value="stationPressure"
-                  color="primary"
-                />
-              }
-              label="Station Pressure"
-            />
-            <Select
-              autoWidth={true}
-              style={{ marginBottom: 12 }}
-              value={"F"}
-              // onChange={this.handleChange}
-              inputProps={{
-                name: "temperature",
-                id: "temperature"
-              }}
-            >
-              <MenuItem value={"F˚"}>F˚</MenuItem>
-              <MenuItem value={"C˚"}>C˚</MenuItem>
-            </Select>
-          </div>
-
-          <div className={classes.rowEl}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={true}
-                  // onChange={this.handleChange("checkedB")}
-                  value="ceilingHeight"
-                  color="primary"
-                />
-              }
-              label="Ceiling Height"
-            />
-            <Select
-              autoWidth={true}
-              style={{ marginBottom: 12 }}
-              value={"F"}
-              // onChange={this.handleChange}
-              inputProps={{
-                name: "temperature",
-                id: "temperature"
+                name: "hourlyPrecipitation",
+                id: "hourlyPrecipitation"
               }}
             >
               <MenuItem value={"F˚"}>F˚</MenuItem>

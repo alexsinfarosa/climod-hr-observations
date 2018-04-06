@@ -5,44 +5,40 @@ import { withStyles, Modal } from "material-ui";
 import withRoot from "./withRoot";
 
 // components
-import RegionForm from "./components/RegionForm";
+import TopTab from "./components/TopTab";
 import USMap from "./components/USMap";
-import CheckBoxes from "./components/CheckBoxes";
 
-const styles = {
-  root: { width: "100%", maxWidth: 1200, margin: "0 auto", padding: "1rem" },
+const styles = theme => ({
+  root: {
+    width: "100%",
+    maxWidth: 1200,
+    margin: "0 auto",
+    marginTop: theme.spacing.unit,
+    padding: theme.spacing.unit
+  },
   main: {
     width: "100%",
     display: "flex",
-    marginTop: "2rem",
+    marginTop: theme.spacing.unit * 4,
     flexDirection: "column"
   },
-  left: { flex: 1, marginRight: "1rem" },
-  right: { flex: 2 }
-};
+  row: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center"
+  }
+});
 
 class App extends Component {
   render() {
     const { classes } = this.props;
-    const {
-      isMapVisible,
-      toggleMap,
-      station
-    } = this.props.rootStore.paramsStore;
+    const { isMapVisible, toggleMap } = this.props.rootStore.paramsStore;
     return (
       <div className={classes.root}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center"
-          }}
-        >
-          <Typography variant="display2" gutterBottom>
-            Hourly Observations
-          </Typography>
-
-          <Typography variant="display2" gutterBottom align="right">
+        {/* Top Header */}
+        <div className={classes.row}>
+          <Typography variant="display1">Hourly Observations</Typography>
+          <Typography variant="display1" align="right">
             <a
               style={{ color: "inherit", textDecoration: "none" }}
               href="http://climod.nrcc.cornell.edu/"
@@ -54,25 +50,12 @@ class App extends Component {
           </Typography>
         </div>
 
+        {/* Main content */}
         <main className={classes.main}>
-          <section>
-            <RegionForm />
-          </section>
-          <section style={{ marginTop: "2rem" }}>
-            <CheckBoxes />
-          </section>
-          <section style={{ marginTop: "2rem" }}>
-            <Typography variant="headline" gutterBottom align="center">
-              {station ? `${station.name}, ${station.id}` : ""}
-            </Typography>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae
-            molestiae voluptates repellendus, quaerat at deserunt sunt corrupti
-            placeat tempore optio pariatur deleniti atque! Quod, reiciendis
-            impedit ea similique reprehenderit sed!
-          </section>
+          <TopTab />
         </main>
 
-        {/* US map */}
+        {/* US map MODAL */}
         <Modal
           aria-labelledby="US map"
           aria-describedby="US map"
