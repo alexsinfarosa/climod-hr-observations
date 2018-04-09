@@ -12,7 +12,7 @@ import {
   idAdjustment,
   vXDef,
   dailyToHourlyDates,
-  flatten
+  elements
 } from "../utils/utils";
 
 // date-fns
@@ -33,6 +33,7 @@ export default class ParamsStore {
           ? null
           : this.setData(this.params)
     );
+    reaction(() => this.asJson, () => console.log(this.asJson));
   }
 
   isLoading = false;
@@ -83,7 +84,7 @@ export default class ParamsStore {
   };
 
   // Dates
-  sDate = null;
+  sDate = new Date("2018-04-08");
   setStartDate = d => (this.sDate = d);
   eDate = new Date();
   setEndDate = d => (this.eDate = d);
@@ -91,6 +92,9 @@ export default class ParamsStore {
   // asJson
   get asJson() {
     return {
+      searchMethod: this.searchMethod,
+      icaoElems: this.icaoElems.slice(),
+      elems: this.elems,
       state: this.state,
       station: this.station,
       sDate: this.sDate,
@@ -98,15 +102,40 @@ export default class ParamsStore {
     };
   }
 
+  // tab selection
+  searchMethod = "map";
+  setSearchMethod = (v, e) => (this.searchMethod = e);
+
+  allElements = elements;
+  checkElem = e => {
+    this.allElements[e.target.value].isSelected = !this.allElements[
+      e.target.value
+    ].isSelected;
+  };
+  setUnit = e => {
+    this.allElements[e.target.name].defUnit = e.target.value;
+  };
+  icaoElems = Object.keys(this.allElements)
+    .filter(k => this.allElements[k].network.includes("icao"))
+    .filter(k => this.allElements[k].isSelected)
+    .map(el => this.allElements[el]);
+
+  userElems = Object.values(vXDef.newa);
+  get elems() {
+    return this.searchMethod === "map"
+      ? this.icaoElems.map(e => e.val)
+      : this.userElems.map(e => e.val);
+  }
+
   // parameters to make the call
   get params() {
-    const { station, sDate, eDate } = this;
+    const { station, sDate, eDate, elems } = this;
     if (station) {
       return {
         sid: `${idAdjustment(station)} ${station.network}`,
         sdate: format(sDate, "YYYY-MM-DD"),
         edate: format(eDate, "YYYY-MM-DD"),
-        elems: Object.values(vXDef[this.station.network]),
+        elems,
         meta: "tzo"
       };
     }
@@ -116,32 +145,33 @@ export default class ParamsStore {
   tzo;
   setData = async params => {
     this.isLoading = true;
-
+    console.log(this.params);
     // fetching data
     await fetchCurrentStationHourlyData(params).then(res => {
       this.tzo = res.meta.tzo;
 
       // transform data
-      console.log(res.data);
-      const dates = res.data.map(arr => arr[0]);
-      const hrDates = dailyToHourlyDates(dates);
+      const data = res.data.map(dayArr =>
+        dayArr.map(el => (typeof el === "string" ? dailyToHourlyDates(el) : el))
+      );
+      // console.log(data);
 
-      const temperature = flatten(res.data.map(arr => arr[1]));
-      const relativeHumidity = flatten(res.data.map(arr => arr[2]));
-      const dewpoint = flatten(res.data.map(arr => arr[2]));
+      const keys = ["date", ...Object.keys(vXDef[this.station.network])];
 
-      this.data = hrDates.map((hr, i) => {
-        return {
-          date: hr,
-          temperature: temperature[i],
-          relativeHumidity: relativeHumidity[i],
-          dewpoint: dewpoint[i]
-        };
+      let results = [];
+      data.forEach(day => {
+        for (let h = 0; h < 24; h++) {
+          let p = {};
+          day.forEach((el, e) => {
+            p[keys[e]] = el[h];
+          });
+          results.push(p);
+        }
       });
-    });
 
-    this.isLoading = false;
-    console.log(this.data.slice());
+      this.data = results;
+      this.isLoading = false;
+    });
   };
 }
 
@@ -165,6 +195,14 @@ decorate(ParamsStore, {
   eDate: observable,
   setEndDate: action,
   asJson: computed,
+  searchMethod: observable,
+  allElements: observable,
+  checkElem: action,
+  setUnit: action,
+  icaoElems: observable,
+  userElems: observable,
+  setSearchMethod: action,
+  elems: computed,
   params: computed,
   data: observable
 });

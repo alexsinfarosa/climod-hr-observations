@@ -13,7 +13,7 @@ import Typography from "material-ui/Typography";
 import MapCheckBoxes from "./MapCheckBoxes";
 import UserCheckBoxes from "./UserCheckBoxes";
 import Form from "./Form";
-import MyTable from "./MyTable";
+// import MyTable from "./MyTable";
 
 const styles = theme => ({
   root: {
@@ -26,22 +26,19 @@ const styles = theme => ({
 });
 
 class TopTab extends Component {
-  state = {
-    value: "map"
-  };
-
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
   render() {
     const { classes } = this.props;
-    const { station, postalCode } = this.props.rootStore.paramsStore;
+    const {
+      station,
+      postalCode,
+      searchMethod,
+      setSearchMethod
+    } = this.props.rootStore.paramsStore;
     return (
       <div className={classes.root}>
         <Tabs
-          value={this.state.value}
-          onChange={this.handleChange}
+          value={searchMethod}
+          onChange={setSearchMethod}
           fullWidth
           centered
           indicatorColor="secondary"
@@ -50,7 +47,7 @@ class TopTab extends Component {
           <Tab value="map" icon={<MapIcon />} label="MAP" />
           <Tab value="user" icon={<UserIcon />} label="USER" />
         </Tabs>
-        {this.state.value === "map" && (
+        {searchMethod === "map" && (
           <div>
             <MapCheckBoxes />
             <Form value="map" />
@@ -59,12 +56,12 @@ class TopTab extends Component {
                 <Typography variant="headline" gutterBottom align="center">
                   {station ? `${station.name}, ${station.id}` : ""}
                 </Typography>
-                <MyTable />
+                {/*<MyTable />*/}
               </Fragment>
             )}
           </div>
         )}
-        {this.state.value === "user" && (
+        {searchMethod === "user" && (
           <Fragment>
             <UserCheckBoxes />
             <Form value="user" />
@@ -73,7 +70,7 @@ class TopTab extends Component {
                 <Typography variant="headline" gutterBottom align="center">
                   {station ? `${station.name}, ${station.id}` : ""}
                 </Typography>
-                <MyTable />
+                {/*<MyTable />*/}
               </Fragment>
             )}
           </Fragment>

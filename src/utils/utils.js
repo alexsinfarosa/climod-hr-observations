@@ -45,17 +45,132 @@ export const matchIconsToStations = (station, state) => {
 };
 
 export const elements = {
-  pcpn: "Hourly Precipitation",
-  temp: "Temperature",
-  rhum: "Relative Humidity",
-  lwet: "Leaf Wetness",
-  wspd: "Wind Speed",
-  wdir: "Wind Direction",
-  srad: "Solar Radiation",
-  dwpt: "Dewpoint",
-  st4i: "Soil Temperature",
-  sm4i: "Soil Tension",
-  tsky: "Total Sky Cover"
+  pcpn: {
+    el: "pcpn",
+    val: 5,
+    label: "Hourly Precipitation",
+    units: ["inches", "millimiters"],
+    defUnit: "inches",
+    isSelected: true,
+    network: [
+      "newa",
+      "icao",
+      "cu_log",
+      "culog",
+      "njwx",
+      "miwx",
+      "oardc",
+      "nysm"
+    ]
+  },
+  temp: {
+    el: "temp",
+    val: 23,
+    label: "Temperature",
+    units: ["˚F", "˚C"],
+    defUnit: "˚F",
+    isSelected: true,
+    network: [
+      "newa",
+      "icao",
+      "cu_log",
+      "culog",
+      "njwx",
+      "miwx",
+      "oardc",
+      "nysm"
+    ]
+  },
+  rhum: {
+    el: "rhum",
+    val: 24,
+    label: "Relative Humidity",
+    units: ["percent"],
+    defUnit: "percent",
+    isSelected: true,
+    network: [
+      "newa",
+      "icao",
+      "cu_log",
+      "culog",
+      "njwx",
+      "miwx",
+      "oardc",
+      "nysm"
+    ]
+  },
+  lwet: {
+    el: "lwet",
+    val: 118,
+    label: "Leaf Wetness",
+    units: ["xxx", "xxx"],
+    defUnit: "xxx",
+    isSelected: false,
+    network: ["newa", "cu_log", "culog", "miwx", "oardc"]
+  },
+  wspd: {
+    el: "wspd",
+    val: 128,
+    label: "Wind Speed",
+    units: ["miles/hour", "knots", "meter/second"],
+    defUnit: "miles/hour",
+    isSelected: true,
+    network: ["newa", "icao", "cu_log", "culog", "njwx", "oardc", "nysm"]
+  },
+  wdir: {
+    el: "wdir",
+    val: 130,
+    label: "Wind Direction",
+    units: ["degree", "compass"],
+    defUnit: "degree",
+    isSelected: true,
+    network: ["newa", "icao", "cu_log", "culog", "njwx", "oardc", "nysm"]
+  },
+  srad: {
+    el: "srad",
+    val: 132,
+    label: "Solar Radiation",
+    units: ["˚F", "˚C"],
+    defUnit: "˚F",
+    isSelected: true,
+    network: ["newa", "cu_log", "culog", "njwx", "miwx", "oardc", "nysm"]
+  },
+  dwpt: {
+    el: "dwpt",
+    val: 22,
+    label: "Dewpoint",
+    units: ["˚F", "˚C"],
+    defUnit: "˚F",
+    isSelected: true,
+    network: ["icao"]
+  },
+  st4i: {
+    el: "st4i",
+    val: 120,
+    label: "Soil Temperature",
+    units: ["˚F", "˚C"],
+    defUnit: "˚F",
+    isSelected: false,
+    network: ["newa"]
+  },
+  sm4i: {
+    el: "sm4i",
+    val: 65,
+    label: "Soil Tension",
+    units: ["xxx", "xxx"],
+    defUnit: "xxx",
+    isSelected: false,
+    network: ["newa"]
+  },
+  tsky: {
+    el: "tsky",
+    val: 33,
+    label: "Total Sky Cover",
+    units: ["fraction", "percent"],
+    defUnit: "fraction",
+    isSelected: true,
+    network: ["icao"]
+  }
 };
 
 export const vXDef = {
@@ -234,15 +349,25 @@ export const average = data => {
   return Math.round(results.reduce((acc, val) => acc + val, 0) / data.length);
 };
 
-export const dailyToHourlyDates = arr => {
+// export const dailyToHourlyDates = arr => {
+//   let results = [];
+//   arr.forEach(day => {
+//     for (let h = 0; h < 24; h++) {
+//       let hour = h;
+//       if (h >= 0 && h <= 9) hour = `0${h}`;
+//       results.push(`${day} ${hour}:00`);
+//     }
+//   });
+//   return results;
+// };
+
+export const dailyToHourlyDates = date => {
   let results = [];
-  arr.forEach(day => {
-    for (let h = 0; h < 24; h++) {
-      let hour = h;
-      if (h >= 0 && h <= 9) hour = `0${h}`;
-      results.push(`${day} ${hour}:00`);
-    }
-  });
+  for (let h = 0; h < 24; h++) {
+    let hour = h;
+    if (h >= 0 && h <= 9) hour = `0${h}`;
+    results.push(`${date} ${hour}:00`);
+  }
   return results;
 };
 

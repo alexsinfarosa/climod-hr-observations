@@ -30,256 +30,41 @@ const styles = theme => ({
 class CheckBoxes extends Component {
   render() {
     const { classes } = this.props;
+    const { checkElem, icaoElems, setUnit } = this.props.rootStore.paramsStore;
+
     return (
       <FormGroup row className={classes.root}>
-        <div className={classes.row}>
-          <div className={classes.rowEl}>
+        {icaoElems.map(d => (
+          <div key={d.el} className={classes.rowEl}>
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={true}
-                  // onChange={this.handleChange("checkedA")}
-                  value="temperature"
+                  checked={d.isSelected}
+                  onChange={checkElem}
+                  value={d.el}
                   color="primary"
                 />
               }
-              label="Temperature"
+              label={d.label}
             />
             <Select
               autoWidth={true}
-              style={{ marginBottom: 12 }}
-              value={"F"}
-              // onChange={this.handleChange}
+              // style={{ marginBottom: 12 }}
+              value={d.defUnit}
+              onChange={setUnit}
               inputProps={{
-                name: "temperature",
-                id: "temperature"
+                name: d.el,
+                id: d.el
               }}
             >
-              <MenuItem value={"F˚"}>F˚</MenuItem>
-              <MenuItem value={"C˚"}>C˚</MenuItem>
+              {d.units.map(u => (
+                <MenuItem key={u} value={u}>
+                  {u}
+                </MenuItem>
+              ))}
             </Select>
           </div>
-
-          <div className={classes.rowEl}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={true}
-                  // onChange={this.handleChange("checkedB")}
-                  value="dewpoint"
-                  color="primary"
-                />
-              }
-              label="Dewpoint"
-            />
-            <Select
-              autoWidth={true}
-              style={{ marginBottom: 12 }}
-              value={"F"}
-              // onChange={this.handleChange}
-              inputProps={{
-                name: "dewpoint",
-                id: "dewpoint"
-              }}
-            >
-              <MenuItem value={"F˚"}>F˚</MenuItem>
-              <MenuItem value={"C˚"}>C˚</MenuItem>
-            </Select>
-          </div>
-
-          <div className={classes.rowEl}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={true}
-                  // onChange={this.handleChange("checkedB")}
-                  value="relativeHumidity"
-                  color="primary"
-                />
-              }
-              label="Relative Humidity"
-            />
-            <Select
-              autoWidth={true}
-              style={{ marginBottom: 12 }}
-              value={"F"}
-              // onChange={this.handleChange}
-              inputProps={{
-                name: "relativeHumidity",
-                id: "relativeHumidity"
-              }}
-            >
-              <MenuItem value={"F˚"}>F˚</MenuItem>
-              <MenuItem value={"C˚"}>C˚</MenuItem>
-            </Select>
-          </div>
-
-          <div className={classes.rowEl}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={true}
-                  // onChange={this.handleChange("checkedB")}
-                  value="heatIndex"
-                  color="primary"
-                />
-              }
-              label="Heat Index"
-            />
-            <Select
-              autoWidth={true}
-              style={{ marginBottom: 12 }}
-              value={"F"}
-              // onChange={this.handleChange}
-              inputProps={{
-                name: "heatIndex",
-                id: "heatIndex"
-              }}
-            >
-              <MenuItem value={"F˚"}>F˚</MenuItem>
-              <MenuItem value={"C˚"}>C˚</MenuItem>
-            </Select>
-          </div>
-        </div>
-
-        <div className={classes.row}>
-          <div className={classes.rowEl}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={true}
-                  // onChange={this.handleChange("checkedB")}
-                  value="WindDirection"
-                  color="primary"
-                />
-              }
-              label="Wind Direction"
-            />
-            <Select
-              autoWidth={true}
-              style={{ marginBottom: 12 }}
-              value={"F"}
-              // onChange={this.handleChange}
-              inputProps={{
-                name: "WindDirection",
-                id: "WindDirection"
-              }}
-            >
-              <MenuItem value={"F˚"}>F˚</MenuItem>
-              <MenuItem value={"C˚"}>C˚</MenuItem>
-            </Select>
-          </div>
-
-          <div className={classes.rowEl}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={true}
-                  // onChange={this.handleChange("checkedB")}
-                  value="windSpeed"
-                  color="primary"
-                />
-              }
-              label="Wind Speed"
-            />
-            <Select
-              autoWidth={true}
-              style={{ marginBottom: 12 }}
-              value={"F"}
-              // onChange={this.handleChange}
-              inputProps={{
-                name: "windSpeed",
-                id: "windSpeed"
-              }}
-            >
-              <MenuItem value={"F˚"}>F˚</MenuItem>
-              <MenuItem value={"C˚"}>C˚</MenuItem>
-            </Select>
-          </div>
-
-          <div className={classes.rowEl}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={true}
-                  // onChange={this.handleChange("checkedB")}
-                  value="windChill"
-                  color="primary"
-                />
-              }
-              label="Wind Chill"
-            />
-            <Select
-              autoWidth={true}
-              style={{ marginBottom: 12 }}
-              value={"F"}
-              // onChange={this.handleChange}
-              inputProps={{
-                name: "windChill",
-                id: "windChill"
-              }}
-            >
-              <MenuItem value={"F˚"}>F˚</MenuItem>
-              <MenuItem value={"C˚"}>C˚</MenuItem>
-            </Select>
-          </div>
-        </div>
-
-        <div className={classes.row}>
-          <div className={classes.rowEl}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={true}
-                  // onChange={this.handleChange("checkedB")}
-                  value="totalSkyCover"
-                  color="primary"
-                />
-              }
-              label="Total Sky Cover"
-            />
-            <Select
-              autoWidth={true}
-              style={{ marginBottom: 12 }}
-              value={"F"}
-              // onChange={this.handleChange}
-              inputProps={{
-                name: "totalSkyCover",
-                id: "totalSkyCover"
-              }}
-            >
-              <MenuItem value={"F˚"}>F˚</MenuItem>
-              <MenuItem value={"C˚"}>C˚</MenuItem>
-            </Select>
-          </div>
-
-          <div className={classes.rowEl}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={true}
-                  // onChange={this.handleChange("checkedB")}
-                  value="hourlyPrecipitation"
-                  color="primary"
-                />
-              }
-              label="Hourly Precipitation"
-            />
-            <Select
-              autoWidth={true}
-              style={{ marginBottom: 12 }}
-              value={"F"}
-              // onChange={this.handleChange}
-              inputProps={{
-                name: "hourlyPrecipitation",
-                id: "hourlyPrecipitation"
-              }}
-            >
-              <MenuItem value={"F˚"}>F˚</MenuItem>
-              <MenuItem value={"C˚"}>C˚</MenuItem>
-            </Select>
-          </div>
-        </div>
+        ))}
       </FormGroup>
     );
   }
