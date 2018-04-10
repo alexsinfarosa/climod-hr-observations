@@ -7,14 +7,20 @@ import { FormGroup, FormControlLabel } from "material-ui/Form";
 import Checkbox from "material-ui/Checkbox";
 import Select from "material-ui/Select";
 import { MenuItem } from "material-ui";
+import blue from "material-ui/colors/blue";
+import CheckBoxOutlineBlankIcon from "material-ui-icons/CheckBoxOutlineBlank";
+import CheckBoxIcon from "material-ui-icons/CheckBox";
 
 const styles = theme => ({
   root: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit * 4,
+    // border: "1px solid #eee",
+    borderRadius: 10,
+    background: theme.palette.primary.veryLight
   },
   row: {
     width: 260,
@@ -24,9 +30,28 @@ const styles = theme => ({
   rowEl: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+    width: 280,
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit * 4,
+    background: "white",
+    borderRadius: 10,
+    padding: 2
+  },
+  checked: {
+    color: blue[500]
+  },
+  size: {
+    width: 35,
+    height: 35
+  },
+  sizeIcon: {
+    fontSize: 13
   }
 });
+
 class CheckBoxes extends Component {
   render() {
     const { classes } = this.props;
@@ -43,17 +68,22 @@ class CheckBoxes extends Component {
             <FormControlLabel
               control={
                 <Checkbox
+                  className={classes.size}
+                  icon={
+                    <CheckBoxOutlineBlankIcon className={classes.sizeIcon} />
+                  }
+                  checkedIcon={<CheckBoxIcon className={classes.sizeIcon} />}
                   checked={d.isSelected}
                   onChange={checkElem}
                   value={d.el}
-                  color="primary"
                 />
               }
               label={d.label}
             />
             <Select
+              disableUnderline={true}
+              style={{ fontSize: 13 }}
               autoWidth={true}
-              // style={{ marginBottom: 12 }}
               value={d.defUnit}
               onChange={setUnit}
               inputProps={{
