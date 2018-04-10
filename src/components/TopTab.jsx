@@ -7,19 +7,19 @@ import withRoot from "../withRoot";
 import Tabs, { Tab } from "material-ui/Tabs";
 import MapIcon from "material-ui-icons/Place";
 import UserIcon from "material-ui-icons/Person";
-import Typography from "material-ui/Typography";
 
 // components
 import MapCheckBoxes from "./MapCheckBoxes";
 import UserCheckBoxes from "./UserCheckBoxes";
 import Form from "./Form";
+import TableHeader from "./TableHeader";
 import MyTable from "./MyTable";
 
 const styles = theme => ({
   root: {
     marginBottom: theme.spacing.unit * 3,
-    border: "1px solid #eee",
-    borderRadius: 20,
+    // border: "1px solid #eee",
+    // borderRadius: 20,
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit
   }
@@ -54,9 +54,7 @@ class TopTab extends Component {
             <Form value="icao" />
             {postalCode && (
               <Fragment>
-                <Typography variant="headline" gutterBottom align="center">
-                  {station ? `${station.name}, ${station.id}` : ""}
-                </Typography>
+                {station && <TableHeader />}
                 {data.length !== 0 && <MyTable />}
               </Fragment>
             )}
@@ -68,9 +66,7 @@ class TopTab extends Component {
             <Form value="user" />
             {postalCode && (
               <Fragment>
-                <Typography variant="headline" gutterBottom align="center">
-                  {station ? `${station.name}, ${station.id}` : ""}
-                </Typography>
+                {station && <TableHeader />}
                 {/*<MyTable />*/}
               </Fragment>
             )}

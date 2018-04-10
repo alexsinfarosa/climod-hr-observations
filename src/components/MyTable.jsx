@@ -15,11 +15,11 @@ const styles = theme => ({
   root: {
     width: "100%",
     marginTop: theme.spacing.unit * 3,
-    overflowX: "auto"
+    overflowX: "auto",
+    height: 700
   },
   table: {
-    minWidth: 700,
-    overflowX: "auto"
+    minWidth: 700
   },
   stripe: {
     background: theme.palette.primary.veryLight

@@ -19,8 +19,8 @@ const styles = theme => ({
   root: {
     display: "flex",
     justifyContent: "space-around",
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 5
+    marginTop: theme.spacing.unit * 6,
+    marginBottom: theme.spacing.unit * 6
   },
   formControl: {
     width: "100%",
