@@ -30,11 +30,15 @@ const styles = theme => ({
 class CheckBoxes extends Component {
   render() {
     const { classes } = this.props;
-    const { checkElem, icaoElems, setUnit } = this.props.rootStore.paramsStore;
+    const {
+      checkElem,
+      icaoCheckboxes,
+      setUnit
+    } = this.props.rootStore.paramsStore;
 
     return (
       <FormGroup row className={classes.root}>
-        {icaoElems.map(d => (
+        {icaoCheckboxes.map(d => (
           <div key={d.el} className={classes.rowEl}>
             <FormControlLabel
               control={

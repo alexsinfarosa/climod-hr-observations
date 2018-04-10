@@ -103,7 +103,7 @@ export default class ParamsStore {
   }
 
   // tab selection
-  searchMethod = "map";
+  searchMethod = "icao";
   setSearchMethod = (v, e) => (this.searchMethod = e);
 
   allElements = elements;
@@ -115,14 +115,23 @@ export default class ParamsStore {
   setUnit = e => {
     this.allElements[e.target.name].defUnit = e.target.value;
   };
-  icaoElems = Object.keys(this.allElements)
-    .filter(k => this.allElements[k].network.includes("icao"))
-    .filter(k => this.allElements[k].isSelected)
-    .map(el => this.allElements[el]);
 
+  get icaoCheckboxes() {
+    return Object.keys(this.allElements)
+      .filter(k => this.allElements[k].network.includes("icao"))
+      .map(el => this.allElements[el]);
+  }
+
+  get icaoElems() {
+    return Object.keys(this.allElements)
+      .filter(k => this.allElements[k].network.includes("icao"))
+      .filter(k => this.allElements[k].isSelected)
+      .map(el => this.allElements[el]);
+  }
   userElems = Object.values(vXDef.newa);
+
   get elems() {
-    return this.searchMethod === "map"
+    return this.searchMethod === "icao"
       ? this.icaoElems.map(e => e.val)
       : this.userElems.map(e => e.val);
   }
@@ -199,7 +208,8 @@ decorate(ParamsStore, {
   allElements: observable,
   checkElem: action,
   setUnit: action,
-  icaoElems: observable,
+  icaoCheckboxes: computed,
+  icaoElems: computed,
   userElems: observable,
   setSearchMethod: action,
   elems: computed,

@@ -10,10 +10,11 @@ import USMap from "./components/USMap";
 
 const styles = theme => ({
   root: {
-    width: "100%",
-    maxWidth: 1200,
-    margin: "0 auto",
-    marginTop: theme.spacing.unit,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    margin: theme.spacing.unit * 2,
     padding: theme.spacing.unit
   },
   main: {
@@ -23,6 +24,7 @@ const styles = theme => ({
     flexDirection: "column"
   },
   row: {
+    width: "100%",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center"
@@ -37,8 +39,10 @@ class App extends Component {
       <div className={classes.root}>
         {/* Top Header */}
         <div className={classes.row}>
-          <Typography variant="display1">Hourly Observations</Typography>
-          <Typography variant="display1" align="right">
+          <Typography variant="display1" style={{ marginRight: "2rem" }}>
+            Hourly Observations
+          </Typography>
+          <Typography variant="display1">
             <a
               style={{ color: "inherit", textDecoration: "none" }}
               href="http://climod.nrcc.cornell.edu/"

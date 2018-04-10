@@ -46,7 +46,7 @@ class Form extends Component {
 
     return (
       <form className={classes.root} autoComplete="off">
-        {value === "map" && (
+        {value === "icao" && (
           <FormControl style={{ minWidth: 150 }}>
             <InputLabel htmlFor="postalCode">Select State</InputLabel>
             <Select
@@ -80,7 +80,7 @@ class Form extends Component {
 
         {/*DATE PICKERS*/}
         <DatePicker
-          style={{ minWidth: 160, width: 160 }}
+          style={{ minWidth: 200, width: 200 }}
           label="Start Date"
           value={sDate}
           onChange={setStartDate}
@@ -98,7 +98,7 @@ class Form extends Component {
         />
 
         <DatePicker
-          style={{ minWidth: 160, width: 160 }}
+          style={{ minWidth: 200, width: 200 }}
           label="End Date"
           value={eDate}
           onChange={setEndDate}

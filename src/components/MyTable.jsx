@@ -18,34 +18,41 @@ const styles = theme => ({
     overflowX: "auto"
   },
   table: {
-    minWidth: 700
+    minWidth: 700,
+    overflowX: "auto"
   }
 });
 
 class MyTable extends Component {
   render() {
     const { classes } = this.props;
-    const { data } = this.props.rootStore.paramsStore;
+    const { data, icaoElems } = this.props.rootStore.paramsStore;
 
     return (
       <div className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell numeric>Temperature</TableCell>
-              <TableCell numeric>Relative Humidity</TableCell>
-              <TableCell numeric>Dew Point</TableCell>
+              <TableCell style={{ textAlign: "center" }}>Date</TableCell>
+              {icaoElems.map(d => (
+                <TableCell style={{ textAlign: "center" }} key={d.el}>
+                  {d.label}
+                </TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map(n => {
               return (
                 <TableRow key={n.date}>
-                  <TableCell>{n.date}</TableCell>
-                  <TableCell numeric>{n.temperature}</TableCell>
-                  <TableCell numeric>{n.relativeHumidity}</TableCell>
-                  <TableCell numeric>{n.dewpoint}</TableCell>
+                  <TableCell style={{ textAlign: "center" }}>
+                    {n.date}
+                  </TableCell>
+                  {icaoElems.map(d => (
+                    <TableCell style={{ textAlign: "center" }} key={d.el}>
+                      {n[d.el]}
+                    </TableCell>
+                  ))}
                 </TableRow>
               );
             })}

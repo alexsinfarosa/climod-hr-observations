@@ -13,7 +13,7 @@ import Typography from "material-ui/Typography";
 import MapCheckBoxes from "./MapCheckBoxes";
 import UserCheckBoxes from "./UserCheckBoxes";
 import Form from "./Form";
-// import MyTable from "./MyTable";
+import MyTable from "./MyTable";
 
 const styles = theme => ({
   root: {
@@ -32,7 +32,8 @@ class TopTab extends Component {
       station,
       postalCode,
       searchMethod,
-      setSearchMethod
+      setSearchMethod,
+      data
     } = this.props.rootStore.paramsStore;
     return (
       <div className={classes.root}>
@@ -44,19 +45,19 @@ class TopTab extends Component {
           indicatorColor="secondary"
           textColor="secondary"
         >
-          <Tab value="map" icon={<MapIcon />} label="MAP" />
+          <Tab value="icao" icon={<MapIcon />} label="MAP" />
           <Tab value="user" icon={<UserIcon />} label="USER" />
         </Tabs>
-        {searchMethod === "map" && (
+        {searchMethod === "icao" && (
           <div>
             <MapCheckBoxes />
-            <Form value="map" />
+            <Form value="icao" />
             {postalCode && (
               <Fragment>
                 <Typography variant="headline" gutterBottom align="center">
                   {station ? `${station.name}, ${station.id}` : ""}
                 </Typography>
-                {/*<MyTable />*/}
+                {data.length !== 0 && <MyTable />}
               </Fragment>
             )}
           </div>
