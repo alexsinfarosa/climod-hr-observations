@@ -9,11 +9,13 @@ import teal from "material-ui/colors/teal";
 const theme = createMuiTheme({
   palette: {
     primary: {
+      veryLight: blue[50],
       light: blue[300],
       main: blue[500],
       dark: blue[700]
     },
     secondary: {
+      veryLight: teal[50],
       light: teal[300],
       main: teal[500],
       dark: teal[700]

@@ -20,6 +20,9 @@ const styles = theme => ({
   table: {
     minWidth: 700,
     overflowX: "auto"
+  },
+  stripe: {
+    background: theme.palette.primary.veryLight
   }
 });
 
@@ -42,20 +45,22 @@ class MyTable extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map(n => {
-              return (
-                <TableRow key={n.date}>
-                  <TableCell style={{ textAlign: "center" }}>
-                    {n.date}
+            {data.map((hour, i) => (
+              <TableRow
+                hover
+                key={hour.date}
+                className={i % 2 === 0 ? classes.stripe : null}
+              >
+                <TableCell style={{ textAlign: "center" }}>
+                  {hour.date}
+                </TableCell>
+                {icaoElems.map(d => (
+                  <TableCell style={{ textAlign: "center" }} key={d.el}>
+                    {hour[d.el]}
                   </TableCell>
-                  {icaoElems.map(d => (
-                    <TableCell style={{ textAlign: "center" }} key={d.el}>
-                      {n[d.el]}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              );
-            })}
+                ))}
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>

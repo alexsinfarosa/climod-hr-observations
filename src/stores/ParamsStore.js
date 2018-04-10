@@ -108,9 +108,13 @@ export default class ParamsStore {
 
   allElements = elements;
   checkElem = e => {
-    this.allElements[e.target.value].isSelected = !this.allElements[
-      e.target.value
-    ].isSelected;
+    if (this.elems.length > 1) {
+      this.allElements[e.target.value].isSelected = !this.allElements[
+        e.target.value
+      ].isSelected;
+    } else {
+      this.allElements[e.target.value].isSelected = true;
+    }
   };
   setUnit = e => {
     this.allElements[e.target.name].defUnit = e.target.value;
@@ -163,9 +167,9 @@ export default class ParamsStore {
       const data = res.data.map(dayArr =>
         dayArr.map(el => (typeof el === "string" ? dailyToHourlyDates(el) : el))
       );
-      // console.log(data);
 
-      const keys = ["date", ...Object.keys(vXDef[this.station.network])];
+      const selectedKeys = this.icaoElems.map(e => e.el);
+      const keys = ["date", ...selectedKeys];
 
       let results = [];
       data.forEach(day => {
@@ -179,6 +183,7 @@ export default class ParamsStore {
       });
 
       this.data = results;
+      console.log(this.data.slice(1, 4));
       this.isLoading = false;
     });
   };
