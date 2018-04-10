@@ -44,8 +44,8 @@ const styles = theme => ({
     color: blue[500]
   },
   size: {
-    width: 35,
-    height: 35
+    width: 45,
+    height: 45
   },
   sizeIcon: {
     fontSize: 13

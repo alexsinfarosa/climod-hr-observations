@@ -4,8 +4,9 @@ import axios from "axios";
 
 // fetch
 import { fetchCurrentStationHourlyData } from "../utils/fetchData";
-// import cleanFetchedData from "../utils/cleanFetchedData";
-// import currentModel from "../utils/currentModel";
+
+// icao stations
+import { icaoStations } from "../assets/icaoStationList";
 
 // utils
 import {
@@ -25,7 +26,8 @@ const url = `${
 
 export default class ParamsStore {
   constructor() {
-    when(() => this.stations.length === 0, () => this.loadStations());
+    when(() => this.searchMethod === "icao", () => this.setIcaoStations());
+    when(() => this.searchMethod === "user", () => this.loadStations());
     reaction(
       () => this.asJson,
       () =>
@@ -34,6 +36,8 @@ export default class ParamsStore {
           : this.setData(this.params)
     );
     reaction(() => this.asJson, () => console.log(this.asJson));
+    reaction(() => this.searchMethod === "icao", () => this.setIcaoStations());
+    reaction(() => this.searchMethod === "user", () => this.loadStations());
   }
 
   isLoading = false;
@@ -58,6 +62,7 @@ export default class ParamsStore {
   // stations
   stations = [];
   setStations = d => (this.stations = d);
+  setIcaoStations = () => (this.stations = icaoStations);
 
   loadStations() {
     this.isLoading = true;
@@ -200,6 +205,7 @@ decorate(ParamsStore, {
   state: computed,
   stations: observable,
   setStations: action,
+  setIcaoStations: action,
   stationID: observable,
   setStationID: action,
   station: computed,

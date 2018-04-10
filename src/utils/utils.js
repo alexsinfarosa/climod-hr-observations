@@ -49,7 +49,7 @@ export const elements = {
     el: "pcpn",
     val: 5,
     label: "Hourly Precipitation",
-    units: ["inches", "millimiters"],
+    units: ["inches", "millimeters"],
     defUnit: "inches",
     isSelected: true,
     network: [
@@ -103,8 +103,8 @@ export const elements = {
     el: "lwet",
     val: 118,
     label: "Leaf Wetness",
-    units: ["xxx", "xxx"],
-    defUnit: "xxx",
+    units: ["minute/hour"],
+    defUnit: "minute/hour",
     isSelected: false,
     network: ["newa", "cu_log", "culog", "miwx", "oardc"]
   },
@@ -157,8 +157,8 @@ export const elements = {
     el: "sm4i",
     val: 65,
     label: "Soil Tension",
-    units: ["xxx", "xxx"],
-    defUnit: "xxx",
+    units: ["kPa"],
+    defUnit: "kPa",
     isSelected: false,
     network: ["newa"]
   },

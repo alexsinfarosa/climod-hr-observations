@@ -22,7 +22,7 @@ class TableHeader extends Component {
       <div className={classes.root}>
         <Typography variant="caption">{`Elev: ${station.elev} ft`}</Typography>
 
-        <Typography variant="display1" style={{ color: "#2D3047" }}>
+        <Typography variant="headline" style={{ color: "#2D3047" }}>
           {station.name} -{" "}
           <small style={{ fontSize: "1.2rem", letterSpacing: 1 }}>
             ({station.id})
