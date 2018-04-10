@@ -22,7 +22,7 @@ const styles = theme => ({
     minWidth: 700
   },
   stripe: {
-    background: theme.palette.primary.veryLight
+    background: theme.palette.primary.fifty
   }
 });
 

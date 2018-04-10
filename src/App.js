@@ -39,7 +39,12 @@ class App extends Component {
       <div className={classes.root}>
         {/* Top Header */}
         <div className={classes.row}>
-          <Typography variant="display1">Hourly Observations</Typography>
+          <Typography
+            style={{ color: "#2D3047", fontWeight: 700 }}
+            variant="display1"
+          >
+            Hourly Observations
+          </Typography>
           <Typography variant="display1">
             <a
               style={{ color: "inherit", textDecoration: "none" }}

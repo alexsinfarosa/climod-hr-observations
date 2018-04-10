@@ -14,7 +14,7 @@ import { matchIconsToStations } from "../utils/utils";
 import { withStyles } from "material-ui/styles";
 import withRoot from "../withRoot";
 import Paper from "material-ui/Paper";
-import blue from "material-ui/colors/blue";
+import amber from "material-ui/colors/amber";
 
 // styles
 const styles = theme => ({
@@ -110,9 +110,8 @@ class USMap extends Component {
             <GeoJSON
               data={this.state.geojson}
               style={{
-                color: blue[100],
+                color: amber[300],
                 weight: 1
-                // opacity: 0.65
               }}
             />
           )}

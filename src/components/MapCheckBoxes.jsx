@@ -20,7 +20,7 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 4,
     // border: "1px solid #eee",
     borderRadius: 10,
-    background: theme.palette.primary.veryLight
+    background: theme.palette.primary.one100
   },
   row: {
     width: 260,

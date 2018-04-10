@@ -9,7 +9,7 @@ const styles = theme => ({
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "baseline"
   }
 });
 
@@ -20,19 +20,17 @@ class TableHeader extends Component {
     console.log(station);
     return (
       <div className={classes.root}>
-        <Typography variant="caption" gutterBottom align="center">
-          {`Elev: ${station.elev} ft`}
-        </Typography>
+        <Typography variant="caption">{`Elev: ${station.elev} ft`}</Typography>
 
-        <Typography variant="display1" gutterBottom align="center">
-          {station.name},{" "}
-          <small style={{ color: "#757575", letterSpacing: 1 }}>
+        <Typography variant="display1" style={{ color: "#2D3047" }}>
+          {station.name} -{" "}
+          <small style={{ fontSize: "1.2rem", letterSpacing: 1 }}>
             ({station.id})
           </small>
         </Typography>
 
-        <Typography variant="caption" gutterBottom align="center">
-          {`Lat: ${station.lat}˚ - Lon: ${station.lon}˚`}
+        <Typography variant="caption">
+          {`Lat: ${station.lat}˚  Lon: ${station.lon}˚`}
         </Typography>
       </div>
     );

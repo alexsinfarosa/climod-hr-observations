@@ -1,7 +1,7 @@
 import React from "react";
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
-import blue from "material-ui/colors/blue";
-import teal from "material-ui/colors/teal";
+import amber from "material-ui/colors/amber";
+import deepOrange from "material-ui/colors/deepOrange";
 // import Reboot from "material-ui/Reboot";
 
 // A theme with custom primary and secondary color.
@@ -9,16 +9,18 @@ import teal from "material-ui/colors/teal";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      veryLight: blue[50],
-      light: blue[300],
-      main: blue[500],
-      dark: blue[700]
+      fifty: amber[50],
+      one100: amber[100],
+      light: amber[300],
+      main: amber[500],
+      dark: amber[700]
     },
     secondary: {
-      veryLight: teal[50],
-      light: teal[300],
-      main: teal[500],
-      dark: teal[700]
+      fifty: deepOrange[50],
+      one100: deepOrange[100],
+      light: deepOrange[300],
+      main: deepOrange[500],
+      dark: deepOrange[700]
     }
   }
 });
