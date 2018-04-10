@@ -39,7 +39,10 @@ class MyTable extends Component {
               <TableCell style={{ textAlign: "center" }}>Date</TableCell>
               {icaoElems.map(d => (
                 <TableCell style={{ textAlign: "center" }} key={d.el}>
-                  {d.label}
+                  <div>{d.label}</div>
+                  <div style={{ fontSize: "0.7rem", marginTop: 5 }}>
+                    ({d.defUnit})
+                  </div>
                 </TableCell>
               ))}
             </TableRow>
