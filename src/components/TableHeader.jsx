@@ -9,7 +9,9 @@ const styles = theme => ({
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "baseline"
+    alignItems: "center",
+    marginTop: theme.spacing.unit * 6,
+    marginBottom: theme.spacing.unit * 4
   }
 });
 

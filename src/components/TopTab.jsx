@@ -50,8 +50,8 @@ class TopTab extends Component {
         </Tabs>
         {searchMethod === "map" && (
           <div>
-            <CheckBoxes />
             <Form value="map" />
+            <CheckBoxes />
             {postalCode && (
               <Fragment>
                 {station && <TableHeader />}
@@ -62,8 +62,8 @@ class TopTab extends Component {
         )}
         {searchMethod === "user" && (
           <Fragment>
-            <CheckBoxes />
             <Form value="user" />
+            <CheckBoxes />
             {station && (
               <Fragment>
                 {station && <TableHeader />}
