@@ -47,7 +47,7 @@ class Form extends Component {
     return (
       <form className={classes.root} autoComplete="off">
         {value === "map" && (
-          <FormControl style={{ minWidth: 150 }}>
+          <FormControl style={{ minWidth: 200, width: 200 }}>
             <InputLabel htmlFor="postalCode">Select State</InputLabel>
             <Select
               // disabled={this.state.station.length === 0 ? false : true}
@@ -70,7 +70,7 @@ class Form extends Component {
         {value === "user" && (
           <TextField
             // disabled={this.state.state.length === 0 ? false : true}
-            style={{ minWidth: 150 }}
+            style={{ minWidth: 200, width: 200 }}
             id="station"
             label="Station ID (e.g. ktol)"
             value={stationID}

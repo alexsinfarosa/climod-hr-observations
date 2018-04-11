@@ -14,8 +14,10 @@ const styles = theme => ({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    margin: theme.spacing.unit * 2,
-    padding: theme.spacing.unit
+    // margin: theme.spacing.unit * 2,
+    padding: theme.spacing.unit,
+    maxWidth: 1600,
+    margin: "0 auto"
   },
   main: {
     width: "100%",
