@@ -191,7 +191,8 @@ export default class ParamsStore {
         dayArr.map(el => (typeof el === "string" ? dailyToHourlyDates(el) : el))
       );
 
-      const selectedKeys = this.selectedElems.map(e => e.el);
+      const selectedKeys = this.elemsListCheckbox.map(e => e.el);
+      console.log(selectedKeys);
       const keys = ["date", ...selectedKeys];
 
       let results = [];

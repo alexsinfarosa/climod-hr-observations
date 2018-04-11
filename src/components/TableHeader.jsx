@@ -28,8 +28,10 @@ class TableHeader extends Component {
         </Typography>
 
         <Typography variant="headline" style={{ color: "#2D3047" }}>
-          {station.name} -{" "}
-          <small style={{ fontSize: "1.2rem", letterSpacing: 1 }}>
+          {station.name}, {station.state} -{" "}
+          <small
+            style={{ fontSize: "1.2rem", letterSpacing: 1, color: "#2D3047" }}
+          >
             ({station.id})
           </small>
         </Typography>

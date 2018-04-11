@@ -133,8 +133,8 @@ export const elements = {
   srad: {
     el: "srad",
     label: "Solar Radiation",
-    units: ["˚F", "˚C"],
-    defUnit: "˚F",
+    units: ["langleys"],
+    defUnit: "langleys",
     isSelected: true,
     newa: 132,
     cu_log: 132,
