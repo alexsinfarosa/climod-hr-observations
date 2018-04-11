@@ -17,10 +17,13 @@ class TableHeader extends Component {
   render() {
     const { classes } = this.props;
     const { station } = this.props.rootStore.paramsStore;
-    console.log(station);
+
     return (
       <div className={classes.root}>
-        <Typography variant="caption">{`Elev: ${station.elev} ft`}</Typography>
+        <Typography variant="caption">
+          <div>{`Elevation: ${station.elev} ft`}</div>
+          <div>{`Network: ${station.network.toUpperCase()}`}</div>
+        </Typography>
 
         <Typography variant="headline" style={{ color: "#2D3047" }}>
           {station.name} -{" "}
@@ -30,7 +33,8 @@ class TableHeader extends Component {
         </Typography>
 
         <Typography variant="caption">
-          {`Lat: ${station.lat}˚  Lon: ${station.lon}˚`}
+          <div> {`Latitude: ${station.lat}˚`}</div>
+          <div> {`Longitude: ${station.lon}˚`}</div>
         </Typography>
       </div>
     );

@@ -57,13 +57,13 @@ class CheckBoxes extends Component {
     const { classes } = this.props;
     const {
       checkElem,
-      icaoCheckboxes,
+      elemsListCheckbox,
       setUnit
     } = this.props.rootStore.paramsStore;
 
     return (
       <FormGroup row className={classes.root}>
-        {icaoCheckboxes.map(d => (
+        {elemsListCheckbox.map(d => (
           <div key={d.el} className={classes.rowEl}>
             <FormControlLabel
               control={

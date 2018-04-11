@@ -9,8 +9,7 @@ import MapIcon from "material-ui-icons/Place";
 import UserIcon from "material-ui-icons/Person";
 
 // components
-import MapCheckBoxes from "./MapCheckBoxes";
-import UserCheckBoxes from "./UserCheckBoxes";
+import CheckBoxes from "./CheckBoxes";
 import Form from "./Form";
 import TableHeader from "./TableHeader";
 import MyTable from "./MyTable";
@@ -35,6 +34,7 @@ class TopTab extends Component {
       setSearchMethod,
       data
     } = this.props.rootStore.paramsStore;
+
     return (
       <div className={classes.root}>
         <Tabs
@@ -45,13 +45,13 @@ class TopTab extends Component {
           indicatorColor="secondary"
           textColor="secondary"
         >
-          <Tab value="icao" icon={<MapIcon />} label="MAP" />
+          <Tab value="map" icon={<MapIcon />} label="MAP" />
           <Tab value="user" icon={<UserIcon />} label="USER" />
         </Tabs>
-        {searchMethod === "icao" && (
+        {searchMethod === "map" && (
           <div>
-            <MapCheckBoxes />
-            <Form value="icao" />
+            <CheckBoxes />
+            <Form value="map" />
             {postalCode && (
               <Fragment>
                 {station && <TableHeader />}
@@ -62,12 +62,12 @@ class TopTab extends Component {
         )}
         {searchMethod === "user" && (
           <Fragment>
-            <UserCheckBoxes />
+            <CheckBoxes />
             <Form value="user" />
-            {postalCode && (
+            {station && (
               <Fragment>
                 {station && <TableHeader />}
-                {/*<MyTable />*/}
+                {data.length !== 0 && <MyTable />}
               </Fragment>
             )}
           </Fragment>

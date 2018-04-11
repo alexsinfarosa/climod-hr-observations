@@ -29,15 +29,15 @@ const styles = theme => ({
 class MyTable extends Component {
   render() {
     const { classes } = this.props;
-    const { data, icaoElems } = this.props.rootStore.paramsStore;
-    console.log(icaoElems);
+    const { data, selectedElems } = this.props.rootStore.paramsStore;
+
     return (
       <div className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
               <TableCell style={{ textAlign: "center" }}>Date</TableCell>
-              {icaoElems.map(d => (
+              {selectedElems.map(d => (
                 <TableCell style={{ textAlign: "center" }} key={d.el}>
                   <div>{d.label}</div>
                   <div style={{ fontSize: "0.7rem", marginTop: 5 }}>
@@ -57,7 +57,7 @@ class MyTable extends Component {
                 <TableCell style={{ textAlign: "center" }}>
                   {hour.date}
                 </TableCell>
-                {icaoElems.map(d => (
+                {selectedElems.map(d => (
                   <TableCell style={{ textAlign: "center" }} key={d.el}>
                     {hour[d.el]}
                   </TableCell>

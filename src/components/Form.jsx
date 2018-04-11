@@ -46,7 +46,7 @@ class Form extends Component {
 
     return (
       <form className={classes.root} autoComplete="off">
-        {value === "icao" && (
+        {value === "map" && (
           <FormControl style={{ minWidth: 150 }}>
             <InputLabel htmlFor="postalCode">Select State</InputLabel>
             <Select

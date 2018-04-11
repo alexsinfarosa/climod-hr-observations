@@ -22,22 +22,19 @@ const url = `${
 export default class ParamsStore {
   constructor() {
     when(
-      () => this.data.length === 0 && this.searchMethod === "icao",
+      () => this.data.length === 0 && this.searchMethod === "map",
       () => this.setIcaoStations()
     );
-    when(
-      () => this.data.length === 0 && this.searchMethod === "user",
-      () => this.loadStations()
-    );
+
     reaction(
       () => this.asJson,
       () =>
-        this.stationID === "" || this.sDate === null
+        this.station === undefined || this.sDate === null
           ? null
           : this.setData(this.params)
     );
     reaction(() => this.asJson, () => console.log(this.asJson));
-    reaction(() => this.searchMethod === "icao", () => this.setIcaoStations());
+    reaction(() => this.searchMethod === "map", () => this.setIcaoStations());
     reaction(() => this.searchMethod === "user", () => this.loadStations());
   }
 
@@ -82,8 +79,22 @@ export default class ParamsStore {
   stationID = "";
   setStationID = e => (this.stationID = e.target.value);
   get station() {
-    return this.stations.find(station => station.id === this.stationID);
+    const { stationID, stations } = this;
+    let station;
+    const stnIDUpper = stationID.toUpperCase();
+    const stnIDLower = stationID.toLowerCase();
+
+    // icao stations only
+    station = icaoStations.find(stn => stn.id === stnIDUpper);
+    if (!station) station = icaoStations.find(stn => stn.id === stnIDLower);
+
+    // acis stations
+    if (!station) station = stations.find(stn => stn.id === stnIDUpper);
+    if (!station) station = stations.find(stn => stn.id === stnIDLower);
+
+    return station;
   }
+
   setStateStationFromMap = station => {
     this.postalCode = station.state;
     this.stationID = station.id;
@@ -99,7 +110,7 @@ export default class ParamsStore {
   get asJson() {
     return {
       searchMethod: this.searchMethod,
-      icaoElems: this.icaoElems.slice(),
+      elemsListCheckbox: this.elemsListCheckbox.slice(),
       elems: this.elems,
       state: this.state,
       station: this.station,
@@ -109,8 +120,13 @@ export default class ParamsStore {
   }
 
   // tab selection
-  searchMethod = "icao";
-  setSearchMethod = (v, e) => (this.searchMethod = e);
+  searchMethod = "map";
+  setSearchMethod = (v, e) => {
+    this.searchMethod = e;
+    this.stationID = "";
+    this.postalCode = "";
+    this.data = [];
+  };
 
   allElements = elements;
   checkElem = e => {
@@ -126,22 +142,25 @@ export default class ParamsStore {
     this.allElements[e.target.name].defUnit = e.target.value;
   };
 
-  icaoElemsList = ["pcpn", "temp", "rhum", "wspd", "wdir", "dwpt", "tsky"];
-  get icaoCheckboxes() {
-    return this.icaoElemsList.map(el => this.allElements[el]);
+  get elemsListCheckbox() {
+    return this.searchMethod === "user"
+      ? this.station
+        ? Object.values(this.allElements).filter(
+            el => this.station.network in el
+          )
+        : []
+      : Object.values(this.allElements).filter(el => "icao" in el);
   }
 
-  get icaoElems() {
-    return this.icaoElemsList
-      .map(el => this.allElements[el])
-      .filter(el => el.isSelected);
+  get selectedElems() {
+    return this.elemsListCheckbox.filter(el => el.isSelected);
   }
 
   userElems = [];
   get elems() {
-    return this.searchMethod === "icao"
-      ? this.icaoElemsList.map(el => this.allElements[el].icao)
-      : null;
+    return this.searchMethod === "map"
+      ? this.elemsListCheckbox.map(el => el["icao"])
+      : this.elemsListCheckbox.map(el => el[this.station.network]);
   }
 
   // parameters to make the call
@@ -162,7 +181,7 @@ export default class ParamsStore {
   tzo;
   setData = async params => {
     this.isLoading = true;
-    console.log(this.params);
+
     // fetching data
     await fetchCurrentStationHourlyData(params).then(res => {
       this.tzo = res.meta.tzo;
@@ -172,7 +191,7 @@ export default class ParamsStore {
         dayArr.map(el => (typeof el === "string" ? dailyToHourlyDates(el) : el))
       );
 
-      const selectedKeys = this.icaoElems.map(e => e.el);
+      const selectedKeys = this.selectedElems.map(e => e.el);
       const keys = ["date", ...selectedKeys];
 
       let results = [];
@@ -187,7 +206,6 @@ export default class ParamsStore {
       });
 
       this.data = results;
-      console.log(this.data.slice(1, 4));
       this.isLoading = false;
     });
   };
@@ -218,8 +236,8 @@ decorate(ParamsStore, {
   allElements: observable,
   checkElem: action,
   setUnit: action,
-  icaoCheckboxes: computed,
-  icaoElems: computed,
+  elemsListCheckbox: computed,
+  selectedElems: computed,
   userElems: observable,
   setSearchMethod: action,
   elems: computed,
