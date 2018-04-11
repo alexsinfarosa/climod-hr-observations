@@ -7,12 +7,17 @@ import withRoot from "../withRoot";
 import Tabs, { Tab } from "material-ui/Tabs";
 import MapIcon from "material-ui-icons/Place";
 import UserIcon from "material-ui-icons/Person";
+import ViewList from "material-ui-icons/ViewList";
 
 // components
 import CheckBoxes from "./CheckBoxes";
 import Form from "./Form";
 import TableHeader from "./TableHeader";
 import MyTable from "./MyTable";
+// import { lifecycle } from "recompose";
+
+// icao stations
+import { icaoStations } from "../assets/icaoStationList";
 
 const styles = theme => ({
   root: {
@@ -35,6 +40,8 @@ class TopTab extends Component {
       data
     } = this.props.rootStore.paramsStore;
 
+    const stationList = icaoStations.filter(stn => stn.state === postalCode);
+
     return (
       <div className={classes.root}>
         <Tabs
@@ -47,13 +54,14 @@ class TopTab extends Component {
         >
           <Tab value="map" icon={<MapIcon />} label="MAP" />
           <Tab value="user" icon={<UserIcon />} label="USER" />
+          <Tab value="stationList" icon={<ViewList />} label="Station List" />
         </Tabs>
         {searchMethod === "map" && (
           <div>
             <Form value="map" />
-            <CheckBoxes />
             {postalCode && (
               <Fragment>
+                <CheckBoxes />
                 {station && <TableHeader />}
                 {data.length !== 0 && <MyTable />}
               </Fragment>
@@ -63,13 +71,42 @@ class TopTab extends Component {
         {searchMethod === "user" && (
           <Fragment>
             <Form value="user" />
-            <CheckBoxes />
             {station && (
               <Fragment>
+                <CheckBoxes />
                 {station && <TableHeader />}
                 {data.length !== 0 && <MyTable />}
               </Fragment>
             )}
+          </Fragment>
+        )}
+
+        {searchMethod === "stationList" && (
+          <Fragment>
+            <Form value="stationList" />
+            <div
+              style={{
+                display: "flex",
+                height: 900,
+                flexDirection: "column",
+                alignItems: "center",
+                flexWrap: "wrap"
+              }}
+            >
+              {stationList.map(stn => (
+                <li
+                  style={{
+                    listStyleType: "none",
+                    color: "#757575",
+                    marginBottom: 5,
+                    fontSize: "0.8rem"
+                  }}
+                  key={stn.id}
+                >
+                  {stn.name}
+                </li>
+              ))}
+            </div>
           </Fragment>
         )}
       </div>

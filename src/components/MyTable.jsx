@@ -30,8 +30,7 @@ class MyTable extends Component {
   render() {
     const { classes } = this.props;
     const { data, selectedElems } = this.props.rootStore.paramsStore;
-    console.log(selectedElems);
-    console.log(data.slice(1, 3));
+
     return (
       <div className={classes.root}>
         <Table className={classes.table}>

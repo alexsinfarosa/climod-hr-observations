@@ -7,6 +7,9 @@ import planeSel from "../assets/planeSel.png";
 import { Map, TileLayer, Marker, Tooltip, GeoJSON } from "react-leaflet";
 import L from "leaflet";
 
+// icao stations
+import { icaoStations } from "../assets/icaoStationList";
+
 // utils
 import { matchIconsToStations } from "../utils/utils";
 
@@ -62,9 +65,9 @@ class USMap extends Component {
 
   render() {
     const { classes } = this.props;
-    const { state, stations, station } = this.props.rootStore.paramsStore;
+    const { state, station } = this.props.rootStore.paramsStore;
 
-    const stationsWithMatchedIcons = stations.map(station => {
+    const stationsWithMatchedIcons = icaoStations.map(station => {
       station["icon"] = matchIconsToStations(station, state);
       return station;
     });

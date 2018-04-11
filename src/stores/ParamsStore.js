@@ -36,6 +36,10 @@ export default class ParamsStore {
     reaction(() => this.asJson, () => console.log(this.asJson));
     reaction(() => this.searchMethod === "map", () => this.setIcaoStations());
     reaction(() => this.searchMethod === "user", () => this.loadStations());
+    reaction(
+      () => this.searchMethod === "stationList",
+      () => this.loadStations()
+    );
   }
 
   isLoading = false;
@@ -51,7 +55,7 @@ export default class ParamsStore {
   postalCode = "";
   setPostalCode = e => {
     this.postalCode = e.target.value;
-    this.isMapVisible = true;
+    if (this.searchMethod !== "stationList") this.isMapVisible = true;
   };
   get state() {
     return this.states.find(state => state.id === this.postalCode);
@@ -130,13 +134,11 @@ export default class ParamsStore {
 
   allElements = elements;
   checkElem = e => {
-    if (this.elems.length > 1) {
-      this.allElements[e.target.value].isSelected = !this.allElements[
-        e.target.value
-      ].isSelected;
-    } else {
-      this.allElements[e.target.value].isSelected = true;
-    }
+    this.selectedElems.length > 1
+      ? (this.allElements[e.target.value].isSelected = !this.allElements[
+          e.target.value
+        ].isSelected)
+      : (this.allElements[e.target.value].isSelected = true);
   };
   setUnit = e => {
     this.allElements[e.target.name].defUnit = e.target.value;
@@ -158,9 +160,11 @@ export default class ParamsStore {
 
   userElems = [];
   get elems() {
-    return this.searchMethod === "map"
-      ? this.elemsListCheckbox.map(el => el["icao"])
-      : this.elemsListCheckbox.map(el => el[this.station.network]);
+    if (this.station) {
+      return this.searchMethod === "map"
+        ? this.elemsListCheckbox.map(el => el["icao"])
+        : this.elemsListCheckbox.map(el => el[this.station.network]);
+    }
   }
 
   // parameters to make the call
@@ -192,7 +196,6 @@ export default class ParamsStore {
       );
 
       const selectedKeys = this.elemsListCheckbox.map(e => e.el);
-      console.log(selectedKeys);
       const keys = ["date", ...selectedKeys];
 
       let results = [];

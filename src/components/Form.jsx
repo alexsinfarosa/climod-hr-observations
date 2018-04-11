@@ -46,7 +46,7 @@ class Form extends Component {
 
     return (
       <form className={classes.root} autoComplete="off">
-        {value === "map" && (
+        {(value === "map" || value === "stationList") && (
           <FormControl style={{ minWidth: 200, width: 200 }}>
             <InputLabel htmlFor="postalCode">Select State</InputLabel>
             <Select
@@ -79,41 +79,45 @@ class Form extends Component {
         )}
 
         {/*DATE PICKERS*/}
-        <DatePicker
-          style={{ minWidth: 200, width: 200 }}
-          label="Start Date"
-          value={sDate}
-          onChange={setStartDate}
-          format="MMMM Do, YYYY"
-          disableFuture
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton>
-                  <Icon>date_range</Icon>
-                </IconButton>
-              </InputAdornment>
-            )
-          }}
-        />
+        {(value === "map" || value === "user") && (
+          <DatePicker
+            style={{ minWidth: 200, width: 200 }}
+            label="Start Date"
+            value={sDate}
+            onChange={setStartDate}
+            format="MMMM Do, YYYY"
+            disableFuture
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton>
+                    <Icon>date_range</Icon>
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+          />
+        )}
 
-        <DatePicker
-          style={{ minWidth: 200, width: 200 }}
-          label="End Date"
-          value={eDate}
-          onChange={setEndDate}
-          format="MMMM Do, YYYY"
-          disableFuture
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton>
-                  <Icon>date_range</Icon>
-                </IconButton>
-              </InputAdornment>
-            )
-          }}
-        />
+        {(value === "map" || value === "user") && (
+          <DatePicker
+            style={{ minWidth: 200, width: 200 }}
+            label="End Date"
+            value={eDate}
+            onChange={setEndDate}
+            format="MMMM Do, YYYY"
+            disableFuture
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton>
+                    <Icon>date_range</Icon>
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+          />
+        )}
       </form>
     );
   }
