@@ -47,205 +47,134 @@ export const matchIconsToStations = (station, state) => {
 export const elements = {
   pcpn: {
     el: "pcpn",
-    val: 5,
     label: "Hourly Precipitation",
     units: ["inches", "millimeters"],
     defUnit: "inches",
     isSelected: true,
-    network: [
-      "newa",
-      "icao",
-      "cu_log",
-      "culog",
-      "njwx",
-      "miwx",
-      "oardc",
-      "nysm"
-    ]
+    newa: 5,
+    icao: 5,
+    cu_log: 5,
+    culog: 5,
+    njwx: 5,
+    miwx: 5,
+    oardc: 5,
+    nysm: 5
   },
   temp: {
     el: "temp",
-    val: 23,
     label: "Temperature",
     units: ["˚F", "˚C"],
     defUnit: "˚F",
     isSelected: true,
-    network: [
-      "newa",
-      "icao",
-      "cu_log",
-      "culog",
-      "njwx",
-      "miwx",
-      "oardc",
-      "nysm"
-    ]
+    newa: 23,
+    icao: 23,
+    cu_log: 126,
+    culog: 126,
+    njwx: 23,
+    miwx: 126,
+    oardc: 23,
+    nysm: 23
   },
   rhum: {
     el: "rhum",
-    val: 24,
     label: "Relative Humidity",
     units: ["percent"],
     defUnit: "percent",
     isSelected: true,
-    network: [
-      "newa",
-      "icao",
-      "cu_log",
-      "culog",
-      "njwx",
-      "miwx",
-      "oardc",
-      "nysm"
-    ]
+    newa: 24,
+    icao: 24,
+    cu_log: 24,
+    culog: 24,
+    njwx: 24,
+    miwx: 143,
+    oardc: 24,
+    nysm: 24
   },
   lwet: {
     el: "lwet",
-    val: 118,
     label: "Leaf Wetness",
     units: ["minute/hour"],
     defUnit: "minute/hour",
     isSelected: false,
-    network: ["newa", "cu_log", "culog", "miwx", "oardc"]
+    newa: 118,
+    cu_log: 118,
+    culog: 118,
+    miwx: 118,
+    oardc: 118
   },
   wspd: {
     el: "wspd",
-    val: 128,
     label: "Wind Speed",
     units: ["miles/hour", "knots", "meter/second"],
     defUnit: "miles/hour",
     isSelected: true,
-    network: ["newa", "icao", "cu_log", "culog", "njwx", "oardc", "nysm"]
+    newa: 128,
+    icao: 28,
+    cu_log: 128,
+    culog: 128,
+    njwx: 28,
+    oardc: 28,
+    nysm: 28
   },
   wdir: {
     el: "wdir",
-    val: 130,
     label: "Wind Direction",
     units: ["degree", "compass"],
     defUnit: "degree",
     isSelected: true,
-    network: ["newa", "icao", "cu_log", "culog", "njwx", "oardc", "nysm"]
+    newa: 130,
+    icao: 27,
+    cu_log: 130,
+    culog: 130,
+    njwx: 27,
+    oardc: 27,
+    nysm: 27
   },
   srad: {
     el: "srad",
-    val: 132,
     label: "Solar Radiation",
     units: ["˚F", "˚C"],
     defUnit: "˚F",
     isSelected: true,
-    network: ["newa", "cu_log", "culog", "njwx", "miwx", "oardc", "nysm"]
+    newa: 132,
+    cu_log: 132,
+    culog: 132,
+    njwx: 149,
+    miwx: 132,
+    oardc: 132,
+    nysm: 132
   },
   dwpt: {
     el: "dwpt",
-    val: 22,
     label: "Dewpoint",
     units: ["˚F", "˚C"],
     defUnit: "˚F",
     isSelected: true,
-    network: ["icao"]
+    icao: 22
   },
   st4i: {
     el: "st4i",
-    val: 120,
     label: "Soil Temperature",
     units: ["˚F", "˚C"],
     defUnit: "˚F",
     isSelected: false,
-    network: ["newa"]
+    newa: 120
   },
   sm4i: {
     el: "sm4i",
-    val: 65,
     label: "Soil Tension",
     units: ["kPa"],
     defUnit: "kPa",
     isSelected: false,
-    network: ["newa"]
+    newa: 65
   },
   tsky: {
     el: "tsky",
-    val: 33,
     label: "Total Sky Cover",
     units: ["fraction", "percent"],
     defUnit: "fraction",
     isSelected: true,
-    network: ["icao"]
-  }
-};
-
-export const vXDef = {
-  newa: {
-    pcpn: 5,
-    temp: 23,
-    rhum: 24,
-    lwet: 118,
-    wspd: 128,
-    wdir: 130,
-    srad: 132,
-    st4i: 120,
-    sm4i: 65
-  },
-  icao: {
-    pcpn: 5,
-    temp: 23,
-    rhum: 24,
-    wspd: 28,
-    wdir: 27,
-    dwpt: 22,
-    tsky: 33
-  },
-  cu_log: {
-    pcpn: 5,
-    temp: 126,
-    rhum: 24,
-    lwet: 118,
-    wspd: 128,
-    wdir: 130,
-    srad: 132
-  },
-  culog: {
-    pcpn: 5,
-    temp: 126,
-    rhum: 24,
-    lwet: 118,
-    wspd: 128,
-    wdir: 130,
-    srad: 132
-  },
-  njwx: {
-    pcpn: 5,
-    temp: 23,
-    rhum: 24,
-    wspd: 28,
-    wdir: 27,
-    srad: 149
-  },
-  miwx: {
-    pcpn: 5,
-    temp: 126,
-    rhum: 143,
-    lwet: 118,
-    srad: 132
-  },
-  oardc: {
-    pcpn: 5,
-    temp: 23,
-    rhum: 24,
-    lwet: 118,
-    wspd: 28,
-    wdir: 27,
-    srad: 132,
-    st4i: 120
-  },
-  nysm: {
-    pcpn: 5,
-    temp: 23,
-    rhum: 24,
-    wspd: 28,
-    wdir: 27,
-    srad: 132,
-    st4i: 120,
-    sm2i: 104
+    icao: 33
   }
 };
 

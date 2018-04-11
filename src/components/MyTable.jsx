@@ -30,7 +30,7 @@ class MyTable extends Component {
   render() {
     const { classes } = this.props;
     const { data, icaoElems } = this.props.rootStore.paramsStore;
-
+    console.log(icaoElems);
     return (
       <div className={classes.root}>
         <Table className={classes.table}>

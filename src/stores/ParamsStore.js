@@ -9,12 +9,7 @@ import { fetchCurrentStationHourlyData } from "../utils/fetchData";
 import { icaoStations } from "../assets/icaoStationList";
 
 // utils
-import {
-  idAdjustment,
-  vXDef,
-  dailyToHourlyDates,
-  elements
-} from "../utils/utils";
+import { idAdjustment, dailyToHourlyDates, elements } from "../utils/utils";
 
 // date-fns
 import { format } from "date-fns";
@@ -26,8 +21,14 @@ const url = `${
 
 export default class ParamsStore {
   constructor() {
-    when(() => this.searchMethod === "icao", () => this.setIcaoStations());
-    when(() => this.searchMethod === "user", () => this.loadStations());
+    when(
+      () => this.data.length === 0 && this.searchMethod === "icao",
+      () => this.setIcaoStations()
+    );
+    when(
+      () => this.data.length === 0 && this.searchMethod === "user",
+      () => this.loadStations()
+    );
     reaction(
       () => this.asJson,
       () =>
@@ -125,24 +126,22 @@ export default class ParamsStore {
     this.allElements[e.target.name].defUnit = e.target.value;
   };
 
+  icaoElemsList = ["pcpn", "temp", "rhum", "wspd", "wdir", "dwpt", "tsky"];
   get icaoCheckboxes() {
-    return Object.keys(this.allElements)
-      .filter(k => this.allElements[k].network.includes("icao"))
-      .map(el => this.allElements[el]);
+    return this.icaoElemsList.map(el => this.allElements[el]);
   }
 
   get icaoElems() {
-    return Object.keys(this.allElements)
-      .filter(k => this.allElements[k].network.includes("icao"))
-      .filter(k => this.allElements[k].isSelected)
-      .map(el => this.allElements[el]);
+    return this.icaoElemsList
+      .map(el => this.allElements[el])
+      .filter(el => el.isSelected);
   }
-  userElems = Object.values(vXDef.newa);
 
+  userElems = [];
   get elems() {
     return this.searchMethod === "icao"
-      ? this.icaoElems.map(e => e.val)
-      : this.userElems.map(e => e.val);
+      ? this.icaoElemsList.map(el => this.allElements[el].icao)
+      : null;
   }
 
   // parameters to make the call
