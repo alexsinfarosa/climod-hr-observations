@@ -15,6 +15,9 @@ import {
 } from "material-ui";
 import DatePicker from "material-ui-pickers/DatePicker";
 
+// date-fns
+import { isAfter } from "date-fns";
+
 const styles = theme => ({
   root: {
     display: "flex",
@@ -50,7 +53,7 @@ class Form extends Component {
           <FormControl style={{ minWidth: 200, width: 200 }}>
             <InputLabel htmlFor="postalCode">Select State</InputLabel>
             <Select
-              // disabled={this.state.station.length === 0 ? false : true}
+              disabled={isAfter(sDate, eDate)}
               value={postalCode}
               onChange={setPostalCode}
               inputProps={{
@@ -69,7 +72,7 @@ class Form extends Component {
 
         {value === "user" && (
           <TextField
-            // disabled={this.state.state.length === 0 ? false : true}
+            disabled={isAfter(sDate, eDate)}
             style={{ minWidth: 200, width: 200 }}
             id="station"
             label="Station ID (e.g. ktol)"
@@ -83,6 +86,8 @@ class Form extends Component {
           <DatePicker
             style={{ minWidth: 200, width: 200 }}
             label="Start Date"
+            maxDate={eDate}
+            maxDateMessage={`Start Date should not be after End Date`}
             value={sDate}
             onChange={setStartDate}
             format="MMMM Do, YYYY"
