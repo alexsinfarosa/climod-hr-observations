@@ -37,7 +37,8 @@ class TopTab extends Component {
       postalCode,
       searchMethod,
       setSearchMethod,
-      data
+      data,
+      isLoading
     } = this.props.rootStore.paramsStore;
 
     const stationList = icaoStations.filter(stn => stn.state === postalCode);
@@ -63,7 +64,7 @@ class TopTab extends Component {
               <Fragment>
                 <CheckBoxes />
                 {station && <TableHeader />}
-                {data.length !== 0 && <MyTable />}
+                <MyTable />
               </Fragment>
             )}
           </div>
@@ -75,7 +76,7 @@ class TopTab extends Component {
               <Fragment>
                 <CheckBoxes />
                 {station && <TableHeader />}
-                {data.length !== 0 && <MyTable />}
+                <MyTable />
               </Fragment>
             )}
           </Fragment>

@@ -29,44 +29,57 @@ const styles = theme => ({
 class MyTable extends Component {
   render() {
     const { classes } = this.props;
-    const { data, selectedElems } = this.props.rootStore.paramsStore;
+    const { data, selectedElems, isLoading } = this.props.rootStore.paramsStore;
 
     return (
       <div className={classes.root}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell style={{ textAlign: "center" }}>Date</TableCell>
-              {selectedElems.map(d => (
-                <TableCell style={{ textAlign: "center" }} key={d.el}>
-                  <div>{d.label}</div>
-                  <div style={{ fontSize: "0.7rem", marginTop: 5 }}>
-                    ({d.defUnit})
-                  </div>
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {data.map((hour, i) => (
-              <TableRow
-                hover
-                key={hour.date}
-                className={i % 2 === 0 ? classes.stripe : null}
-              >
-                <TableCell style={{ textAlign: "center" }}>
-                  {hour.date}
-                </TableCell>
+        {isLoading ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: 700
+            }}
+          >
+            Loading....
+          </div>
+        ) : (
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell style={{ textAlign: "center" }}>Date</TableCell>
                 {selectedElems.map(d => (
                   <TableCell style={{ textAlign: "center" }} key={d.el}>
-                    {hour[d.el]}
+                    <div>{d.label}</div>
+                    <div style={{ fontSize: "0.7rem", marginTop: 5 }}>
+                      ({d.defUnit})
+                    </div>
                   </TableCell>
                 ))}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+
+            <TableBody>
+              {data.map((hour, i) => (
+                <TableRow
+                  hover
+                  key={hour.date}
+                  className={i % 2 === 0 ? classes.stripe : null}
+                >
+                  <TableCell style={{ textAlign: "center" }}>
+                    {hour.date}
+                  </TableCell>
+                  {selectedElems.map(d => (
+                    <TableCell style={{ textAlign: "center" }} key={d.el}>
+                      {hour[d.el]}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </div>
     );
   }
