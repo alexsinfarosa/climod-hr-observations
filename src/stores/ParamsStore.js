@@ -9,10 +9,16 @@ import { fetchCurrentStationHourlyData } from "../utils/fetchData";
 import { icaoStations } from "../assets/icaoStationList";
 
 // utils
-import { idAdjustment, dailyToHourlyDates, elements } from "../utils/utils";
+import {
+  idAdjustment,
+  dailyToHourlyDates,
+  elements,
+  toLocalTime,
+  dailyToHourlyDatesNEW
+} from "../utils/utils";
 
 // date-fns
-import { format } from "date-fns";
+import { format, getHours } from "date-fns";
 
 // const
 const url = `${
@@ -105,9 +111,9 @@ export default class ParamsStore {
   };
 
   // Dates
-  sDate = new Date("2018-04-08");
+  sDate = new Date("2018-03-11");
   setStartDate = d => (this.sDate = d);
-  eDate = new Date();
+  eDate = new Date("2018-03-13");
   setEndDate = d => (this.eDate = d);
 
   // asJson
@@ -181,34 +187,81 @@ export default class ParamsStore {
     }
   }
 
+  get hourlyLocalDates() {
+    return dailyToHourlyDatesNEW(this.sDate, this.eDate, this.tzo);
+  }
+
   data = [];
   tzo;
   setData = async params => {
     this.isLoading = true;
 
     // fetching data
+    //     await fetchCurrentStationHourlyData(params).then(res => {
+    //       this.tzo = res.meta.tzo;
+    //       console.log(res.data);
+    //       // transform data
+    //       const data = res.data.map(dayArr =>
+    //         dayArr.map(
+    //           el => (typeof el === "string" ? dailyToHourlyDates(el, this.tzo) : el)
+    //         )
+    //       );
+
+    //       // console.log(data);
+    //       const selectedKeys = this.elemsListCheckbox.map(e => e.el);
+    //       const keys = ["date", ...selectedKeys];
+
+    //       let results = [];
+    //       data.forEach(day => {
+    //         for (let h = 0; h < day[0].length; h++) {
+    //           const time = getHours(day[0][h]);
+    //           // console.log(time, h);
+    //           let p = {};
+    //           day.forEach((el, e) => {
+    //             p[keys[e]] = el[time];
+    //           });
+    //           results.push(p);
+    //         }
+    //       });
+
+    //       console.log(results);
+    //       this.data = results;
+    //       this.isLoading = false;
+    //     });
+    //   };
+    // }
+
     await fetchCurrentStationHourlyData(params).then(res => {
-      this.tzo = res.meta.tzo;
-
-      // transform data
-      const data = res.data.map(dayArr =>
-        dayArr.map(el => (typeof el === "string" ? dailyToHourlyDates(el) : el))
-      );
-
       const selectedKeys = this.elemsListCheckbox.map(e => e.el);
       const keys = ["date", ...selectedKeys];
 
-      let results = [];
-      data.forEach(day => {
-        for (let h = 0; h < 24; h++) {
-          let p = {};
-          day.forEach((el, e) => {
-            p[keys[e]] = el[h];
-          });
-          results.push(p);
-        }
+      let data = new Map();
+      res.data.forEach(day => {
+        let p = {};
+        day.forEach((el, i) => {
+          p[keys[i]] = el;
+        });
+        data.set(day[0], p);
       });
 
+      console.log(data);
+
+      let results = [];
+      this.hourlyLocalDates.forEach(date => {
+        console.log(date);
+        const time = getHours(date);
+        const day = format(date, "YYYY-MM-DD");
+        // console.log(data.get(day)["temp"]);
+        let p = {};
+        keys.forEach(el => {
+          el === "date"
+            ? (p["date"] = format(date, "YYYY-MM-DD HH:00 Z"))
+            : (p[el] = data.get(day)[el][time]);
+        });
+        results.push(p);
+      });
+
+      console.log(results);
       this.data = results;
       this.isLoading = false;
     });
@@ -246,5 +299,6 @@ decorate(ParamsStore, {
   setSearchMethod: action,
   elems: computed,
   params: computed,
+  hourlyLocalDates: computed,
   data: observable
 });

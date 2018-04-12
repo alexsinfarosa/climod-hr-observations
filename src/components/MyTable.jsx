@@ -16,7 +16,7 @@ const styles = theme => ({
     width: "100%",
     marginTop: theme.spacing.unit * 3,
     overflowX: "auto",
-    height: 700
+    height: 680
   },
   table: {
     minWidth: 700
@@ -39,7 +39,7 @@ class MyTable extends Component {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              height: 700
+              height: 680
             }}
           >
             Loading....

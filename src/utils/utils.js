@@ -4,6 +4,7 @@ import iconStation from "../assets/station.png";
 import stationGrey from "../assets/stationGrey.png";
 
 import moment from "moment-timezone";
+import { isBefore, startOfDay, endOfDay, addHours, setHours } from "date-fns";
 
 // MAP ---------------------------------------------------------
 export const matchIconsToStations = (station, state) => {
@@ -278,30 +279,47 @@ export const average = data => {
   return Math.round(results.reduce((acc, val) => acc + val, 0) / data.length);
 };
 
-// export const dailyToHourlyDates = arr => {
+// export const dailyToHourlyDates = date => {
 //   let results = [];
-//   arr.forEach(day => {
-//     for (let h = 0; h < 24; h++) {
-//       let hour = h;
-//       if (h >= 0 && h <= 9) hour = `0${h}`;
-//       results.push(`${day} ${hour}:00`);
-//     }
-//   });
+//   for (let h = 0; h < 24; h++) {
+//     let hour = h;
+//     if (h >= 0 && h <= 9) hour = `0${h}`;
+//     results.push(`${date} ${hour}:00`);
+//   }
 //   return results;
 // };
 
-export const dailyToHourlyDates = date => {
+export const dailyToHourlyDates = (date, tzo) => {
   let results = [];
+
   for (let h = 0; h < 24; h++) {
     let hour = h;
     if (h >= 0 && h <= 9) hour = `0${h}`;
     results.push(`${date} ${hour}:00`);
   }
+
+  return results;
+};
+
+export const dailyToHourlyDatesNEW = (sdate, edate, tzo) => {
+  let startDay = startOfDay(sdate);
+  const endDay = setHours(edate, 23);
+
+  let results = [];
+  results.push(startDay);
+  while (isBefore(startDay, endDay)) {
+    startDay = addHours(startDay, 1);
+    results.push(startDay);
+  }
+  // console.log(results);
   return results;
 };
 
 // convert time in local standard time to local time (based on time zone and dst)
-export const formatTime = (day, hour, tzo) => {
+export const toLocalTime = (date, h, tzo) => {
+  // const [day,time] = date.split(" ");
+  // const hour = Number(time.split(":")[0]);
+
   tzo = Math.abs(tzo);
   var timeZoneNames = {
     5: "America/New_York",
@@ -310,9 +328,9 @@ export const formatTime = (day, hour, tzo) => {
     8: "America/Los_Angeles"
   };
   return moment
-    .utc(day)
-    .hour(hour)
+    .utc(date)
+    .hour(h)
     .add(tzo, "hours")
     .tz(timeZoneNames[tzo])
-    .format("YYYY-MM-DD H");
+    .format("YYYY-MM-DD HH:00 z");
 };

@@ -36,9 +36,7 @@ class TopTab extends Component {
       station,
       postalCode,
       searchMethod,
-      setSearchMethod,
-      data,
-      isLoading
+      setSearchMethod
     } = this.props.rootStore.paramsStore;
 
     const stationList = icaoStations.filter(stn => stn.state === postalCode);
