@@ -4,7 +4,7 @@ import iconStation from "../assets/station.png";
 import stationGrey from "../assets/stationGrey.png";
 
 import moment from "moment-timezone";
-import { isBefore, startOfDay, endOfDay, addHours, setHours } from "date-fns";
+import { isBefore, startOfDay, addHours, setHours } from "date-fns";
 
 // MAP ---------------------------------------------------------
 export const matchIconsToStations = (station, state) => {

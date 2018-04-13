@@ -9,13 +9,7 @@ import { fetchCurrentStationHourlyData } from "../utils/fetchData";
 import { icaoStations } from "../assets/icaoStationList";
 
 // utils
-import {
-  idAdjustment,
-  dailyToHourlyDates,
-  elements,
-  toLocalTime,
-  dailyToHourlyDatesNEW
-} from "../utils/utils";
+import { idAdjustment, elements, dailyToHourlyDatesNEW } from "../utils/utils";
 
 // date-fns
 import { format, getHours } from "date-fns";
@@ -244,18 +238,24 @@ export default class ParamsStore {
         data.set(day[0], p);
       });
 
-      console.log(data);
+      // console.log(data);
 
       let results = [];
       this.hourlyLocalDates.forEach(date => {
-        console.log(date);
+        const timeZoneAbbreviation = date
+          .toString()
+          .split(" ")
+          .slice(-1)[0];
         const time = getHours(date);
         const day = format(date, "YYYY-MM-DD");
         // console.log(data.get(day)["temp"]);
         let p = {};
         keys.forEach(el => {
           el === "date"
-            ? (p["date"] = format(date, "YYYY-MM-DD HH:00 Z"))
+            ? (p["date"] = `${format(
+                date,
+                "YYYY-MM-DD HH:00"
+              )} ${timeZoneAbbreviation}`)
             : (p[el] = data.get(day)[el][time]);
         });
         results.push(p);
