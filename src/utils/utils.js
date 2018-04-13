@@ -3,7 +3,7 @@ import planeGrey from "../assets/planeGrey.png";
 import iconStation from "../assets/station.png";
 import stationGrey from "../assets/stationGrey.png";
 
-import moment from "moment-timezone";
+// import moment from "moment-timezone";
 import { isBefore, startOfDay, addHours, setHours } from "date-fns";
 
 // MAP ---------------------------------------------------------
@@ -279,29 +279,7 @@ export const average = data => {
   return Math.round(results.reduce((acc, val) => acc + val, 0) / data.length);
 };
 
-// export const dailyToHourlyDates = date => {
-//   let results = [];
-//   for (let h = 0; h < 24; h++) {
-//     let hour = h;
-//     if (h >= 0 && h <= 9) hour = `0${h}`;
-//     results.push(`${date} ${hour}:00`);
-//   }
-//   return results;
-// };
-
-export const dailyToHourlyDates = (date, tzo) => {
-  let results = [];
-
-  for (let h = 0; h < 24; h++) {
-    let hour = h;
-    if (h >= 0 && h <= 9) hour = `0${h}`;
-    results.push(`${date} ${hour}:00`);
-  }
-
-  return results;
-};
-
-export const dailyToHourlyDatesNEW = (sdate, edate, tzo) => {
+export const dailyToHourlyDates = (sdate, edate, tzo) => {
   let startDay = startOfDay(sdate);
   const endDay = setHours(edate, 23);
 
@@ -313,24 +291,4 @@ export const dailyToHourlyDatesNEW = (sdate, edate, tzo) => {
   }
   // console.log(results);
   return results;
-};
-
-// convert time in local standard time to local time (based on time zone and dst)
-export const toLocalTime = (date, h, tzo) => {
-  // const [day,time] = date.split(" ");
-  // const hour = Number(time.split(":")[0]);
-
-  tzo = Math.abs(tzo);
-  var timeZoneNames = {
-    5: "America/New_York",
-    6: "America/Chicago",
-    7: "America/Denver",
-    8: "America/Los_Angeles"
-  };
-  return moment
-    .utc(date)
-    .hour(h)
-    .add(tzo, "hours")
-    .tz(timeZoneNames[tzo])
-    .format("YYYY-MM-DD HH:00 z");
 };

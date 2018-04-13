@@ -9,7 +9,7 @@ import { fetchCurrentStationHourlyData } from "../utils/fetchData";
 import { icaoStations } from "../assets/icaoStationList";
 
 // utils
-import { idAdjustment, elements, dailyToHourlyDatesNEW } from "../utils/utils";
+import { idAdjustment, elements, dailyToHourlyDates } from "../utils/utils";
 
 // date-fns
 import { format, getHours } from "date-fns";
@@ -182,7 +182,7 @@ export default class ParamsStore {
   }
 
   get hourlyLocalDates() {
-    return dailyToHourlyDatesNEW(this.sDate, this.eDate, this.tzo);
+    return dailyToHourlyDates(this.sDate, this.eDate, this.tzo);
   }
 
   data = [];
@@ -190,45 +190,11 @@ export default class ParamsStore {
   setData = async params => {
     this.isLoading = true;
 
-    // fetching data
-    //     await fetchCurrentStationHourlyData(params).then(res => {
-    //       this.tzo = res.meta.tzo;
-    //       console.log(res.data);
-    //       // transform data
-    //       const data = res.data.map(dayArr =>
-    //         dayArr.map(
-    //           el => (typeof el === "string" ? dailyToHourlyDates(el, this.tzo) : el)
-    //         )
-    //       );
-
-    //       // console.log(data);
-    //       const selectedKeys = this.elemsListCheckbox.map(e => e.el);
-    //       const keys = ["date", ...selectedKeys];
-
-    //       let results = [];
-    //       data.forEach(day => {
-    //         for (let h = 0; h < day[0].length; h++) {
-    //           const time = getHours(day[0][h]);
-    //           // console.log(time, h);
-    //           let p = {};
-    //           day.forEach((el, e) => {
-    //             p[keys[e]] = el[time];
-    //           });
-    //           results.push(p);
-    //         }
-    //       });
-
-    //       console.log(results);
-    //       this.data = results;
-    //       this.isLoading = false;
-    //     });
-    //   };
-    // }
-
     await fetchCurrentStationHourlyData(params).then(res => {
       const selectedKeys = this.elemsListCheckbox.map(e => e.el);
       const keys = ["date", ...selectedKeys];
 
+      // data
       let data = new Map();
       res.data.forEach(day => {
         let p = {};
@@ -238,8 +204,7 @@ export default class ParamsStore {
         data.set(day[0], p);
       });
 
-      // console.log(data);
-
+      // convert dates from standard time to local time
       let results = [];
       this.hourlyLocalDates.forEach(date => {
         const timeZoneAbbreviation = date
@@ -248,7 +213,7 @@ export default class ParamsStore {
           .slice(-1)[0];
         const time = getHours(date);
         const day = format(date, "YYYY-MM-DD");
-        // console.log(data.get(day)["temp"]);
+
         let p = {};
         keys.forEach(el => {
           el === "date"
@@ -260,11 +225,10 @@ export default class ParamsStore {
         });
         results.push(p);
       });
-
-      console.log(results);
       this.data = results;
-      this.isLoading = false;
     });
+
+    this.isLoading = false;
   };
 }
 
