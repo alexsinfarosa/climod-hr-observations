@@ -33,7 +33,7 @@ export default class ParamsStore {
           ? null
           : this.setData(this.params)
     );
-    reaction(() => this.asJson, () => console.log(this.asJson));
+    // reaction(() => this.asJson, () => console.log(this.asJson));
     reaction(() => this.searchMethod === "map", () => this.setIcaoStations());
     reaction(() => this.searchMethod === "user", () => this.loadStations());
     reaction(

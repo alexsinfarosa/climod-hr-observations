@@ -30,7 +30,6 @@ class MyTable extends Component {
   render() {
     const { classes } = this.props;
     const { data, selectedElems, isLoading } = this.props.rootStore.paramsStore;
-
     return (
       <div className={classes.root}>
         {isLoading ? (
@@ -42,7 +41,7 @@ class MyTable extends Component {
               height: 680
             }}
           >
-            Loading....
+            loading...
           </div>
         ) : (
           <Table className={classes.table}>
@@ -60,7 +59,7 @@ class MyTable extends Component {
               </TableRow>
             </TableHead>
 
-            <TableBody>
+            <TableBody style={{ overflow: "auto" }}>
               {data.map((hour, i) => (
                 <TableRow
                   hover
