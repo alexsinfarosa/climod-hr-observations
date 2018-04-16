@@ -2,52 +2,55 @@ export const elements = {
   pcpn: {
     el: "pcpn",
     label: "Hourly Precipitation",
-    units: ["inches", "millimeters"],
+    units: [
+      { label: "inches", val: "inch" },
+      { label: "millimeters", val: "mm" }
+    ],
     defUnit: "inches",
     isSelected: true,
-    newa: 5,
-    icao: 5,
-    cu_log: 5,
-    culog: 5,
-    njwx: 5,
-    miwx: 5,
-    oardc: 5,
-    nysm: 5
+    newa: { vX: 5, units: "inch" },
+    icao: { vX: 5, units: "inch" },
+    cu_log: { vX: 5, units: "inch" },
+    culog: { vX: 5, units: "inch" },
+    njwx: { vX: 5, units: "inch" },
+    miwx: { vX: 5, units: "inch" },
+    oardc: { vX: 5, units: "inch" },
+    nysm: { vX: 5, units: "inch" }
   },
   temp: {
     el: "temp",
     label: "Temperature",
-    units: ["˚F", "˚C"],
+    units: [{ label: "˚F", val: "degF" }, { label: "˚C", val: "degC" }],
     defUnit: "˚F",
     isSelected: true,
-    newa: { vX: 23, units: "degreeF" },
-    icao: { vX: 23, units: "degreeF" },
-    cu_log: { vX: 126, units: "degreeF" },
-    culog: { vX: 126, units: "degreeF" },
-    njwx: { vX: 23, units: "degreeF" },
-    miwx: { vX: 126, units: "degreeF" },
-    oardc: { vX: 23, units: "degreeF" },
-    nysm: { vX: 23, units: "degreeF" }
+    newa: { vX: 23, units: "degF" },
+    icao: { vX: 23, units: "degF" },
+    cu_log: { vX: 126, units: "degF" },
+    culog: { vX: 126, units: "degF" },
+    njwx: { vX: 23, units: "degF" },
+    miwx: { vX: 126, units: "degF" },
+    oardc: { vX: 23, units: "degF" },
+    nysm: { vX: 23, units: "degF" }
   },
   rhum: {
     el: "rhum",
     label: "Relative Humidity",
-    units: ["percent"],
+    units: [{ label: "percent", val: "percent" }],
     defUnit: "percent",
     isSelected: true,
-    newa: 24,
-    icao: 24,
-    cu_log: 24,
-    culog: 24,
-    njwx: 24,
-    miwx: 143,
-    oardc: 24,
-    nysm: 24
+    newa: { vX: 24, units: "percent" },
+    icao: { vX: 24, units: "percent" },
+    cu_log: { vX: 24, units: "percent" },
+    culog: { vX: 24, units: "percent" },
+    njwx: { vX: 24, units: "percent" },
+    miwx: { vX: 143, units: "percent" },
+    oardc: { vX: 24, units: "percent" },
+    nysm: { vX: 24, units: "percent" }
   },
   lwet: {
     el: "lwet",
     label: "Leaf Wetness",
-    units: ["minute/hour"],
+    units: [{ label: "minute/hour", val: "min/hr" }],
     defUnit: "minute/hour",
     isSelected: false,
     newa: 118,
@@ -59,35 +62,42 @@ export const elements = {
   wspd: {
     el: "wspd",
     label: "Wind Speed",
-    units: ["miles/hour", "knots", "meter/second"],
+    units: [
+      { label: "miles/hour", val: "miles/hour" },
+      { label: "knots", val: "knot" },
+      { label: "meter/sec", val: "m/sec" }
+    ],
     defUnit: "miles/hour",
     isSelected: true,
-    newa: 128,
-    icao: 28,
-    cu_log: 128,
-    culog: 128,
-    njwx: 28,
-    oardc: 28,
-    nysm: 28
+    newa: { vX: 128, units: "miles/hour" },
+    icao: { vX: 28, units: "miles/hour" },
+    cu_log: { vX: 128, units: "miles/hour" },
+    culog: { vX: 128, units: "miles/hour" },
+    njwx: { vX: 28, units: "miles/hour" },
+    oardc: { vX: 28, units: "miles/hour" },
+    nysm: { vX: 28, units: "miles/hour" }
   },
   wdir: {
     el: "wdir",
     label: "Wind Direction",
-    units: ["degree", "compass"],
-    defUnit: "degree",
+    units: [
+      { label: "degrees", val: "degrees" },
+      { label: "compass", val: "compass" } // implement
+    ],
+    defUnit: "degrees",
     isSelected: true,
-    newa: 130,
-    icao: 27,
-    cu_log: 130,
-    culog: 130,
-    njwx: 27,
-    oardc: 27,
-    nysm: 27
+    newa: { vX: 130, units: "degrees" },
+    icao: { vX: 27, units: "degrees" },
+    cu_log: { vX: 130, units: "degrees" },
+    culog: { vX: 130, units: "degrees" },
+    njwx: { vX: 27, units: "degrees" },
+    oardc: { vX: 27, units: "degrees" },
+    nysm: { vX: 27, units: "degrees" }
   },
   srad: {
     el: "srad",
     label: "Solar Radiation",
-    units: ["langleys"],
+    units: [{ label: "langleys", val: "langleys" }],
     defUnit: "langleys",
     isSelected: true,
     newa: 132,
@@ -101,23 +111,23 @@ export const elements = {
   dwpt: {
     el: "dwpt",
     label: "Dewpoint",
-    units: ["˚F", "˚C"],
+    units: [{ label: "˚F", val: "degF" }, { label: "˚C", val: "degC" }],
     defUnit: "˚F",
     isSelected: true,
-    icao: 22
+    icao: { vX: 22, units: "degF" }
   },
   st4i: {
     el: "st4i",
     label: "Soil Temperature",
-    units: ["˚F", "˚C"],
+    units: [{ label: "˚F", val: "degF" }, { label: "˚C", val: "degC" }],
     defUnit: "˚F",
     isSelected: false,
-    newa: 120
+    newa: { vX: 120, units: "degF" }
   },
   sm4i: {
     el: "sm4i",
     label: "Soil Tension",
-    units: ["kPa"],
+    units: [{ label: "kPa", val: "kPa" }],
     defUnit: "kPa",
     isSelected: false,
     newa: 65
@@ -125,9 +135,12 @@ export const elements = {
   tsky: {
     el: "tsky",
     label: "Total Sky Cover",
-    units: ["fraction", "percent"],
+    units: [
+      { label: "fraction", val: "fraction" },
+      { label: "percent", val: "percent" } // implement
+    ],
     defUnit: "fraction",
     isSelected: true,
-    icao: 33
+    icao: { vX: 33 }
   }
 };

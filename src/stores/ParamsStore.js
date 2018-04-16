@@ -1,4 +1,12 @@
-import { decorate, observable, computed, action, when, reaction } from "mobx";
+import {
+  decorate,
+  observable,
+  computed,
+  action,
+  when,
+  reaction,
+  toJS
+} from "mobx";
 import { states } from "../assets/states";
 import axios from "axios";
 
@@ -114,6 +122,7 @@ export default class ParamsStore {
   // asJson
   get asJson() {
     return {
+      allElements: toJS(this.allElements),
       searchMethod: this.searchMethod,
       elemsListCheckbox: this.elemsListCheckbox.slice(),
       elems: this.elems,
@@ -142,7 +151,12 @@ export default class ParamsStore {
       : (this.allElements[e.target.value].isSelected = true);
   };
   setUnit = e => {
-    this.allElements[e.target.name].defUnit = e.target.value;
+    const key = e.target.name;
+    const val = e.target.value;
+    const { network } = this.station;
+    const el = this.allElements[key]["units"].find(o => o.label === val);
+    this.allElements[key].defUnit = el.label;
+    this.allElements[key][network]["units"] = el.val;
   };
 
   get elemsListCheckbox() {
@@ -159,7 +173,6 @@ export default class ParamsStore {
     return this.elemsListCheckbox.filter(el => el.isSelected);
   }
 
-  userElems = [];
   get elems() {
     if (this.station) {
       return this.searchMethod === "map"
@@ -273,7 +286,6 @@ decorate(ParamsStore, {
   setUnit: action,
   elemsListCheckbox: computed,
   selectedElems: computed,
-  userElems: observable,
   setSearchMethod: action,
   elems: computed,
   params: computed,

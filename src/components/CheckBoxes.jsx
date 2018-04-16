@@ -60,45 +60,48 @@ class CheckBoxes extends Component {
       elemsListCheckbox,
       setUnit
     } = this.props.rootStore.paramsStore;
-
     return (
       <FormGroup row className={classes.root}>
-        {elemsListCheckbox.map(d => (
-          <div key={d.el} className={classes.rowEl}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  className={classes.size}
-                  icon={
-                    <CheckBoxOutlineBlankIcon className={classes.sizeIcon} />
-                  }
-                  checkedIcon={<CheckBoxIcon className={classes.sizeIcon} />}
-                  checked={d.isSelected}
-                  onChange={checkElem}
-                  value={d.el}
-                />
-              }
-              label={d.label}
-            />
-            <Select
-              disableUnderline={true}
-              style={{ fontSize: 13 }}
-              autoWidth={true}
-              value={d.defUnit}
-              onChange={setUnit}
-              inputProps={{
-                name: d.el,
-                id: d.el
-              }}
-            >
-              {d.units.map(u => (
-                <MenuItem key={u} value={u}>
-                  {u}
-                </MenuItem>
-              ))}
-            </Select>
-          </div>
-        ))}
+        {elemsListCheckbox.map(d => {
+          return (
+            <div key={d.el} className={classes.rowEl}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    className={classes.size}
+                    icon={
+                      <CheckBoxOutlineBlankIcon className={classes.sizeIcon} />
+                    }
+                    checkedIcon={<CheckBoxIcon className={classes.sizeIcon} />}
+                    checked={d.isSelected}
+                    onChange={checkElem}
+                    value={d.el}
+                  />
+                }
+                label={d.label}
+              />
+              <Select
+                disableUnderline={true}
+                style={{ fontSize: 13 }}
+                autoWidth={true}
+                value={d.defUnit}
+                onChange={setUnit}
+                inputProps={{
+                  name: d.el,
+                  id: d.el
+                }}
+              >
+                {d.units.map(u => {
+                  return (
+                    <MenuItem key={u.label} value={u.label}>
+                      {u.label}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </div>
+          );
+        })}
       </FormGroup>
     );
   }
