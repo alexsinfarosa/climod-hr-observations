@@ -1,0 +1,133 @@
+export const elements = {
+  pcpn: {
+    el: "pcpn",
+    label: "Hourly Precipitation",
+    units: ["inches", "millimeters"],
+    defUnit: "inches",
+    isSelected: true,
+    newa: 5,
+    icao: 5,
+    cu_log: 5,
+    culog: 5,
+    njwx: 5,
+    miwx: 5,
+    oardc: 5,
+    nysm: 5
+  },
+  temp: {
+    el: "temp",
+    label: "Temperature",
+    units: ["˚F", "˚C"],
+    defUnit: "˚F",
+    isSelected: true,
+    newa: { vX: 23, units: "degreeF" },
+    icao: { vX: 23, units: "degreeF" },
+    cu_log: { vX: 126, units: "degreeF" },
+    culog: { vX: 126, units: "degreeF" },
+    njwx: { vX: 23, units: "degreeF" },
+    miwx: { vX: 126, units: "degreeF" },
+    oardc: { vX: 23, units: "degreeF" },
+    nysm: { vX: 23, units: "degreeF" }
+  },
+  rhum: {
+    el: "rhum",
+    label: "Relative Humidity",
+    units: ["percent"],
+    defUnit: "percent",
+    isSelected: true,
+    newa: 24,
+    icao: 24,
+    cu_log: 24,
+    culog: 24,
+    njwx: 24,
+    miwx: 143,
+    oardc: 24,
+    nysm: 24
+  },
+  lwet: {
+    el: "lwet",
+    label: "Leaf Wetness",
+    units: ["minute/hour"],
+    defUnit: "minute/hour",
+    isSelected: false,
+    newa: 118,
+    cu_log: 118,
+    culog: 118,
+    miwx: 118,
+    oardc: 118
+  },
+  wspd: {
+    el: "wspd",
+    label: "Wind Speed",
+    units: ["miles/hour", "knots", "meter/second"],
+    defUnit: "miles/hour",
+    isSelected: true,
+    newa: 128,
+    icao: 28,
+    cu_log: 128,
+    culog: 128,
+    njwx: 28,
+    oardc: 28,
+    nysm: 28
+  },
+  wdir: {
+    el: "wdir",
+    label: "Wind Direction",
+    units: ["degree", "compass"],
+    defUnit: "degree",
+    isSelected: true,
+    newa: 130,
+    icao: 27,
+    cu_log: 130,
+    culog: 130,
+    njwx: 27,
+    oardc: 27,
+    nysm: 27
+  },
+  srad: {
+    el: "srad",
+    label: "Solar Radiation",
+    units: ["langleys"],
+    defUnit: "langleys",
+    isSelected: true,
+    newa: 132,
+    cu_log: 132,
+    culog: 132,
+    njwx: 149,
+    miwx: 132,
+    oardc: 132,
+    nysm: 132
+  },
+  dwpt: {
+    el: "dwpt",
+    label: "Dewpoint",
+    units: ["˚F", "˚C"],
+    defUnit: "˚F",
+    isSelected: true,
+    icao: 22
+  },
+  st4i: {
+    el: "st4i",
+    label: "Soil Temperature",
+    units: ["˚F", "˚C"],
+    defUnit: "˚F",
+    isSelected: false,
+    newa: 120
+  },
+  sm4i: {
+    el: "sm4i",
+    label: "Soil Tension",
+    units: ["kPa"],
+    defUnit: "kPa",
+    isSelected: false,
+    newa: 65
+  },
+  tsky: {
+    el: "tsky",
+    label: "Total Sky Cover",
+    units: ["fraction", "percent"],
+    defUnit: "fraction",
+    isSelected: true,
+    icao: 33
+  }
+};

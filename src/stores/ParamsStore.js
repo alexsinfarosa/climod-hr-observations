@@ -9,7 +9,8 @@ import { fetchCurrentStationHourlyData } from "../utils/fetchData";
 import { icaoStations } from "../assets/icaoStationList";
 
 // utils
-import { idAdjustment, elements, dailyToHourlyDates } from "../utils/utils";
+import { idAdjustment, dailyToHourlyDates } from "../utils/utils";
+import { elements } from "../assets/elements";
 
 // date-fns
 import { format, getHours } from "date-fns";
