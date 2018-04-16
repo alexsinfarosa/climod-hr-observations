@@ -3,6 +3,9 @@ import { inject, observer } from "mobx-react";
 import { withStyles } from "material-ui";
 import withRoot from "../withRoot";
 import Typography from "material-ui/Typography";
+import { CSVLink } from "react-csv";
+import DownloadIcon from "material-ui-icons/FileDownload";
+import IconButton from "material-ui/IconButton";
 
 const styles = theme => ({
   root: {
@@ -12,13 +15,19 @@ const styles = theme => ({
     alignItems: "center",
     marginTop: theme.spacing.unit * 6,
     marginBottom: theme.spacing.unit * 4
+  },
+  center: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 15
   }
 });
 
 class TableHeader extends Component {
   render() {
     const { classes } = this.props;
-    const { station } = this.props.rootStore.paramsStore;
+    const { station, CSVData } = this.props.rootStore.paramsStore;
 
     return (
       <div className={classes.root}>
@@ -27,13 +36,32 @@ class TableHeader extends Component {
           <div>{`Network: ${station.network.toUpperCase()}`}</div>
         </Typography>
 
-        <Typography variant="headline" style={{ color: "#2D3047" }}>
-          {station.name}, {station.state} -{" "}
+        <Typography
+          variant="headline"
+          style={{ color: "#2D3047" }}
+          className={classes.center}
+        >
+          {station.name}, {station.state}
           <small
-            style={{ fontSize: "1.2rem", letterSpacing: 1, color: "#2D3047" }}
+            style={{
+              fontSize: "1rem",
+              letterSpacing: 1,
+              color: "#2D3047",
+              marginLeft: 5
+            }}
           >
             ({station.id})
           </small>
+          <CSVLink
+            className={classes.csvLink}
+            data={CSVData.slice()}
+            filename={"hourly-observations.csv"}
+            target="_self"
+          >
+            <IconButton>
+              <DownloadIcon />
+            </IconButton>
+          </CSVLink>
         </Typography>
 
         <Typography variant="caption">

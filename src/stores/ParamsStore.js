@@ -230,6 +230,19 @@ export default class ParamsStore {
 
     this.isLoading = false;
   };
+
+  get CSVData() {
+    return this.data.map(e => {
+      const keys = Object.keys(e);
+      let p = {};
+      keys.forEach(key => {
+        key === "date"
+          ? (p["Date"] = e.date)
+          : (p[`${elements[key].label} (${elements[key].defUnit})`] = e[key]);
+      });
+      return p;
+    });
+  }
 }
 
 decorate(ParamsStore, {
@@ -264,5 +277,6 @@ decorate(ParamsStore, {
   elems: computed,
   params: computed,
   hourlyLocalDates: computed,
-  data: observable
+  data: observable,
+  CSVData: computed
 });
