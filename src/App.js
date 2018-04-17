@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { inject, observer } from "mobx-react";
 import Typography from "material-ui/Typography";
 import { withStyles, Modal } from "material-ui";
@@ -7,6 +7,7 @@ import withRoot from "./withRoot";
 // components
 import TopTab from "./components/TopTab";
 import USMap from "./components/USMap";
+import PrintView from "./components/PrintView";
 
 const styles = theme => ({
   root: {
@@ -36,52 +37,64 @@ const styles = theme => ({
 class App extends Component {
   render() {
     const { classes } = this.props;
-    const { isMapVisible, toggleMap } = this.props.rootStore.paramsStore;
+    const {
+      isMapVisible,
+      toggleMap,
+      isPrintViewVisible
+    } = this.props.rootStore.paramsStore;
     return (
-      <div className={classes.root}>
-        {/* Top Header */}
-        <div className={classes.row}>
-          <Typography
-            style={{ color: "#2D3047", fontWeight: 700 }}
-            variant="display1"
-          >
-            Hourly Observations
-          </Typography>
-          <Typography variant="display1">
-            <a
-              style={{ color: "inherit", textDecoration: "none" }}
-              href="http://climod.nrcc.cornell.edu/"
-              target="_blank"
-              rel="noopener noreferrer"
+      <Fragment>
+        {!isPrintViewVisible ? (
+          <div className={classes.root}>
+            {/* Top Header */}
+            <div className={classes.row}>
+              <Typography
+                style={{ color: "#2D3047", fontWeight: 700 }}
+                variant="display1"
+              >
+                Hourly Observations
+              </Typography>
+              <Typography variant="display1">
+                <a
+                  style={{ color: "inherit", textDecoration: "none" }}
+                  href="http://climod.nrcc.cornell.edu/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  CLIMOD
+                </a>
+              </Typography>
+            </div>
+
+            {/* Main content */}
+            <main className={classes.main}>
+              <TopTab />
+            </main>
+
+            {/* US map MODAL */}
+            <Modal
+              aria-labelledby="US map"
+              aria-describedby="US map"
+              disableAutoFocus={true}
+              open={isMapVisible}
+              onClose={toggleMap}
+              style={{
+                width: "100%",
+                height: "50%",
+                margin: "0 auto"
+              }}
             >
-              CLIMOD
-            </a>
-          </Typography>
-        </div>
-
-        {/* Main content */}
-        <main className={classes.main}>
-          <TopTab />
-        </main>
-
-        {/* US map MODAL */}
-        <Modal
-          aria-labelledby="US map"
-          aria-describedby="US map"
-          disableAutoFocus={true}
-          open={isMapVisible}
-          onClose={toggleMap}
-          style={{
-            width: "100%",
-            height: "50%",
-            margin: "0 auto"
-          }}
-        >
-          <div style={{ width: "100%", height: "100%" }}>
-            <USMap />
+              <div style={{ width: "100%", height: "100%" }}>
+                <USMap />
+              </div>
+            </Modal>
           </div>
-        </Modal>
-      </div>
+        ) : (
+          <div className={classes.root}>
+            <PrintView />
+          </div>
+        )}
+      </Fragment>
     );
   }
 }

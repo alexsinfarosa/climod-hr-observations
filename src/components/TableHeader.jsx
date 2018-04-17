@@ -5,6 +5,7 @@ import withRoot from "../withRoot";
 import Typography from "material-ui/Typography";
 import { CSVLink } from "react-csv";
 import DownloadIcon from "material-ui-icons/FileDownload";
+import PrintIcon from "material-ui-icons/Print";
 import IconButton from "material-ui/IconButton";
 
 const styles = theme => ({
@@ -27,13 +28,19 @@ const styles = theme => ({
 class TableHeader extends Component {
   render() {
     const { classes } = this.props;
-    const { station, CSVData } = this.props.rootStore.paramsStore;
+    const {
+      station,
+      CSVData,
+      togglePrintView
+    } = this.props.rootStore.paramsStore;
 
     return (
       <div className={classes.root}>
         <Typography variant="caption">
-          <div>{`Elevation: ${station.elev} ft`}</div>
           <div>{`Network: ${station.network.toUpperCase()}`}</div>
+          <div> {`Latitude: ${station.lat}˚`}</div>
+          <div> {`Longitude: ${station.lon}˚`}</div>
+          <div>{`Elevation: ${station.elev} ft`}</div>
         </Typography>
 
         <Typography
@@ -52,6 +59,14 @@ class TableHeader extends Component {
           >
             ({station.id})
           </small>
+        </Typography>
+
+        {/*<Typography variant="caption">
+          <div> {`Latitude: ${station.lat}˚`}</div>
+          <div> {`Longitude: ${station.lon}˚`}</div>
+          </Typography>*/}
+
+        <Typography variant="caption">
           <CSVLink
             className={classes.csvLink}
             data={CSVData.slice()}
@@ -62,11 +77,10 @@ class TableHeader extends Component {
               <DownloadIcon />
             </IconButton>
           </CSVLink>
-        </Typography>
 
-        <Typography variant="caption">
-          <div> {`Latitude: ${station.lat}˚`}</div>
-          <div> {`Longitude: ${station.lon}˚`}</div>
+          <IconButton onClick={togglePrintView}>
+            <PrintIcon />
+          </IconButton>
         </Typography>
       </div>
     );

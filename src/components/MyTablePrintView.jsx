@@ -15,14 +15,10 @@ const styles = theme => ({
   root: {
     width: "100%",
     marginTop: theme.spacing.unit * 3,
-    overflowX: "auto",
-    height: 680
+    overflowX: "auto"
   },
   table: {
     minWidth: 700
-  },
-  stripe: {
-    background: theme.palette.primary.fifty
   }
 });
 
@@ -61,11 +57,7 @@ class MyTable extends Component {
 
             <TableBody style={{ overflow: "auto" }}>
               {data.map((hour, i) => (
-                <TableRow
-                  hover
-                  key={hour.date}
-                  className={i % 2 === 0 ? classes.stripe : null}
-                >
+                <TableRow hover key={hour.date} style={{ height: 10 }}>
                   <TableCell style={{ textAlign: "center" }}>
                     {hour.date}
                   </TableCell>

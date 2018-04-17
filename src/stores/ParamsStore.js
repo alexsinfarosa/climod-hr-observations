@@ -55,6 +55,9 @@ export default class ParamsStore {
   isMapVisible = false;
   toggleMap = d => (this.isMapVisible = !this.isMapVisible);
 
+  isPrintViewVisible = false;
+  togglePrintView = d => (this.isPrintViewVisible = !this.isPrintViewVisible);
+
   // states
   stateIDs = Object.keys(states);
   get states() {
@@ -263,6 +266,8 @@ decorate(ParamsStore, {
   isLoading: observable,
   isMapVisible: observable,
   toggleMap: action,
+  isPrintViewVisible: observable,
+  togglePrintView: action,
   stateIDs: observable,
   states: computed,
   postalCode: observable,
