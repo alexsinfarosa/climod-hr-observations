@@ -58,6 +58,12 @@ export default class ParamsStore {
   isPrintViewVisible = false;
   togglePrintView = d => (this.isPrintViewVisible = !this.isPrintViewVisible);
 
+  radioButton = "-";
+  setRadioButton = e => {
+    this.radioButton = e.target.value;
+    this.setData(this.params);
+  };
+
   // states
   stateIDs = Object.keys(states);
   get states() {
@@ -117,7 +123,7 @@ export default class ParamsStore {
   };
 
   // Dates
-  sDate = new Date("2018-03-11");
+  sDate = new Date("2018-03-09");
   setStartDate = d => (this.sDate = d);
   eDate = new Date("2018-03-13");
   setEndDate = d => (this.eDate = d);
@@ -238,7 +244,10 @@ export default class ParamsStore {
                 date,
                 "YYYY-MM-DD HH:00"
               )} ${timeZoneAbbreviation}`)
-            : (p[el] = data.get(day)[el][time]);
+            : (p[el] =
+                data.get(day)[el][time] === "M"
+                  ? this.radioButton
+                  : data.get(day)[el][time]);
         });
         results.push(p);
       });
@@ -268,6 +277,8 @@ decorate(ParamsStore, {
   toggleMap: action,
   isPrintViewVisible: observable,
   togglePrintView: action,
+  radioButton: observable,
+  setRadioButton: action,
   stateIDs: observable,
   states: computed,
   postalCode: observable,

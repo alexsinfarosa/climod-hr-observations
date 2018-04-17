@@ -7,6 +7,7 @@ import { CSVLink } from "react-csv";
 import DownloadIcon from "material-ui-icons/FileDownload";
 import PrintIcon from "material-ui-icons/Print";
 import IconButton from "material-ui/IconButton";
+import Tooltip from "material-ui/Tooltip";
 
 const styles = theme => ({
   root: {
@@ -67,20 +68,24 @@ class TableHeader extends Component {
           </Typography>*/}
 
         <Typography variant="caption">
-          <CSVLink
-            className={classes.csvLink}
-            data={CSVData.slice()}
-            filename={"hourly-observations.csv"}
-            target="_self"
-          >
-            <IconButton>
-              <DownloadIcon />
-            </IconButton>
-          </CSVLink>
+          <Tooltip title="Download CSV file" placement="top">
+            <CSVLink
+              className={classes.csvLink}
+              data={CSVData.slice()}
+              filename={"hourly-observations.csv"}
+              target="_self"
+            >
+              <IconButton>
+                <DownloadIcon />
+              </IconButton>
+            </CSVLink>
+          </Tooltip>
 
-          <IconButton onClick={togglePrintView}>
-            <PrintIcon />
-          </IconButton>
+          <Tooltip title="Print Mode" placement="top">
+            <IconButton onClick={togglePrintView}>
+              <PrintIcon />
+            </IconButton>
+          </Tooltip>
         </Typography>
       </div>
     );

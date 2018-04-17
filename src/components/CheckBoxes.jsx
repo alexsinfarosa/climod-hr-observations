@@ -3,13 +3,15 @@ import { inject, observer } from "mobx-react";
 import { withStyles } from "material-ui/styles";
 import withRoot from "../withRoot";
 
-import { FormGroup, FormControlLabel } from "material-ui/Form";
+import { FormLabel, FormGroup, FormControlLabel } from "material-ui/Form";
 import Checkbox from "material-ui/Checkbox";
 import Select from "material-ui/Select";
 import { MenuItem } from "material-ui";
 import blue from "material-ui/colors/blue";
 import CheckBoxOutlineBlankIcon from "material-ui-icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "material-ui-icons/CheckBox";
+import Radio from "material-ui/Radio";
+import deepOrange from "material-ui/colors/deepOrange";
 
 const styles = theme => ({
   root: {
@@ -49,6 +51,21 @@ const styles = theme => ({
   },
   sizeIcon: {
     fontSize: 13
+  },
+  rowElRadio: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: 280,
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit * 4,
+    background: "white",
+    borderRadius: 10,
+    padding: 0,
+    paddingLeft: 8,
+    border: `1px solid ${deepOrange[500]}`
   }
 });
 
@@ -58,10 +75,46 @@ class CheckBoxes extends Component {
     const {
       checkElem,
       elemsListCheckbox,
-      setUnit
+      setUnit,
+      radioButton,
+      setRadioButton
     } = this.props.rootStore.paramsStore;
     return (
       <FormGroup row className={classes.root}>
+        <div className={classes.rowElRadio}>
+          <FormLabel
+            style={{ fontSize: 13, color: "black" }}
+            component="legend"
+          >
+            Missing Values
+          </FormLabel>
+          <FormControlLabel
+            control={
+              <Radio
+                checked={radioButton === "-" ? true : false}
+                onChange={setRadioButton}
+                value="-"
+                name="Dash"
+                aria-label="Dash"
+                label="-"
+              />
+            }
+            label="-"
+          />
+          <FormControlLabel
+            control={
+              <Radio
+                checked={radioButton === "-99" ? true : false}
+                onChange={setRadioButton}
+                value="-99"
+                name="-99"
+                aria-label="-99"
+              />
+            }
+            label="-99"
+          />
+        </div>
+
         {elemsListCheckbox.map(d => {
           return (
             <div key={d.el} className={classes.rowEl}>
