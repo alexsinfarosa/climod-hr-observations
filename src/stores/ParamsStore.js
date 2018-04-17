@@ -21,7 +21,7 @@ import { idAdjustment, dailyToHourlyDates } from "../utils/utils";
 import { elements } from "../assets/elements";
 
 // date-fns
-import { format, getHours } from "date-fns";
+import { format, getHours, isWithinInterval } from "date-fns";
 
 // const
 const url = `${
@@ -205,7 +205,20 @@ export default class ParamsStore {
   }
 
   get hourlyLocalDates() {
-    return dailyToHourlyDates(this.sDate, this.eDate, this.tzo);
+    const dates = dailyToHourlyDates(this.sDate, this.eDate, this.tzo);
+    return dates
+      .map(date => {
+        if (
+          isWithinInterval(new Date(date), {
+            start: new Date(format(this.sDate, "YYYY-MM-DD 00:00")),
+            end: new Date(format(this.eDate, "YYYY-MM-DD 23:00"))
+          })
+        ) {
+          return date;
+        }
+        return null;
+      })
+      .filter(d => d);
   }
 
   data = [];
@@ -230,6 +243,7 @@ export default class ParamsStore {
       // convert dates from standard time to local time
       let results = [];
       this.hourlyLocalDates.forEach(date => {
+        console.log(date);
         const timeZoneAbbreviation = date
           .toString()
           .split(" ")
