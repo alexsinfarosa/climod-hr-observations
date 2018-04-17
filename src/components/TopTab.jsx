@@ -14,7 +14,6 @@ import CheckBoxes from "./CheckBoxes";
 import Form from "./Form";
 import TableHeader from "./TableHeader";
 import MyTable from "./MyTable";
-// import { lifecycle } from "recompose";
 
 // icao stations
 import { icaoStations } from "../assets/icaoStationList";
@@ -102,7 +101,10 @@ class TopTab extends Component {
                   }}
                   key={stn.id}
                 >
-                  {stn.name}
+                  <span style={{ color: "#2E3145", fontWeight: 700 }}>
+                    {stn.id}
+                  </span>{" "}
+                  - {stn.name}
                 </li>
               ))}
             </div>

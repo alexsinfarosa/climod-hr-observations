@@ -1,7 +1,7 @@
 export const elements = {
   pcpn: {
     el: "pcpn",
-    label: "Hourly Precipitation",
+    label: "Precipitation",
     units: [
       { label: "inches", val: "inch" },
       { label: "millimeters", val: "mm" }
@@ -117,6 +117,7 @@ export const elements = {
     icao: { vX: 22, units: "degF" }
   },
   st4i: {
+    // no icao
     el: "st4i",
     label: "Soil Temperature",
     units: [{ label: "˚F", val: "degF" }, { label: "˚C", val: "degC" }],
@@ -125,6 +126,7 @@ export const elements = {
     newa: { vX: 120, units: "degF" }
   },
   sm4i: {
+    // no icao
     el: "sm4i",
     label: "Soil Tension",
     units: [{ label: "kPa", val: "kPa" }],
