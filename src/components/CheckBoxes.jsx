@@ -79,6 +79,7 @@ class CheckBoxes extends Component {
       radioButton,
       setRadioButton
     } = this.props.rootStore.paramsStore;
+    console.log(elemsListCheckbox.slice());
     return (
       <FormGroup row className={classes.root}>
         <div className={classes.rowElRadio}>
@@ -137,17 +138,17 @@ class CheckBoxes extends Component {
                 disableUnderline={true}
                 style={{ fontSize: 13 }}
                 autoWidth={true}
-                value={d.defUnit}
+                value={d.defaultUnit}
                 onChange={setUnit}
                 inputProps={{
                   name: d.el,
                   id: d.el
                 }}
               >
-                {d.units.map(u => {
+                {Object.keys(d.units).map(label => {
                   return (
-                    <MenuItem key={u.label} value={u.label}>
-                      {u.label}
+                    <MenuItem key={label} value={label}>
+                      {label}
                     </MenuItem>
                   );
                 })}

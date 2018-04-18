@@ -48,7 +48,7 @@ class MyTable extends Component {
                   <TableCell style={{ textAlign: "center" }} key={d.el}>
                     <div>{d.label}</div>
                     <div style={{ fontSize: "0.7rem", marginTop: 5 }}>
-                      ({d.defUnit})
+                      ({d.defaultUnit})
                     </div>
                   </TableCell>
                 ))}

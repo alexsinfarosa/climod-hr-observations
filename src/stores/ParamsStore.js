@@ -159,14 +159,8 @@ export default class ParamsStore {
         ].isSelected)
       : (this.allElements[e.target.value].isSelected = true);
   };
-  setUnit = e => {
-    const key = e.target.name;
-    const val = e.target.value;
-    const { network } = this.station;
-    const el = this.allElements[key]["units"].find(o => o.label === val);
-    this.allElements[key].defUnit = el.label;
-    this.allElements[key][network]["units"] = el.val;
-  };
+  setUnit = e =>
+    (this.allElements[e.target.name]["defaultUnit"] = e.target.value);
 
   get elemsListCheckbox() {
     return this.searchMethod === "user"
@@ -183,11 +177,28 @@ export default class ParamsStore {
   }
 
   get elems() {
+    let results;
     if (this.station) {
-      return this.searchMethod === "map"
-        ? this.elemsListCheckbox.map(el => el["icao"])
-        : this.elemsListCheckbox.map(el => el[this.station.network]);
+      results =
+        this.searchMethod === "map"
+          ? this.elemsListCheckbox.map(el => {
+              console.log("icao");
+              const vX = el["icao"];
+              const defaultUnit = el["defaultUnit"];
+              const units = { units: el["units"][defaultUnit] };
+              return { ...vX, ...units };
+            })
+          : this.elemsListCheckbox.map(el => {
+              console.log("other networks");
+              const vX = el[this.station.network];
+              console.log(vX);
+              const defaultUnit = el["defaultUnit"];
+              const units = { units: el["units"][defaultUnit] };
+              return { ...vX, ...units };
+            });
     }
+    console.log(results);
+    return results;
   }
 
   // parameters to make the call
@@ -227,9 +238,10 @@ export default class ParamsStore {
     this.isLoading = true;
 
     await fetchCurrentStationHourlyData(params).then(res => {
+      console.log(res.data);
       const selectedKeys = this.elemsListCheckbox.map(e => e.el);
       const keys = ["date", ...selectedKeys];
-
+      console.log(keys);
       // data
       let data = new Map();
       res.data.forEach(day => {
@@ -239,6 +251,7 @@ export default class ParamsStore {
         });
         data.set(day[0], p);
       });
+      console.log(data);
 
       // convert dates from standard time to local time
       let results = [];
@@ -252,6 +265,7 @@ export default class ParamsStore {
 
         let p = {};
         keys.forEach(el => {
+          console.log(el);
           el === "date"
             ? (p["date"] = `${format(
                 date,
@@ -262,9 +276,10 @@ export default class ParamsStore {
                   ? this.radioButton
                   : data.get(day)[el][time]);
         });
+        // console.log(p);
         results.push(p);
       });
-      console.log(results);
+
       this.data = results;
     });
 
