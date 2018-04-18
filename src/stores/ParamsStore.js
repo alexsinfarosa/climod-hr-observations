@@ -243,7 +243,6 @@ export default class ParamsStore {
       // convert dates from standard time to local time
       let results = [];
       this.hourlyLocalDates.forEach(date => {
-        console.log(date);
         const timeZoneAbbreviation = date
           .toString()
           .split(" ")
@@ -265,6 +264,7 @@ export default class ParamsStore {
         });
         results.push(p);
       });
+      console.log(results);
       this.data = results;
     });
 

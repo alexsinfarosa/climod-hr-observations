@@ -86,7 +86,7 @@ class CheckBoxes extends Component {
             style={{ fontSize: 13, color: "black" }}
             component="legend"
           >
-            Missing Values
+            Missing Values Output
           </FormLabel>
           <FormControlLabel
             control={

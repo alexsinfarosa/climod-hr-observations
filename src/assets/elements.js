@@ -2,11 +2,8 @@ export const elements = {
   pcpn: {
     el: "pcpn",
     label: "Precipitation",
-    units: [
-      { label: "inches", val: "inch" },
-      { label: "millimeters", val: "mm" }
-    ],
-    defUnit: "inches",
+    units: [{ label: "in", val: "inch" }, { label: "mm", val: "mm" }],
+    defUnit: "in",
     isSelected: true,
     newa: { vX: 5, units: "inch" },
     icao: { vX: 5, units: "inch" },
@@ -35,8 +32,8 @@ export const elements = {
   rhum: {
     el: "rhum",
     label: "Relative Humidity",
-    units: [{ label: "percent", val: "percent" }],
-    defUnit: "percent",
+    units: [{ label: "pct", val: "percent" }],
+    defUnit: "pct",
     isSelected: true,
     newa: { vX: 24, units: "percent" },
     icao: { vX: 24, units: "percent" },
@@ -50,8 +47,8 @@ export const elements = {
   lwet: {
     el: "lwet",
     label: "Leaf Wetness",
-    units: [{ label: "minute/hour", val: "min/hr" }],
-    defUnit: "minute/hour",
+    units: [{ label: "min/hr", val: "min/hr" }],
+    defUnit: "min/hr",
     isSelected: false,
     newa: 118,
     cu_log: 118,
@@ -63,11 +60,11 @@ export const elements = {
     el: "wspd",
     label: "Wind Speed",
     units: [
-      { label: "miles/hour", val: "miles/hour" },
+      { label: "mph", val: "miles/hour" },
       { label: "knots", val: "knot" },
-      { label: "meter/sec", val: "m/sec" }
+      { label: "m/sec", val: "m/sec" }
     ],
-    defUnit: "miles/hour",
+    defUnit: "mph",
     isSelected: true,
     newa: { vX: 128, units: "miles/hour" },
     icao: { vX: 28, units: "miles/hour" },
@@ -81,10 +78,10 @@ export const elements = {
     el: "wdir",
     label: "Wind Direction",
     units: [
-      { label: "degrees", val: "degrees" },
+      { label: "deg", val: "degrees" },
       { label: "compass", val: "compass" } // implement
     ],
-    defUnit: "degrees",
+    defUnit: "deg",
     isSelected: true,
     newa: { vX: 130, units: "degrees" },
     icao: { vX: 27, units: "degrees" },
@@ -139,10 +136,42 @@ export const elements = {
     label: "Total Sky Cover",
     units: [
       { label: "fraction", val: "fraction" },
-      { label: "percent", val: "percent" } // implement
+      { label: "pct", val: "percent" } // implement
     ],
     defUnit: "fraction",
     isSelected: true,
     icao: { vX: 33 }
+  },
+  ceilh: {
+    el: "ceilh",
+    label: "Ceiling Height",
+    units: [{ label: "ft", val: "feet" }],
+    defUnit: "ft",
+    isSelected: false,
+    icao: { vX: 35 }
+  },
+  stnp: {
+    el: "stnp",
+    label: "Station Pressure",
+    units: [{ label: "Hg", val: "inch_Hg" }],
+    defUnit: "Hg",
+    isSelected: false,
+    icao: { vX: 18 }
+  },
+  seal: {
+    el: "seal",
+    label: "Sea Level",
+    units: [{ label: "Hg", val: "inch_Hg" }],
+    defUnit: "Hg",
+    isSelected: false,
+    icao: { vX: 19 }
+  },
+  hvis: {
+    el: "hvis",
+    label: "Horizontal Visibility",
+    units: [{ label: "mi", val: "miles" }],
+    defUnit: "mi",
+    isSelected: false,
+    icao: { vX: 26 }
   }
 };
