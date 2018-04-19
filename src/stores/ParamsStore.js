@@ -131,10 +131,11 @@ export default class ParamsStore {
   // asJson
   get asJson() {
     return {
-      allElements: toJS(this.allElements),
-      searchMethod: this.searchMethod,
-      elemsListCheckbox: this.elemsListCheckbox.slice(),
-      elems: this.elems,
+      // allElements: toJS(this.allElements),
+      // searchMethod: this.searchMethod,
+      // elemsListCheckbox: this.elemsListCheckbox.slice(),
+      // elems: this.elems,
+      isUnitBeingChanged: this.isUnitBeingChanged,
       state: this.state,
       station: this.station,
       sDate: this.sDate,
@@ -159,8 +160,12 @@ export default class ParamsStore {
         ].isSelected)
       : (this.allElements[e.target.value].isSelected = true);
   };
-  setUnit = e =>
-    (this.allElements[e.target.name]["defaultUnit"] = e.target.value);
+  isUnitBeingChanged = false;
+  setUnit = e => {
+    this.isUnitBeingChanged = true;
+    this.allElements[e.target.name]["defaultUnit"] = e.target.value;
+    this.isUnitBeingChanged = false;
+  };
 
   get elemsListCheckbox() {
     return this.searchMethod === "user"
@@ -182,16 +187,13 @@ export default class ParamsStore {
       results =
         this.searchMethod === "map"
           ? this.elemsListCheckbox.map(el => {
-              console.log("icao");
               const vX = el["icao"];
               const defaultUnit = el["defaultUnit"];
               const units = { units: el["units"][defaultUnit] };
               return { ...vX, ...units };
             })
           : this.elemsListCheckbox.map(el => {
-              console.log("other networks");
               const vX = el[this.station.network];
-              console.log(vX);
               const defaultUnit = el["defaultUnit"];
               const units = { units: el["units"][defaultUnit] };
               return { ...vX, ...units };
@@ -238,10 +240,9 @@ export default class ParamsStore {
     this.isLoading = true;
 
     await fetchCurrentStationHourlyData(params).then(res => {
-      console.log(res.data);
       const selectedKeys = this.elemsListCheckbox.map(e => e.el);
       const keys = ["date", ...selectedKeys];
-      console.log(keys);
+
       // data
       let data = new Map();
       res.data.forEach(day => {
@@ -251,7 +252,6 @@ export default class ParamsStore {
         });
         data.set(day[0], p);
       });
-      console.log(data);
 
       // convert dates from standard time to local time
       let results = [];
@@ -265,7 +265,6 @@ export default class ParamsStore {
 
         let p = {};
         keys.forEach(el => {
-          console.log(el);
           el === "date"
             ? (p["date"] = `${format(
                 date,
@@ -328,6 +327,7 @@ decorate(ParamsStore, {
   searchMethod: observable,
   allElements: observable,
   checkElem: action,
+  isUnitBeingChanged: observable,
   setUnit: action,
   elemsListCheckbox: computed,
   selectedElems: computed,

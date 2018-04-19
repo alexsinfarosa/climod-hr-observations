@@ -124,14 +124,14 @@ export const elements = {
     isSelected: false,
     newa: 65
   },
-  tsky: {
-    el: "tsky",
-    label: "Total Sky Cover",
-    units: { fraction: "fraction", pct: "percent" },
-    defaultUnit: "fraction",
-    isSelected: true,
-    icao: { vX: 33 }
-  },
+  // tsky: {
+  //   el: "tsky",
+  //   label: "Total Sky Cover",
+  //   units: { fraction: "fraction", pct: "percent" },
+  //   defaultUnit: "fraction",
+  //   isSelected: true,
+  //   icao: { vX: 33 }
+  // },
   ceilh: {
     el: "ceilh",
     label: "Ceiling Height",
