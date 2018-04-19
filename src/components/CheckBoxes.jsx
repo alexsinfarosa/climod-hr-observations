@@ -79,7 +79,7 @@ class CheckBoxes extends Component {
       radioButton,
       setRadioButton
     } = this.props.rootStore.paramsStore;
-    console.log(elemsListCheckbox.slice());
+
     return (
       <FormGroup row className={classes.root}>
         <div className={classes.rowElRadio}>

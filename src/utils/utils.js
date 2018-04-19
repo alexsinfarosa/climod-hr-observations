@@ -158,3 +158,29 @@ export const dailyToHourlyDates = (sdate, edate, tzo) => {
   // console.log(results);
   return results;
 };
+
+export const heatIndex = (t, rh) => {
+  return t !== "M" && rh !== "M" && t > 80
+    ? Math.round(
+        -42.379 +
+          2.04901523 * t +
+          10.1433127 * rh -
+          0.22475541 * t * rh -
+          0.00683783 * t ** 2 -
+          0.05481717 * rh ** 2 +
+          0.00122874 * t ** 2 * rh +
+          0.00085282 * t * rh ** 2 -
+          0.00000199 * t ** 2 * rh ** 2,
+        0
+      )
+    : "M";
+};
+
+export const windChill = (t, wspd) => {
+  return t !== "M" && wspd !== "M" && t <= 50 && wspd >= 3
+    ? Math.round(
+        35.74 + 0.6215 * t - 35.75 * wspd ** 0.16 + 0.4275 * t * wspd ** 0.16,
+        0
+      )
+    : "M";
+};

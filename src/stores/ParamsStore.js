@@ -1,12 +1,4 @@
-import {
-  decorate,
-  observable,
-  computed,
-  action,
-  when,
-  reaction,
-  toJS
-} from "mobx";
+import { decorate, observable, computed, action, when, reaction } from "mobx";
 import { states } from "../assets/states";
 import axios from "axios";
 
@@ -199,7 +191,7 @@ export default class ParamsStore {
               return { ...vX, ...units };
             });
     }
-    console.log(results);
+    // console.log(results);
     return results;
   }
 
@@ -275,7 +267,7 @@ export default class ParamsStore {
                   ? this.radioButton
                   : data.get(day)[el][time]);
         });
-        // console.log(p);
+        console.log(p);
         results.push(p);
       });
 
