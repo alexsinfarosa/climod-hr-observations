@@ -17,7 +17,7 @@ const styles = theme => ({
     flexDirection: "column",
     // margin: theme.spacing.unit * 2,
     padding: theme.spacing.unit,
-    maxWidth: 1600,
+    maxWidth: 2000,
     margin: "0 auto"
   },
   main: {

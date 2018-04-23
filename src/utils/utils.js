@@ -133,7 +133,12 @@ export const unflatten = array => {
 };
 
 // Convert Fahrenheit to Celcius
-export const fahrenheitToCelcius = t => ((t - 32) * 5 / 9).toFixed(1);
+export const fahrenheitToCelcius = (t, missing) =>
+  t === missing ? t : ((t - 32) * 5 / 9).toFixed(1);
+
+// Convert Celcius to Fahrenheit
+export const celciusToFahrenheit = (t, missing) =>
+  t === missing ? t : (t * (9 / 5) + 32).toFixed(1);
 
 // Returns average of all the values in array
 export const average = data => {
@@ -159,8 +164,9 @@ export const dailyToHourlyDates = (sdate, edate, tzo) => {
   return results;
 };
 
-export const heatIndex = (t, rh) => {
-  return t !== "M" && rh !== "M" && t > 80
+export const heatIndex = (t, rh, missing, tUnit) => {
+  if (tUnit === "˚C") t = Math.round(t * (9 / 5) + 32, 0);
+  return t !== missing && rh !== missing && t > 80
     ? Math.round(
         -42.379 +
           2.04901523 * t +
@@ -173,14 +179,15 @@ export const heatIndex = (t, rh) => {
           0.00000199 * t ** 2 * rh ** 2,
         0
       )
-    : "M";
+    : missing;
 };
 
-export const windChill = (t, wspd) => {
-  return t !== "M" && wspd !== "M" && t <= 50 && wspd >= 3
+export const windChill = (t, wspd, missing, tUnit) => {
+  if (tUnit === "˚C") t = Math.round(t * (9 / 5) + 32, 0);
+  return t !== missing && wspd !== missing && t <= 50 && wspd >= 3
     ? Math.round(
         35.74 + 0.6215 * t - 35.75 * wspd ** 0.16 + 0.4275 * t * wspd ** 0.16,
         0
       )
-    : "M";
+    : missing;
 };

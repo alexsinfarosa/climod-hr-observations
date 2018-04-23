@@ -9,7 +9,13 @@ import { fetchCurrentStationHourlyData } from "../utils/fetchData";
 import { icaoStations } from "../assets/icaoStationList";
 
 // utils
-import { idAdjustment, dailyToHourlyDates } from "../utils/utils";
+import {
+  idAdjustment,
+  dailyToHourlyDates,
+  heatIndex,
+  windChill,
+  fahrenheitToCelcius
+} from "../utils/utils";
 import { elements } from "../assets/elements";
 
 // date-fns
@@ -115,9 +121,9 @@ export default class ParamsStore {
   };
 
   // Dates
-  sDate = new Date("2018-03-09");
+  sDate = new Date("2018-04-22");
   setStartDate = d => (this.sDate = d);
-  eDate = new Date("2018-03-13");
+  eDate = new Date();
   setEndDate = d => (this.eDate = d);
 
   // asJson
@@ -154,12 +160,17 @@ export default class ParamsStore {
   };
   isUnitBeingChanged = false;
   setUnit = e => {
+    // console.log(e.target.name, e.target.value);
     this.isUnitBeingChanged = true;
     this.allElements[e.target.name]["defaultUnit"] = e.target.value;
     this.isUnitBeingChanged = false;
   };
 
-  get elemsListCheckbox() {
+  get selectedElems() {
+    return this.elemsListCheckbox.filter(el => el.isSelected);
+  }
+
+  get elemsListCheckboxCallOnly() {
     return this.searchMethod === "user"
       ? this.station
         ? Object.values(this.allElements).filter(
@@ -169,8 +180,20 @@ export default class ParamsStore {
       : Object.values(this.allElements).filter(el => "icao" in el);
   }
 
-  get selectedElems() {
-    return this.elemsListCheckbox.filter(el => el.isSelected);
+  get elemsListCheckbox() {
+    const selectedKeys = this.elemsListCheckboxCallOnly.map(e => e.el);
+    let results = this.elemsListCheckboxCallOnly;
+
+    if (selectedKeys.includes("temp") && selectedKeys.includes("rhum")) {
+      results = [...results, this.allElements["hidx"]];
+    }
+
+    if (selectedKeys.includes("temp") && selectedKeys.includes("wspd")) {
+      results = [...results, this.allElements["wchil"]];
+    }
+
+    // console.log(results);
+    return results;
   }
 
   get elems() {
@@ -178,20 +201,23 @@ export default class ParamsStore {
     if (this.station) {
       results =
         this.searchMethod === "map"
-          ? this.elemsListCheckbox.map(el => {
+          ? this.elemsListCheckboxCallOnly.map(el => {
               const vX = el["icao"];
               const defaultUnit = el["defaultUnit"];
               const units = { units: el["units"][defaultUnit] };
-              return { ...vX, ...units };
+              const prec = { prec: el["prec"] };
+              console.log(prec);
+              return { ...vX, ...units, ...prec };
             })
-          : this.elemsListCheckbox.map(el => {
-              const vX = el[this.station.network];
+          : this.elemsListCheckboxCallOnly.map(el => {
+              const vX = { ...el[this.station.network] };
               const defaultUnit = el["defaultUnit"];
               const units = { units: el["units"][defaultUnit] };
-              return { ...vX, ...units };
+              const prec = { prec: el["prec"] };
+              console.log(prec);
+              return { ...vX, ...units, ...prec };
             });
     }
-    // console.log(results);
     return results;
   }
 
@@ -232,7 +258,7 @@ export default class ParamsStore {
     this.isLoading = true;
 
     await fetchCurrentStationHourlyData(params).then(res => {
-      const selectedKeys = this.elemsListCheckbox.map(e => e.el);
+      const selectedKeys = this.elemsListCheckboxCallOnly.map(e => e.el);
       const keys = ["date", ...selectedKeys];
 
       // data
@@ -267,7 +293,43 @@ export default class ParamsStore {
                   ? this.radioButton
                   : data.get(day)[el][time]);
         });
-        console.log(p);
+
+        p["hidx"] =
+          this.allElements["hidx"]["defaultUnit"] === "˚C"
+            ? fahrenheitToCelcius(
+                heatIndex(
+                  p.temp,
+                  p.rhum,
+                  this.radioButton,
+                  this.allElements["temp"]["defaultUnit"]
+                ),
+                this.radioButton
+              )
+            : heatIndex(
+                p.temp,
+                p.rhum,
+                this.radioButton,
+                this.allElements["temp"]["defaultUnit"]
+              );
+
+        p["wchil"] =
+          this.allElements["wchil"]["defaultUnit"] === "˚C"
+            ? fahrenheitToCelcius(
+                windChill(
+                  p.temp,
+                  p.wspd,
+                  this.radioButton,
+                  this.allElements["temp"]["defaultUnit"]
+                ),
+                this.radioButton
+              )
+            : windChill(
+                p.temp,
+                p.wspd,
+                this.radioButton,
+                this.allElements["temp"]["defaultUnit"]
+              );
+
         results.push(p);
       });
 
@@ -322,6 +384,7 @@ decorate(ParamsStore, {
   isUnitBeingChanged: observable,
   setUnit: action,
   elemsListCheckbox: computed,
+  elemsListCheckboxCallOnly: computed,
   selectedElems: computed,
   setSearchMethod: action,
   elems: computed,

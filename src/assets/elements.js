@@ -3,6 +3,7 @@ export const elements = {
     el: "pcpn",
     label: "Precipitation",
     units: { in: "inch", mm: "mm" },
+    prec: 2,
     defaultUnit: "in",
     isSelected: true,
     newa: { vX: 5 },
@@ -18,6 +19,7 @@ export const elements = {
     el: "temp",
     label: "Temperature",
     units: { "˚F": "degF", "˚C": "degC" },
+    prec: 0,
     defaultUnit: "˚F",
     isSelected: true,
     newa: { vX: 23 },
@@ -33,6 +35,7 @@ export const elements = {
     el: "rhum",
     label: "Relative Humidity",
     units: { pct: "percent" },
+    prec: 0,
     defaultUnit: "pct",
     isSelected: true,
     newa: { vX: 24 },
@@ -47,19 +50,21 @@ export const elements = {
   lwet: {
     el: "lwet",
     label: "Leaf Wetness",
-    units: { "min/hr": "min/hr" },
+    units: { "min/hr": "minutes" },
+    prec: 1,
     defaultUnit: "min/hr",
     isSelected: false,
-    newa: 118,
-    cu_log: 118,
-    culog: 118,
-    miwx: 118,
-    oardc: 118
+    newa: { vX: 118 },
+    cu_log: { vX: 118 },
+    culog: { vX: 118 },
+    miwx: { vX: 118 },
+    oardc: { vX: 118 }
   },
   wspd: {
     el: "wspd",
     label: "Wind Speed",
     units: { mph: "miles/hour", knots: "knot", "m/sec": "m/sec" },
+    prec: 1,
     defaultUnit: "mph",
     isSelected: true,
     newa: { vX: 128 },
@@ -74,6 +79,7 @@ export const elements = {
     el: "wdir",
     label: "Wind Direction",
     units: { deg: "degrees", compass: "compass" },
+    prec: 1,
     defaultUnit: "deg",
     isSelected: true,
     newa: { vX: 130 },
@@ -87,21 +93,23 @@ export const elements = {
   srad: {
     el: "srad",
     label: "Solar Radiation",
-    units: { langleys: "langleys" },
+    units: { langleys: "langleys", "J/m2": "joule/m2" },
+    prec: 1,
     defaultUnit: "langleys",
     isSelected: true,
-    newa: 132,
-    cu_log: 132,
-    culog: 132,
-    njwx: 149,
-    miwx: 132,
-    oardc: 132,
-    nysm: 132
+    newa: { vX: 132 },
+    cu_log: { vX: 132 },
+    culog: { vX: 132 },
+    njwx: { vX: 149 },
+    miwx: { vX: 132 },
+    oardc: { vX: 132 },
+    nysm: { vX: 132 }
   },
   dwpt: {
     el: "dwpt",
     label: "Dewpoint",
     units: { "˚F": "degF", "˚C": "degC" },
+    prec: 0,
     defaultUnit: "˚F",
     isSelected: true,
     icao: { vX: 22 }
@@ -111,6 +119,7 @@ export const elements = {
     el: "st4i",
     label: "Soil Temperature",
     units: { "˚F": "degF", "˚C": "degC" },
+    prec: 1,
     defaultUnit: "˚F",
     isSelected: false,
     newa: { vX: 120 }
@@ -120,22 +129,25 @@ export const elements = {
     el: "sm4i",
     label: "Soil Tension",
     units: { kPa: "kPa" },
+    prec: 1,
     defaultUnit: "kPa",
     isSelected: false,
-    newa: 65
+    newa: { vX: 65 }
   },
-  // tsky: {
-  //   el: "tsky",
-  //   label: "Total Sky Cover",
-  //   units: { fraction: "fraction", pct: "percent" },
-  //   defaultUnit: "fraction",
-  //   isSelected: true,
-  //   icao: { vX: 33 }
-  // },
+  tsky: {
+    el: "tsky",
+    label: "Total Sky Cover",
+    units: { fraction: "10", pct: "percent" },
+    prec: 1,
+    defaultUnit: "fraction",
+    isSelected: true,
+    icao: { vX: 33 }
+  },
   ceilh: {
     el: "ceilh",
     label: "Ceiling Height",
     units: { ft: "feet" },
+    prec: 0,
     defaultUnit: "ft",
     isSelected: false,
     icao: { vX: 35 }
@@ -144,14 +156,16 @@ export const elements = {
     el: "stnp",
     label: "Station Pressure",
     units: { Hg: "inch_Hg" },
+    prec: 2,
     defaultUnit: "Hg",
     isSelected: false,
     icao: { vX: 18 }
   },
   seal: {
     el: "seal",
-    label: "Sea Level",
+    label: "Sea-Level Pressure",
     units: { Hg: "inch_Hg" },
+    prec: 2,
     defaultUnit: "Hg",
     isSelected: false,
     icao: { vX: 19 }
@@ -160,8 +174,25 @@ export const elements = {
     el: "hvis",
     label: "Horizontal Visibility",
     units: { mi: "miles" },
+    prec: 2,
     defaultUnit: "mi",
     isSelected: false,
     icao: { vX: 26 }
+  },
+  hidx: {
+    el: "hidx",
+    label: "Heat Index",
+    units: { "˚F": "degF", "˚C": "degC" },
+    prec: 1,
+    defaultUnit: "˚F",
+    isSelected: false
+  },
+  wchil: {
+    el: "wchil",
+    label: "Wind Chill",
+    units: { "˚F": "degF", "˚C": "degC" },
+    prec: 1,
+    defaultUnit: "˚F",
+    isSelected: true
   }
 };
