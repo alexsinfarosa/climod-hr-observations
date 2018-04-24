@@ -78,7 +78,7 @@ export const elements = {
   wdir: {
     el: "wdir",
     label: "Wind Direction",
-    units: { deg: "degrees", compass: "compass" },
+    units: { deg: "degrees", compass: "degrees" },
     prec: 1,
     defaultUnit: "deg",
     isSelected: true,
@@ -137,7 +137,7 @@ export const elements = {
   tsky: {
     el: "tsky",
     label: "Total Sky Cover",
-    units: { fraction: "10", pct: "percent" },
+    units: { fraction: "10", pct: "0.1" },
     prec: 1,
     defaultUnit: "fraction",
     isSelected: true,

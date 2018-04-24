@@ -191,3 +191,32 @@ export const windChill = (t, wspd, missing, tUnit) => {
       )
     : missing;
 };
+
+export const compassUnit = degree => {
+  let deg = Number(degree);
+  if (deg === -1) return "VRB";
+  if (deg === 0) return "CLM";
+  if (deg >= 1 && deg <= 11) return "N";
+  if (deg >= 12 && deg <= 33) return "NNE";
+  if (deg >= 34 && deg <= 56) return "NE";
+  if (deg >= 57 && deg <= 78) return "ENE";
+  if (deg >= 79 && deg <= 101) return "E";
+  if (deg >= 102 && deg <= 123) return "ESE";
+  if (deg >= 124 && deg <= 146) return "SE";
+  if (deg >= 147 && deg <= 168) return "SSE";
+  if (deg >= 169 && deg <= 191) return "S";
+  if (deg >= 192 && deg <= 213) return "SSW";
+  if (deg >= 214 && deg <= 236) return "SW";
+  if (deg >= 237 && deg <= 258) return "WSW";
+  if (deg >= 259 && deg <= 281) return "W";
+  if (deg >= 282 && deg <= 303) return "WNW";
+  if (deg >= 304 && deg <= 326) return "NW";
+  if (deg >= 327 && deg <= 348) return "NNW";
+  if (deg >= 349 && deg <= 360) return "N";
+};
+
+export const ceilingHeightUnit = feet => {
+  const m = feet * 100;
+  if (m === 100000) return "Unl";
+  return m;
+};

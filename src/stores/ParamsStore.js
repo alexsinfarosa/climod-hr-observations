@@ -14,7 +14,9 @@ import {
   dailyToHourlyDates,
   heatIndex,
   windChill,
-  fahrenheitToCelcius
+  fahrenheitToCelcius,
+  compassUnit,
+  ceilingHeightUnit
 } from "../utils/utils";
 import { elements } from "../assets/elements";
 
@@ -353,6 +355,21 @@ export default class ParamsStore {
                 this.radioButton,
                 this.allElements["temp"]["defaultUnit"]
               );
+
+        // wind direction unit (compass)
+        const wdirUnit = this.allElements["wdir"]["defaultUnit"];
+        if (wdirUnit === "compass") {
+          p["wdir"] =
+            p["wdir"] === this.radioButton
+              ? this.radioButton
+              : compassUnit(p["wdir"]);
+        }
+
+        // ceiling height unit (feet)
+        p["ceilh"] =
+          p["ceilh"] === this.radioButton
+            ? this.radioButton
+            : ceilingHeightUnit(p["ceilh"]);
 
         results.push(p);
       });
