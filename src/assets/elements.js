@@ -193,6 +193,6 @@ export const elements = {
     units: { "˚F": "degF", "˚C": "degC" },
     prec: 1,
     defaultUnit: "˚F",
-    isSelected: true
+    isSelected: false
   }
 };

@@ -123,7 +123,7 @@ export default class ParamsStore {
   };
 
   // Dates
-  sDate = null;
+  sDate = new Date();
   setStartDate = d => (this.sDate = d);
   eDate = new Date();
   setEndDate = d => (this.eDate = d);
@@ -131,10 +131,6 @@ export default class ParamsStore {
   // asJson
   get asJson() {
     return {
-      // allElements: toJS(this.allElements),
-      // searchMethod: this.searchMethod,
-      // elemsListCheckbox: this.elemsListCheckbox.slice(),
-      // elems: this.elems,
       isUnitBeingChanged: this.isUnitBeingChanged,
       state: this.state,
       station: this.station,
@@ -184,6 +180,7 @@ export default class ParamsStore {
 
   get elemsListCheckbox() {
     const selectedKeys = this.elemsListCheckboxCallOnly.map(e => e.el);
+    console.log(selectedKeys);
     let results = this.elemsListCheckboxCallOnly;
 
     if (selectedKeys.includes("temp") && selectedKeys.includes("rhum")) {
@@ -194,7 +191,7 @@ export default class ParamsStore {
       results = [...results, this.allElements["wchil"]];
     }
 
-    // console.log(results);
+    console.log(results);
     return results;
   }
 
