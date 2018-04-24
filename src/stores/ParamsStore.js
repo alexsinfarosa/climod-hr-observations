@@ -123,9 +123,9 @@ export default class ParamsStore {
   };
 
   // Dates
-  sDate = new Date("2018-03-12");
+  sDate = null;
   setStartDate = d => (this.sDate = d);
-  eDate = new Date("2018-03-13");
+  eDate = new Date();
   setEndDate = d => (this.eDate = d);
 
   // asJson
@@ -144,7 +144,7 @@ export default class ParamsStore {
   }
 
   // tab selection
-  searchMethod = "user";
+  searchMethod = "map";
   setSearchMethod = (v, e) => {
     this.searchMethod = e;
     this.stationID = "";
