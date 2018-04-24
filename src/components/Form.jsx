@@ -81,7 +81,7 @@ class Form extends Component {
           />
         )}
 
-        {/*DATE PICKERS*/}
+        {/*START DATE*/}
         {(value === "map" || value === "user") && (
           <DatePicker
             style={{ minWidth: 200, width: 200 }}
@@ -92,6 +92,7 @@ class Form extends Component {
             onChange={setStartDate}
             format="MMMM Do, YYYY"
             disableFuture
+            clearable
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -104,6 +105,7 @@ class Form extends Component {
           />
         )}
 
+        {/*END DATE*/}
         {(value === "map" || value === "user") && (
           <DatePicker
             style={{ minWidth: 200, width: 200 }}
@@ -112,6 +114,7 @@ class Form extends Component {
             onChange={setEndDate}
             format="MMMM Do, YYYY"
             disableFuture
+            showTodayButton
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">

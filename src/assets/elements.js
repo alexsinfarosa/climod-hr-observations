@@ -172,7 +172,7 @@ export const elements = {
   },
   hvis: {
     el: "hvis",
-    label: "Horizontal Visibility",
+    label: "Visibility",
     units: { mi: "miles" },
     prec: 2,
     defaultUnit: "mi",

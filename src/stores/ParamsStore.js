@@ -19,7 +19,7 @@ import {
 import { elements } from "../assets/elements";
 
 // date-fns
-import { format, getHours, isWithinInterval } from "date-fns";
+import { format, getHours, isWithinInterval, subDays } from "date-fns";
 
 // const
 const url = `${
@@ -37,7 +37,7 @@ export default class ParamsStore {
       () => this.asJson,
       () =>
         this.station === undefined || this.sDate === null
-          ? null
+          ? (this.data = [])
           : this.setData(this.params)
     );
     // reaction(() => this.asJson, () => console.log(this.asJson));
@@ -96,7 +96,7 @@ export default class ParamsStore {
       });
   }
   // station
-  stationID = "";
+  stationID = "kto";
   setStationID = e => (this.stationID = e.target.value);
   get station() {
     const { stationID, stations } = this;
@@ -121,9 +121,9 @@ export default class ParamsStore {
   };
 
   // Dates
-  sDate = new Date("2018-04-22");
+  sDate = new Date("2018-03-12");
   setStartDate = d => (this.sDate = d);
-  eDate = new Date();
+  eDate = new Date("2018-03-13");
   setEndDate = d => (this.eDate = d);
 
   // asJson
@@ -142,7 +142,7 @@ export default class ParamsStore {
   }
 
   // tab selection
-  searchMethod = "map";
+  searchMethod = "user";
   setSearchMethod = (v, e) => {
     this.searchMethod = e;
     this.stationID = "";
@@ -206,7 +206,6 @@ export default class ParamsStore {
               const defaultUnit = el["defaultUnit"];
               const units = { units: el["units"][defaultUnit] };
               const prec = { prec: el["prec"] };
-              console.log(prec);
               return { ...vX, ...units, ...prec };
             })
           : this.elemsListCheckboxCallOnly.map(el => {
@@ -214,7 +213,6 @@ export default class ParamsStore {
               const defaultUnit = el["defaultUnit"];
               const units = { units: el["units"][defaultUnit] };
               const prec = { prec: el["prec"] };
-              console.log(prec);
               return { ...vX, ...units, ...prec };
             });
     }
@@ -227,7 +225,7 @@ export default class ParamsStore {
     if (station) {
       return {
         sid: `${idAdjustment(station)} ${station.network}`,
-        sdate: format(sDate, "YYYY-MM-DD"),
+        sdate: format(subDays(new Date(sDate), 1), "YYYY-MM-DD"),
         edate: format(eDate, "YYYY-MM-DD"),
         elems,
         meta: "tzo"
@@ -261,9 +259,33 @@ export default class ParamsStore {
       const selectedKeys = this.elemsListCheckboxCallOnly.map(e => e.el);
       const keys = ["date", ...selectedKeys];
 
+      // shift all data by one hour forward
+      const dataModified = res.data.map((date, i) => {
+        if (i <= res.data.length - 2) {
+          return date.map((el, j) => {
+            if (typeof el !== "string") {
+              res.data[i + 1][j].unshift(el[23]);
+              res.data[i][j].pop();
+              return res.data[i][j];
+            } else {
+              return el;
+            }
+          });
+        } else {
+          return date.map((el, j) => {
+            if (typeof el !== "string") {
+              res.data[i][j].pop();
+              return res.data[i][j];
+            } else {
+              return el;
+            }
+          });
+        }
+      });
+
       // data
       let data = new Map();
-      res.data.forEach(day => {
+      dataModified.slice(1).forEach(day => {
         let p = {};
         day.forEach((el, i) => {
           p[keys[i]] = el;
@@ -294,6 +316,7 @@ export default class ParamsStore {
                   : data.get(day)[el][time]);
         });
 
+        // implement heat index (there is no call for this)
         p["hidx"] =
           this.allElements["hidx"]["defaultUnit"] === "˚C"
             ? fahrenheitToCelcius(
@@ -312,6 +335,7 @@ export default class ParamsStore {
                 this.allElements["temp"]["defaultUnit"]
               );
 
+        // implement wind chill (there is no call for this)
         p["wchil"] =
           this.allElements["wchil"]["defaultUnit"] === "˚C"
             ? fahrenheitToCelcius(

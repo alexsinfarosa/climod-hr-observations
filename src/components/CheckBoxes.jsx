@@ -12,6 +12,8 @@ import CheckBoxOutlineBlankIcon from "material-ui-icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "material-ui-icons/CheckBox";
 import Radio from "material-ui/Radio";
 import deepOrange from "material-ui/colors/deepOrange";
+import Collapse from "material-ui/transitions/Collapse";
+import Switch from "material-ui/Switch";
 
 const styles = theme => ({
   root: {
@@ -70,6 +72,14 @@ const styles = theme => ({
 });
 
 class CheckBoxes extends Component {
+  state = {
+    checked: true
+  };
+
+  handleChange = () => {
+    this.setState({ checked: !this.state.checked });
+  };
+
   render() {
     const { classes } = this.props;
     const {
@@ -79,84 +89,105 @@ class CheckBoxes extends Component {
       radioButton,
       setRadioButton
     } = this.props.rootStore.paramsStore;
+    const { checked } = this.state;
 
     return (
-      <FormGroup row className={classes.root}>
-        <div className={classes.rowElRadio}>
-          <FormLabel
-            style={{ fontSize: 13, color: "black" }}
-            component="legend"
-          >
-            Missing Values Output
-          </FormLabel>
-          <FormControlLabel
-            control={
-              <Radio
-                checked={radioButton === "-" ? true : false}
-                onChange={setRadioButton}
-                value="-"
-                name="Dash"
-                aria-label="Dash"
-                label="-"
-              />
-            }
-            label="-"
-          />
-          <FormControlLabel
-            control={
-              <Radio
-                checked={radioButton === "-99" ? true : false}
-                onChange={setRadioButton}
-                value="-99"
-                name="-99"
-                aria-label="-99"
-              />
-            }
-            label="-99"
-          />
-        </div>
+      <Collapse in={checked} collapsedHeight="98px">
+        <FormGroup row className={classes.root}>
+          <div className={classes.rowEl}>
+            <FormLabel
+              style={{ fontSize: 13, color: "black", paddingLeft: 10 }}
+              component="legend"
+            >
+              Collapse
+            </FormLabel>
+            <Switch
+              checked={checked}
+              onChange={this.handleChange}
+              aria-label="collapse"
+            />
+          </div>
 
-        {elemsListCheckbox.map(d => {
-          return (
-            <div key={d.el} className={classes.rowEl}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    className={classes.size}
-                    icon={
-                      <CheckBoxOutlineBlankIcon className={classes.sizeIcon} />
-                    }
-                    checkedIcon={<CheckBoxIcon className={classes.sizeIcon} />}
-                    checked={d.isSelected}
-                    onChange={checkElem}
-                    value={d.el}
-                  />
-                }
-                label={d.label}
-              />
-              <Select
-                disableUnderline={true}
-                style={{ fontSize: 13 }}
-                autoWidth={true}
-                value={d.defaultUnit}
-                onChange={setUnit}
-                inputProps={{
-                  name: d.el,
-                  id: d.el
-                }}
-              >
-                {Object.keys(d.units).map(label => {
-                  return (
-                    <MenuItem key={label} value={label}>
-                      {label}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </div>
-          );
-        })}
-      </FormGroup>
+          <div className={classes.rowEl}>
+            <FormLabel
+              style={{ fontSize: 13, color: "black", paddingLeft: 10 }}
+              component="legend"
+            >
+              Missing Values Output
+            </FormLabel>
+            <FormControlLabel
+              control={
+                <Radio
+                  checked={radioButton === "-" ? true : false}
+                  onChange={setRadioButton}
+                  value="-"
+                  name="Dash"
+                  aria-label="Dash"
+                  label="-"
+                />
+              }
+              label="-"
+            />
+            <FormControlLabel
+              control={
+                <Radio
+                  checked={radioButton === "-99" ? true : false}
+                  onChange={setRadioButton}
+                  value="-99"
+                  name="-99"
+                  aria-label="-99"
+                />
+              }
+              label="-99"
+            />
+          </div>
+
+          {elemsListCheckbox.map(d => {
+            return (
+              <div key={d.el} className={classes.rowEl}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      className={classes.size}
+                      icon={
+                        <CheckBoxOutlineBlankIcon
+                          className={classes.sizeIcon}
+                        />
+                      }
+                      checkedIcon={
+                        <CheckBoxIcon className={classes.sizeIcon} />
+                      }
+                      checked={d.isSelected}
+                      onChange={checkElem}
+                      value={d.el}
+                    />
+                  }
+                  label={d.label}
+                />
+                <Select
+                  disableUnderline={true}
+                  style={{ fontSize: 13 }}
+                  autoWidth={true}
+                  value={d.defaultUnit}
+                  onChange={setUnit}
+                  inputProps={{
+                    name: d.el,
+                    id: d.el
+                  }}
+                >
+                  {Object.keys(d.units).map(label => {
+                    return (
+                      <MenuItem key={label} value={label}>
+                        {label}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </div>
+            );
+          })}
+        </FormGroup>
+      </Collapse>
     );
   }
 }
