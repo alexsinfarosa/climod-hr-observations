@@ -93,14 +93,14 @@ export const elements = {
   srad: {
     el: "srad",
     label: "Solar Radiation",
-    units: { langleys: "langleys", "J/m2": "joule/m2" },
+    units: { langley: "langley", "J/m2": "joule/m2" },
     prec: 1,
-    defaultUnit: "langleys",
+    defaultUnit: "langley",
     isSelected: true,
     newa: { vX: 132 },
     cu_log: { vX: 132 },
     culog: { vX: 132 },
-    njwx: { vX: 149 },
+    njwx: { vX: 149, units: "langley/hr" },
     miwx: { vX: 132 },
     oardc: { vX: 132 },
     nysm: { vX: 132 }
@@ -155,18 +155,18 @@ export const elements = {
   stnp: {
     el: "stnp",
     label: "Station Pressure",
-    units: { Hg: "inch_Hg" },
+    units: { inch_Hg: "inch_Hg" },
     prec: 2,
-    defaultUnit: "Hg",
+    defaultUnit: "inch_Hg",
     isSelected: false,
     icao: { vX: 18 }
   },
   seal: {
     el: "seal",
     label: "Sea-Level Pressure",
-    units: { Hg: "inch_Hg" },
+    units: { inch_Hg: "inch_Hg" },
     prec: 2,
-    defaultUnit: "Hg",
+    defaultUnit: "inch_Hg",
     isSelected: false,
     icao: { vX: 19 }
   },
