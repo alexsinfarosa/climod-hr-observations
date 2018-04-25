@@ -99,7 +99,7 @@ class CheckBoxes extends Component {
               style={{ fontSize: 13, color: "black", paddingLeft: 10 }}
               component="legend"
             >
-              Collapse
+              {checked ? "Collapse" : "Expand"}
             </FormLabel>
             <Switch
               checked={checked}
