@@ -34,7 +34,6 @@ const styles = theme => ({
     marginTop: 5
   },
   climod: {
-    color: "inherit",
     textDecoration: "none",
     border: "1px solid #2D3047",
     borderRadius: 20,
