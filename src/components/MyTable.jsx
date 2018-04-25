@@ -19,7 +19,14 @@ const styles = theme => ({
     height: 680
   },
   table: {
-    minWidth: 700
+    minWidth: 700,
+    overflow: "auto"
+  },
+  head: {
+    backgroundColor: "#fff",
+    position: "sticky",
+    top: 0,
+    textAlign: "center"
   },
   stripe: {
     background: theme.palette.primary.fifty
@@ -47,9 +54,9 @@ class MyTable extends Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell style={{ textAlign: "center" }}>Date</TableCell>
+                <TableCell className={classes.head}>Date</TableCell>
                 {selectedElems.map(d => (
-                  <TableCell style={{ textAlign: "center" }} key={d.el}>
+                  <TableCell className={classes.head} key={d.el}>
                     <div>{d.label}</div>
                     <div style={{ fontSize: "0.7rem", marginTop: 5 }}>
                       ({d.defaultUnit})
@@ -59,7 +66,7 @@ class MyTable extends Component {
               </TableRow>
             </TableHead>
 
-            <TableBody style={{ overflow: "auto" }}>
+            <TableBody>
               {data.map((hour, i) => (
                 <TableRow
                   hover

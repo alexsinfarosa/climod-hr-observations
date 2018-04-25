@@ -155,18 +155,18 @@ export const elements = {
   stnp: {
     el: "stnp",
     label: "Station Pressure",
-    units: { inch_Hg: "inch_Hg" },
+    units: { "inch Hg": "inch_Hg", mb: "mbar" },
     prec: 2,
-    defaultUnit: "inch_Hg",
+    defaultUnit: "inch Hg",
     isSelected: false,
     icao: { vX: 18 }
   },
   seal: {
     el: "seal",
     label: "Sea-Level Pressure",
-    units: { inch_Hg: "inch_Hg" },
+    units: { "inch Hg": "inch_Hg" },
     prec: 2,
-    defaultUnit: "inch_Hg",
+    defaultUnit: "inch Hg",
     isSelected: false,
     icao: { vX: 19 }
   },

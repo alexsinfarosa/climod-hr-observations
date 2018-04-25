@@ -4534,7 +4534,7 @@ material-ui-pickers@^1.0.0-rc.6:
     luxon "^1.0.0"
     react-text-mask "^5.1.0"
 
-material-ui@^1.0.0-beta.42:
+material-ui@^1.0.0-beta.43:
   version "1.0.0-beta.43"
   resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-1.0.0-beta.43.tgz#21074fd0ef5f1735a54060dbfd060e6d46fd5ef5"
   dependencies:
