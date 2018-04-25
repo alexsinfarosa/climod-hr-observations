@@ -4,7 +4,15 @@ import iconStation from "../assets/station.png";
 import stationGrey from "../assets/stationGrey.png";
 
 // import moment from "moment-timezone";
-import { isBefore, startOfDay, addHours, setHours } from "date-fns";
+import {
+  isBefore,
+  startOfDay,
+  addHours,
+  setHours,
+  setMinutes,
+  setSeconds,
+  isEqual
+} from "date-fns";
 
 // MAP ---------------------------------------------------------
 export const matchIconsToStations = (station, state) => {
@@ -150,17 +158,21 @@ export const average = data => {
   return Math.round(results.reduce((acc, val) => acc + val, 0) / data.length);
 };
 
-export const dailyToHourlyDates = (sdate, edate, tzo) => {
+export const dailyToHourlyDates = (sdate, edate) => {
   let startDay = startOfDay(sdate);
-  const endDay = setHours(edate, 23);
+  let endDay = setHours(edate, 23);
+  endDay = setMinutes(endDay, 0);
+  endDay = setSeconds(endDay, 0);
 
   let results = [];
   results.push(startDay);
+
   while (isBefore(startDay, endDay)) {
     startDay = addHours(startDay, 1);
-    results.push(startDay);
+    if (isBefore(startDay, endDay) || isEqual(startDay, endDay)) {
+      results.push(startDay);
+    }
   }
-  // console.log(results);
   return results;
 };
 

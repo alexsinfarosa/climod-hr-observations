@@ -21,7 +21,7 @@ import {
 import { elements } from "../assets/elements";
 
 // date-fns
-import { format, getHours, isWithinInterval, subDays } from "date-fns";
+import { format, getHours, subDays } from "date-fns";
 
 // const
 const url = `${
@@ -189,19 +189,6 @@ export default class ParamsStore {
     if (selectedKeys.includes("temp") && selectedKeys.includes("wspd")) {
       results = [...results, this.allElements["wchil"]];
     }
-    // in order to have some elements off by default
-    results.map(el => {
-      if (
-        el.el === "wchil" ||
-        el.el === "hidx" ||
-        el.el === "st4i" ||
-        el.el === "sm4i"
-      ) {
-        return (el.isSelected = false);
-      } else {
-        return (el.isSelected = true);
-      }
-    });
     return results;
   }
 
@@ -221,7 +208,10 @@ export default class ParamsStore {
               const vX = { ...el[this.station.network] };
               const defaultUnit = el["defaultUnit"];
               let units = { units: el["units"][defaultUnit] };
+
+              // handle exception
               if (vX["vX"] === 149) units.units = vX.units;
+
               const prec = { prec: el["prec"] };
               return { ...vX, ...units, ...prec };
             });
@@ -244,20 +234,7 @@ export default class ParamsStore {
   }
 
   get hourlyLocalDates() {
-    const dates = dailyToHourlyDates(this.sDate, this.eDate, this.tzo);
-    return dates
-      .map(date => {
-        if (
-          isWithinInterval(new Date(date), {
-            start: new Date(format(this.sDate, "YYYY-MM-DD 00:00")),
-            end: new Date(format(this.eDate, "YYYY-MM-DD 23:00"))
-          })
-        ) {
-          return date;
-        }
-        return null;
-      })
-      .filter(d => d);
+    return dailyToHourlyDates(this.sDate, this.eDate);
   }
 
   data = [];
