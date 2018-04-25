@@ -189,8 +189,14 @@ export default class ParamsStore {
     if (selectedKeys.includes("temp") && selectedKeys.includes("wspd")) {
       results = [...results, this.allElements["wchil"]];
     }
+    // in order to have some elements off by default
     results.map(el => {
-      if (el.el === "wchil" || el.el === "hidx") {
+      if (
+        el.el === "wchil" ||
+        el.el === "hidx" ||
+        el.el === "st4i" ||
+        el.el === "sm4i"
+      ) {
         return (el.isSelected = false);
       } else {
         return (el.isSelected = true);
