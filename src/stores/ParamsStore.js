@@ -180,7 +180,6 @@ export default class ParamsStore {
 
   get elemsListCheckbox() {
     const selectedKeys = this.elemsListCheckboxCallOnly.map(e => e.el);
-    console.log(selectedKeys);
     let results = this.elemsListCheckboxCallOnly;
 
     if (selectedKeys.includes("temp") && selectedKeys.includes("rhum")) {
@@ -190,8 +189,13 @@ export default class ParamsStore {
     if (selectedKeys.includes("temp") && selectedKeys.includes("wspd")) {
       results = [...results, this.allElements["wchil"]];
     }
-
-    console.log(results);
+    results.map(el => {
+      if (el.el === "wchil" || el.el === "hidx") {
+        return (el.isSelected = false);
+      } else {
+        return (el.isSelected = true);
+      }
+    });
     return results;
   }
 
@@ -210,7 +214,8 @@ export default class ParamsStore {
           : this.elemsListCheckboxCallOnly.map(el => {
               const vX = { ...el[this.station.network] };
               const defaultUnit = el["defaultUnit"];
-              const units = { units: el["units"][defaultUnit] };
+              let units = { units: el["units"][defaultUnit] };
+              if (vX["vX"] === 149) units.units = vX.units;
               const prec = { prec: el["prec"] };
               return { ...vX, ...units, ...prec };
             });
@@ -384,7 +389,8 @@ export default class ParamsStore {
       keys.forEach(key => {
         key === "date"
           ? (p["Date"] = e.date)
-          : (p[`${elements[key].label} (${elements[key].defUnit})`] = e[key]);
+          : (p[`${elements[key].label} (${elements[key].defaultUnit})`] =
+              e[key]);
       });
       return p;
     });
