@@ -30,7 +30,17 @@ const styles = theme => ({
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: 5
+  },
+  climod: {
+    color: "inherit",
+    textDecoration: "none",
+    border: "1px solid #2D3047",
+    borderRadius: 20,
+    padding: "5px 20px",
+    color: "#ED6337",
+    fontSize: "1.3rem"
   }
 });
 
@@ -54,9 +64,9 @@ class App extends Component {
               >
                 Hourly Observations
               </Typography>
-              <Typography variant="display1">
+              <Typography>
                 <a
-                  style={{ color: "inherit", textDecoration: "none" }}
+                  className={classes.climod}
                   href="http://climod.nrcc.cornell.edu/"
                   target="_blank"
                   rel="noopener noreferrer"
