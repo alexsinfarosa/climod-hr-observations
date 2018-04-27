@@ -35,7 +35,8 @@ class TopTab extends Component {
       station,
       postalCode,
       searchMethod,
-      setSearchMethod
+      setSearchMethod,
+      setStationIDFromList
     } = this.props.rootStore.paramsStore;
 
     const stationList = icaoStations.filter(stn => stn.state === postalCode);
@@ -101,9 +102,17 @@ class TopTab extends Component {
                   }}
                   key={stn.id}
                 >
-                  <span style={{ color: "#2E3145", fontWeight: 700 }}>
+                  <span
+                    style={{
+                      color: "#2E3145",
+                      fontWeight: 700,
+                      cursor: "pointer"
+                    }}
+                    onClick={() => setStationIDFromList(stn.id)}
+                  >
+                    {" "}
                     {stn.id}
-                  </span>{" "}
+                  </span>
                   - {stn.name}
                 </li>
               ))}

@@ -98,8 +98,12 @@ export default class ParamsStore {
       });
   }
   // station
-  stationID = "kto";
+  stationID = "";
   setStationID = e => (this.stationID = e.target.value);
+  setStationIDFromList = id => {
+    this.searchMethod = "user";
+    this.stationID = id;
+  };
   get station() {
     const { stationID, stations } = this;
     let station;
@@ -367,13 +371,14 @@ export default class ParamsStore {
 
   get CSVData() {
     return this.data.map(e => {
-      const keys = Object.keys(e);
+      const elems = ["date", ...this.selectedElems.map(el => el.el)];
       let p = {};
-      keys.forEach(key => {
+      elems.forEach(key => {
         key === "date"
           ? (p["Date"] = e.date)
-          : (p[`${elements[key].label} (${elements[key].defaultUnit})`] =
-              e[key]);
+          : (p[
+              `${elements[key].label} (${elements[key].defaultUnit})`
+            ] = Number(e[key]));
       });
       return p;
     });
@@ -397,6 +402,7 @@ decorate(ParamsStore, {
   setStations: action,
   setIcaoStations: action,
   stationID: observable,
+  setStationIDFromList: action,
   setStationID: action,
   station: computed,
   setStateStationFromMap: action,

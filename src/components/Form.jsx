@@ -86,7 +86,7 @@ class Form extends Component {
           <DatePicker
             style={{ minWidth: 200, width: 200 }}
             label="Start Date"
-            maxDate={eDate}
+            // maxDate={eDate}
             maxDateMessage={`Start Date should not be after End Date`}
             value={sDate}
             onChange={setStartDate}
@@ -110,6 +110,7 @@ class Form extends Component {
           <DatePicker
             style={{ minWidth: 200, width: 200 }}
             label="End Date"
+            minDate={sDate}
             value={eDate}
             onChange={setEndDate}
             format="MMMM Do, YYYY"

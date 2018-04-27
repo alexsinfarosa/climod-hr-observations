@@ -45,7 +45,10 @@ class MyTable extends Component {
               <TableRow>
                 <TableCell style={{ textAlign: "center" }}>Date</TableCell>
                 {selectedElems.map(d => (
-                  <TableCell style={{ textAlign: "center" }} key={d.el}>
+                  <TableCell
+                    style={{ textAlign: "center", whiteSpace: "nowrap" }}
+                    key={d.el}
+                  >
                     <div>{d.label}</div>
                     <div style={{ fontSize: "0.7rem", marginTop: 5 }}>
                       ({d.defaultUnit})
@@ -57,7 +60,11 @@ class MyTable extends Component {
 
             <TableBody style={{ overflow: "auto" }}>
               {data.map((hour, i) => (
-                <TableRow hover key={hour.date} style={{ height: 10 }}>
+                <TableRow
+                  hover
+                  key={hour.date}
+                  style={{ height: 10, whiteSpace: "nowrap" }}
+                >
                   <TableCell style={{ textAlign: "center" }}>
                     {hour.date}
                   </TableCell>
