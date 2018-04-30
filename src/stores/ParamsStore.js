@@ -376,10 +376,10 @@ export default class ParamsStore {
       elems.forEach(key => {
         key === "date"
           ? (p["Date"] = e.date)
-          : (p[
-              `${elements[key].label} (${elements[key].defaultUnit})`
-            ] = Number(e[key]));
+          : (p[`${elements[key].label} (${elements[key].defaultUnit})`] =
+              e[key] === e[key]);
       });
+
       return p;
     });
   }
