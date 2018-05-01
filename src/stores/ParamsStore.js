@@ -168,6 +168,16 @@ export default class ParamsStore {
     this.isUnitBeingChanged = false;
   };
 
+  deselectAllFields = () => {
+    const keys = Object.keys(this.allElements);
+    keys.map(key => (this.allElements[key].isSelected = false));
+  };
+
+  get areAllFieldsFalse() {
+    const values = Object.values(this.allElements);
+    return values.every(d => d.isSelected === false);
+  }
+
   get selectedElems() {
     return this.elemsListCheckbox.filter(el => el.isSelected);
   }
@@ -377,7 +387,7 @@ export default class ParamsStore {
         key === "date"
           ? (p["Date"] = e.date)
           : (p[`${elements[key].label} (${elements[key].defaultUnit})`] =
-              e[key] === e[key]);
+              e[key]);
       });
 
       return p;
@@ -416,6 +426,8 @@ decorate(ParamsStore, {
   checkElem: action,
   isUnitBeingChanged: observable,
   setUnit: action,
+  deselectAllFields: action,
+  areAllFieldsFalse: computed,
   elemsListCheckbox: computed,
   elemsListCheckboxCallOnly: computed,
   selectedElems: computed,

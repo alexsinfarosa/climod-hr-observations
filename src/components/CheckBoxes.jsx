@@ -87,13 +87,32 @@ class CheckBoxes extends Component {
       elemsListCheckbox,
       setUnit,
       radioButton,
-      setRadioButton
+      setRadioButton,
+      deselectAllFields,
+      areAllFieldsFalse
     } = this.props.rootStore.paramsStore;
     const { checked } = this.state;
 
     return (
       <Collapse in={checked} collapsedHeight="98px">
         <FormGroup row className={classes.root}>
+          <div className={classes.rowEl}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  className={classes.size}
+                  icon={
+                    <CheckBoxOutlineBlankIcon className={classes.sizeIcon} />
+                  }
+                  checkedIcon={<CheckBoxIcon className={classes.sizeIcon} />}
+                  checked={areAllFieldsFalse}
+                  onChange={deselectAllFields}
+                  value="deselectAllVariables"
+                />
+              }
+              label="Deselect All Variables"
+            />
+          </div>
           <div className={classes.rowEl}>
             <FormLabel
               style={{ fontSize: 13, color: "black", paddingLeft: 10 }}
