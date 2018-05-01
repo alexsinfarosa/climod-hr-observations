@@ -2,9 +2,9 @@ export const elements = {
   temp: {
     el: "temp",
     label: "Temperature",
-    units: { "˚F": "degF", "˚C": "degC" },
+    units: { "deg F": "degF", "deg C": "degC" },
     prec: 0,
-    defaultUnit: "˚F",
+    defaultUnit: "deg F",
     isSelected: true,
     newa: { vX: 23 },
     icao: { vX: 23 },
@@ -18,9 +18,9 @@ export const elements = {
   dwpt: {
     el: "dwpt",
     label: "Dewpoint",
-    units: { "˚F": "degF", "˚C": "degC" },
+    units: { "deg F": "degF", "deg C": "degC" },
     prec: 0,
-    defaultUnit: "˚F",
+    defaultUnit: "deg F",
     isSelected: true,
     icao: { vX: 22 }
   },
@@ -134,17 +134,17 @@ export const elements = {
   wchil: {
     el: "wchil",
     label: "Wind Chill",
-    units: { "˚F": "degF", "˚C": "degC" },
+    units: { "deg F": "degF", "deg C": "degC" },
     prec: 1,
-    defaultUnit: "˚F",
+    defaultUnit: "deg F",
     isSelected: false
   },
   hidx: {
     el: "hidx",
     label: "Heat Index",
-    units: { "˚F": "degF", "˚C": "degC" },
+    units: { "deg F": "degF", "deg C": "degC" },
     prec: 1,
-    defaultUnit: "˚F",
+    defaultUnit: "deg F",
     isSelected: false
   },
   lwet: {
@@ -179,9 +179,9 @@ export const elements = {
     // no icao
     el: "st4i",
     label: "Soil Temperature",
-    units: { "˚F": "degF", "˚C": "degC" },
+    units: { "deg F": "degF", "deg C": "degC" },
     prec: 1,
-    defaultUnit: "˚F",
+    defaultUnit: "deg F",
     isSelected: false,
     newa: { vX: 120 }
   },
