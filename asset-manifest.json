@@ -1,6 +1,13 @@
 {
-  "main.css": "static/css/main.65027555.css",
-  "main.css.map": "static/css/main.65027555.css.map",
-  "main.js": "static/js/main.40aa17ff.js",
-  "main.js.map": "static/js/main.40aa17ff.js.map"
+  "main.css": "/climod-hr-observations/static/css/main.2e5367a4.chunk.css",
+  "main.js": "/climod-hr-observations/static/js/main.1118db26.chunk.js",
+  "main.js.map": "/climod-hr-observations/static/js/main.1118db26.chunk.js.map",
+  "static/js/1.34b8bb81.chunk.js": "/climod-hr-observations/static/js/1.34b8bb81.chunk.js",
+  "static/js/1.34b8bb81.chunk.js.map": "/climod-hr-observations/static/js/1.34b8bb81.chunk.js.map",
+  "runtime~main.js": "/climod-hr-observations/static/js/runtime~main.df194b5e.js",
+  "runtime~main.js.map": "/climod-hr-observations/static/js/runtime~main.df194b5e.js.map",
+  "static/css/main.2e5367a4.chunk.css.map": "/climod-hr-observations/static/css/main.2e5367a4.chunk.css.map",
+  "index.html": "/climod-hr-observations/index.html",
+  "precache-manifest.8ff075435dc4ab4989f148d1a5d2de49.js": "/climod-hr-observations/precache-manifest.8ff075435dc4ab4989f148d1a5d2de49.js",
+  "service-worker.js": "/climod-hr-observations/service-worker.js"
 }
