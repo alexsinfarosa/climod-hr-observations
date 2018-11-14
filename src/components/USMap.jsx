@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
+
 import stationSel from "../assets/stationSel.png";
 import planeSel from "../assets/planeSel.png";
 
@@ -14,10 +15,11 @@ import { icaoStations } from "../assets/icaoStationList";
 import { matchIconsToStations } from "../utils/utils";
 
 // material-ui
-import { withStyles } from "material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../withRoot";
-import Paper from "material-ui/Paper";
-import amber from "material-ui/colors/amber";
+
+import Paper from "@material-ui/core/Paper";
+import deepOrange from "@material-ui/core/colors/deepOrange";
 
 // styles
 const styles = theme => ({
@@ -113,7 +115,7 @@ class USMap extends Component {
             <GeoJSON
               data={this.state.geojson}
               style={{
-                color: amber[300],
+                color: deepOrange[200],
                 weight: 1
               }}
             />

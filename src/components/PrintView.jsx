@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 
-import { withStyles } from "material-ui";
+import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../withRoot";
-import Divider from "material-ui/Divider";
-import IconButton from "material-ui/IconButton";
-import BackIcon from "material-ui-icons/KeyboardBackspace";
+
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import BackIcon from "@material-ui/icons/KeyboardBackspace";
 
 // components
 import MyTablePrintView from "./MyTablePrintView";

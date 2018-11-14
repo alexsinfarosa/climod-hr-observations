@@ -1,8 +1,10 @@
 import axios from "axios";
-import { format, isSameYear, addDays } from "date-fns";
+import isSameYear from "date-fns/isSameYear";
+import addDays from "date-fns/addDays";
+
+import { formatDate } from "./utils";
 
 const protocol = window.location.protocol;
-const dateFormat = "YYYY-MM-DD";
 
 const handleError = res => {
   if ("error" in res.data) {
@@ -20,7 +22,10 @@ const stationsUrl = `${protocol}//newa2.nrcc.cornell.edu/newaUtil/stateStationLi
 export const fetchAllStations = () => {
   return axios
     .get(stationsUrl)
-    .then(res => res.data.stations)
+    .then(res => {
+      // console.log(res.data.stations);
+      return res.data.stations;
+    })
     .catch(err => console.log("Failed to load all stations", err));
 };
 
@@ -58,7 +63,7 @@ export const fetchSisterStationHourlyData = params => {
 const forecastUrl = `${protocol}//newa2.nrcc.cornell.edu/newaUtil/getFcstData`;
 const fetchHourlyForcestData = params => {
   // always need to add 5 days
-  const plusFiveDays = format(addDays(new Date(), 5), dateFormat);
+  const plusFiveDays = formatDate(addDays(new Date(), 5));
   const [id, network] = params.sid.split(" ");
 
   return axios
@@ -68,7 +73,7 @@ const fetchHourlyForcestData = params => {
 };
 
 // Main Function
-export default async params => {
+export const mainFunctionAPI = async params => {
   const results = new Map();
 
   // get current station hourly data
@@ -100,6 +105,8 @@ export default async params => {
   results.set("currentStn", currentStation.data);
   results.set("sisterStn", sisterStation.data);
 
+  // const cleaned = cleanFetchedData(results, params);
+  // console.log(cleaned);
   // console.log(results);
   return results;
 };

@@ -2,12 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
 
-// material-ui picker
-import DateFnsUtils from "material-ui-pickers/utils/date-fns-utils";
-import enLocale from "date-fns/locale/en-US";
-import MuiPickersUtilsProvider from "material-ui-pickers/utils/MuiPickersUtilsProvider";
+// Material ui picker
+import { MuiPickersUtilsProvider } from "material-ui-pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 // Mobx
 import { Provider } from "mobx-react";
@@ -17,10 +15,9 @@ const rootStore = new RootStore(fetcher);
 
 ReactDOM.render(
   <Provider rootStore={rootStore}>
-    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={enLocale}>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <App />
     </MuiPickersUtilsProvider>
   </Provider>,
   document.getElementById("root")
 );
-registerServiceWorker();

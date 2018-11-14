@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from "react";
 import { inject, observer } from "mobx-react";
-import Typography from "material-ui/Typography";
-import { withStyles, Modal } from "material-ui";
+
+import { withStyles } from "@material-ui/core/styles";
 import withRoot from "./withRoot";
+import Typography from "@material-ui/core/Typography";
+import Modal from "@material-ui/core/Modal";
 
 // components
 import TopTab from "./components/TopTab";
@@ -38,7 +40,7 @@ const styles = theme => ({
     border: "1px solid #2D3047",
     borderRadius: 20,
     padding: "5px 20px",
-    color: "#ED6337",
+    color: theme.palette.primary.main,
     fontSize: "1.3rem"
   }
 });
@@ -51,6 +53,7 @@ class App extends Component {
       toggleMap,
       isPrintViewVisible
     } = this.props.rootStore.paramsStore;
+
     return (
       <Fragment>
         {!isPrintViewVisible ? (
@@ -59,7 +62,8 @@ class App extends Component {
             <div className={classes.row}>
               <Typography
                 style={{ color: "#2D3047", fontWeight: 700 }}
-                variant="display1"
+                component="h1"
+                variant="h4"
               >
                 Hourly Observations
               </Typography>

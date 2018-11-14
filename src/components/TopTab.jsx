@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { inject, observer } from "mobx-react";
 
-import { withStyles } from "material-ui";
+import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../withRoot";
 
-import Tabs, { Tab } from "material-ui/Tabs";
-import MapIcon from "material-ui-icons/Place";
-import UserIcon from "material-ui-icons/Person";
-import ViewList from "material-ui-icons/ViewList";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import MapIcon from "@material-ui/icons/Place";
+import UserIcon from "@material-ui/icons/Person";
+import ViewList from "@material-ui/icons/ViewList";
 
 // components
 import CheckBoxes from "./CheckBoxes";
@@ -25,6 +26,12 @@ const styles = theme => ({
     // borderRadius: 20,
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit
+  },
+  stationID: {
+    color: "#2E3145",
+    fontWeight: 700,
+    cursor: "pointer",
+    "&:hover": { color: theme.palette.secondary.main }
   }
 });
 
@@ -48,8 +55,8 @@ class TopTab extends Component {
           onChange={setSearchMethod}
           fullWidth
           centered
-          indicatorColor="secondary"
-          textColor="secondary"
+          indicatorColor="primary"
+          textColor="primary"
         >
           <Tab value="map" icon={<MapIcon />} label="MAP" />
           <Tab value="user" icon={<UserIcon />} label="USER" />
@@ -89,7 +96,8 @@ class TopTab extends Component {
                 height: 900,
                 flexDirection: "column",
                 alignItems: "center",
-                flexWrap: "wrap"
+                flexWrap: "wrap",
+                marginTop: 32
               }}
             >
               {stationList.map(stn => (
@@ -103,11 +111,7 @@ class TopTab extends Component {
                   key={stn.id}
                 >
                   <span
-                    style={{
-                      color: "#2E3145",
-                      fontWeight: 700,
-                      cursor: "pointer"
-                    }}
+                    className={classes.stationID}
                     onClick={() => setStationIDFromList(stn.id)}
                   >
                     {" "}

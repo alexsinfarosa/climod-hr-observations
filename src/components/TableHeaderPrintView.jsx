@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { withStyles } from "material-ui";
+
+import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../withRoot";
-import Typography from "material-ui/Typography";
-import { format } from "date-fns";
+
+import Typography from "@material-ui/core/Typography";
+import format from "date-fns/format";
 
 const styles = theme => ({
   root: {
@@ -40,63 +42,63 @@ class TableHeaderPrintView extends Component {
       <div className={classes.root}>
         <div style={{ width: 200 }}>
           <div className={classes.column}>
-            <Typography variant="body1">
+            <Typography variant="body2">
               <span className={classes.key}>Latitude:</span>
             </Typography>
-            <Typography variant="body1">{station.lat}˚</Typography>
+            <Typography variant="body2">{station.lat}˚</Typography>
           </div>
 
           <div className={classes.column}>
-            <Typography variant="body1">
+            <Typography variant="body2">
               <span className={classes.key}>Longitude:</span>
             </Typography>
-            <Typography variant="body1">{station.lon}˚</Typography>
+            <Typography variant="body2">{station.lon}˚</Typography>
           </div>
 
           <div className={classes.column}>
-            <Typography variant="body1">
+            <Typography variant="body2">
               <span className={classes.key}>Elevation:</span>
             </Typography>
-            <Typography variant="body1">{station.elev} ft</Typography>
+            <Typography variant="body2">{station.elev} ft</Typography>
           </div>
         </div>
 
         <div>
-          <Typography variant="body1">
+          <Typography variant="body2">
             <span className={classes.key}>Station:</span> {station.name}
           </Typography>
 
-          <Typography variant="body1">
+          <Typography variant="body2">
             <span className={classes.key}>State:</span> {station.state}
           </Typography>
 
-          <Typography variant="body1">
+          <Typography variant="body2">
             <span className={classes.key}>ID:</span> {station.id}
           </Typography>
         </div>
 
         <div style={{ width: 200 }}>
           <div className={classes.column}>
-            <Typography variant="body1">
+            <Typography variant="body2">
               <span className={classes.key}>CLIMOD:</span>
             </Typography>
-            <Typography variant="body1">Hourly Observations</Typography>
+            <Typography variant="body2">Hourly Observations</Typography>
           </div>
 
           <div className={classes.column}>
-            <Typography variant="body1">
+            <Typography variant="body2">
               <span className={classes.key}>Start Date:</span>
             </Typography>
-            <Typography variant="body1">
+            <Typography variant="body2">
               {format(sDate, "MMMM Do, YYYY")}
             </Typography>
           </div>
 
           <div className={classes.column}>
-            <Typography variant="body1">
+            <Typography variant="body2">
               <span className={classes.key}>End Date:</span>
             </Typography>
-            <Typography variant="body1">
+            <Typography variant="body2">
               {format(eDate, "MMMM Do, YYYY")}
             </Typography>
           </div>

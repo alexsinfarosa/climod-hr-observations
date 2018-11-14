@@ -1,4 +1,5 @@
-import { isSameYear } from "date-fns";
+import isSameYear from "date-fns/isSameYear";
+
 import {
   fahrenheitToCelcius,
   averageMissingValues,
@@ -23,8 +24,8 @@ export default (acisData, asJson) => {
   const sisterStnValues = flatten(sisterStn.map(arr => arr[1]));
 
   // replace current station values with sister station's
-  let replaced = currentStnValues.map(
-    (t, i) => (t === "M" ? sisterStnValues[i] : t)
+  let replaced = currentStnValues.map((t, i) =>
+    t === "M" ? sisterStnValues[i] : t
   );
 
   replaced = averageMissingValues(replaced);
@@ -35,8 +36,8 @@ export default (acisData, asJson) => {
     const forecastValues = flatten(forecast.map(arr => arr[1]));
 
     // replace missing values with forecast data
-    replaced = replaced.map(
-      (t, i) => (t === "M" ? fahrenheitToCelcius(forecastValues[i]) : t)
+    replaced = replaced.map((t, i) =>
+      t === "M" ? fahrenheitToCelcius(forecastValues[i]) : t
     );
   }
 

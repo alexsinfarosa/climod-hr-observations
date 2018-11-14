@@ -1,26 +1,32 @@
 import React from "react";
-import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
-import amber from "material-ui/colors/amber";
-import deepOrange from "material-ui/colors/deepOrange";
-// import Reboot from "material-ui/Reboot";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+// import teal from "@material-ui/core/colors/teal";
+import deepOrange from "@material-ui/core/colors/deepOrange";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 // A theme with custom primary and secondary color.
 // It's optional.
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+    suppressDeprecationWarnings: true
+  },
   palette: {
     primary: {
-      fifty: amber[50],
-      one100: amber[100],
-      light: amber[300],
-      main: amber[500],
-      dark: amber[700]
+      main: deepOrange[500]
     },
     secondary: {
-      fifty: deepOrange[50],
-      one100: deepOrange[100],
-      light: deepOrange[300],
-      main: deepOrange[500],
-      dark: deepOrange[700]
+      main: deepOrange[500]
+    }
+  },
+  overrides: {
+    MuiPaper: {
+      root: {
+        padding: 16,
+        textAlign: "center",
+        backgroundColor: "#f5f5f5"
+      },
+      elevation2: { boxShadow: "none" }
     }
   }
 });
@@ -31,8 +37,7 @@ function withRoot(Component) {
     // thanks to React context.
     return (
       <MuiThemeProvider theme={theme}>
-        {/* Reboot kickstart an elegant, consistent, and simple baseline to build upon. */}
-        {/*<Reboot />*/}
+        <CssBaseline />
         <Component {...props} />
       </MuiThemeProvider>
     );

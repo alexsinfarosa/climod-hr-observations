@@ -1,22 +1,19 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { withStyles } from "material-ui/styles";
+
+import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../withRoot";
 
-import {
-  TextField,
-  IconButton,
-  Icon,
-  InputAdornment,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Select
-} from "material-ui";
-import DatePicker from "material-ui-pickers/DatePicker";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+
+import { DatePicker } from "material-ui-pickers";
 
 // date-fns
-import { isAfter } from "date-fns";
+import isAfter from "date-fns/isAfter";
 
 const styles = theme => ({
   root: {
@@ -73,7 +70,7 @@ class Form extends Component {
         {value === "user" && (
           <TextField
             disabled={isAfter(sDate, eDate)}
-            style={{ minWidth: 200, width: 200 }}
+            style={{ minWidth: 220, width: 220 }}
             id="station"
             label="Station ID (e.g. ktol)"
             value={stationID}
@@ -84,47 +81,44 @@ class Form extends Component {
         {/*START DATE*/}
         {(value === "map" || value === "user") && (
           <DatePicker
-            style={{ minWidth: 200, width: 200 }}
+            keyboard
             label="Start Date"
-            // maxDate={eDate}
-            maxDateMessage={`Start Date should not be after End Date`}
+            format="MM/dd/yyyy"
+            // handle clearing outside => pass plain array if you are not controlling value outside
+            mask={value =>
+              value
+                ? [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/]
+                : []
+            }
             value={sDate}
             onChange={setStartDate}
-            format="MMMM Do, YYYY"
+            disableOpenOnEnter
+            animateYearScrolling={true}
+            showTodayButton
             disableFuture
-            clearable
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton>
-                    <Icon>date_range</Icon>
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
+            // onInputChange={e => console.log("Keyboard Input:", e.target.value)}
           />
         )}
 
         {/*END DATE*/}
         {(value === "map" || value === "user") && (
           <DatePicker
-            style={{ minWidth: 200, width: 200 }}
+            keyboard
             label="End Date"
+            format="MM/dd/yyyy"
             minDate={sDate}
+            // handle clearing outside => pass plain array if you are not controlling value outside
+            mask={value =>
+              value
+                ? [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/]
+                : []
+            }
             value={eDate}
             onChange={setEndDate}
-            format="MMMM Do, YYYY"
-            disableFuture
+            disableOpenOnEnter
+            animateYearScrolling={true}
             showTodayButton
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton>
-                    <Icon>date_range</Icon>
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
+            disableFuture
           />
         )}
       </form>

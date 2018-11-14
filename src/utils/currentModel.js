@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { formatDate } from "./utils";
 
 export default (cleanedData, asJson) => {
   const arr = [...cleanedData.entries()];
@@ -12,7 +12,7 @@ export default (cleanedData, asJson) => {
 
   // handle bioFix
   let bioFixIdx;
-  const bioFix = asJson.bioFix ? format(asJson.bioFix, "YYYY-MM-DD") : null;
+  const bioFix = asJson.bioFix ? formatDate(asJson.bioFix) : null;
   if (bioFix) {
     const bioFixArr = bioFix.split("-");
     const bioFixNoYear = bioFixArr.slice(1).join("-");

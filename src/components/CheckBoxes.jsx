@@ -1,19 +1,22 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { withStyles } from "material-ui/styles";
+
+import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../withRoot";
 
-import { FormLabel, FormGroup, FormControlLabel } from "material-ui/Form";
-import Checkbox from "material-ui/Checkbox";
-import Select from "material-ui/Select";
-import { MenuItem } from "material-ui";
-import blue from "material-ui/colors/blue";
-import CheckBoxOutlineBlankIcon from "material-ui-icons/CheckBoxOutlineBlank";
-import CheckBoxIcon from "material-ui-icons/CheckBox";
-import Radio from "material-ui/Radio";
-import deepOrange from "material-ui/colors/deepOrange";
-import Collapse from "material-ui/transitions/Collapse";
-import Switch from "material-ui/Switch";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import blue from "@material-ui/core/colors/blue";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import Radio from "@material-ui/core/Radio";
+import deepOrange from "@material-ui/core/colors/deepOrange";
+import Collapse from "@material-ui/core/Collapse";
+import Switch from "@material-ui/core/Switch";
 
 const styles = theme => ({
   root: {

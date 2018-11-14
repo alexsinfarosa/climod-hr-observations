@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { withStyles } from "material-ui";
+
+import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../withRoot";
-import Typography from "material-ui/Typography";
+
+import Typography from "@material-ui/core/Typography";
+import PrintIcon from "@material-ui/icons/Print";
+import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
+import DownloadIcon from "@material-ui/icons/CloudDownload";
+
 import { CSVLink } from "react-csv";
-import DownloadIcon from "material-ui-icons/FileDownload";
-import PrintIcon from "material-ui-icons/Print";
-import IconButton from "material-ui/IconButton";
-import Tooltip from "material-ui/Tooltip";
 
 const styles = theme => ({
   root: {
@@ -45,7 +48,7 @@ class TableHeader extends Component {
         </Typography>
 
         <Typography
-          variant="headline"
+          variant="h5"
           style={{ color: "#2D3047" }}
           className={classes.center}
         >

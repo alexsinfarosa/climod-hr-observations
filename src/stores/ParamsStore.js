@@ -4,6 +4,7 @@ import axios from "axios";
 
 // fetch
 import { fetchCurrentStationHourlyData } from "../utils/fetchData";
+import { shiftDataFromOneTo24 } from "../utils/utils";
 
 // icao stations
 import { icaoStations } from "../assets/icaoStationList";
@@ -21,7 +22,11 @@ import {
 import { elements } from "../assets/elements";
 
 // date-fns
-import { format, getHours, subDays } from "date-fns";
+import format from "date-fns/format";
+import getHours from "date-fns/getHours";
+import subDays from "date-fns/subDays";
+
+import { formatDate } from "../utils/utils";
 
 // const
 const url = `${
@@ -42,6 +47,7 @@ export default class ParamsStore {
           ? (this.data = [])
           : this.setData(this.params)
     );
+
     // reaction(() => this.asJson, () => console.log(this.asJson));
     reaction(() => this.searchMethod === "map", () => this.setIcaoStations());
     reaction(() => this.searchMethod === "user", () => this.loadStations());
@@ -105,7 +111,9 @@ export default class ParamsStore {
     this.stationID = id;
   };
   get station() {
+    // console.log("station ");
     const { stationID, stations } = this;
+
     let station;
     const stnIDUpper = stationID.toUpperCase();
     const stnIDLower = stationID.toLowerCase();
@@ -129,11 +137,13 @@ export default class ParamsStore {
   // Dates
   sDate = new Date();
   setStartDate = d => (this.sDate = d);
+
   eDate = new Date();
   setEndDate = d => (this.eDate = d);
 
   // asJson
   get asJson() {
+    // console.log("asJson CALLED!!!");
     return {
       isUnitBeingChanged: this.isUnitBeingChanged,
       state: this.state,
@@ -239,11 +249,13 @@ export default class ParamsStore {
     if (station) {
       return {
         sid: `${idAdjustment(station)} ${station.network}`,
-        sdate: format(subDays(new Date(sDate), 1), "YYYY-MM-DD"),
-        edate: format(eDate, "YYYY-MM-DD"),
+        sdate: formatDate(subDays(new Date(sDate), 1)),
+        edate: formatDate(eDate),
         elems,
         meta: "tzo"
       };
+    } else {
+      return {};
     }
   }
 
@@ -254,68 +266,54 @@ export default class ParamsStore {
   data = [];
   tzo;
   setData = async params => {
+    // console.log("setData CALLED!!!!!");
     this.isLoading = true;
 
     await fetchCurrentStationHourlyData(params).then(res => {
       const selectedKeys = this.elemsListCheckboxCallOnly.map(e => e.el);
       const keys = ["date", ...selectedKeys];
 
+      // console.log(res.data);
+
       // shift all data by one hour forward
-      const dataModified = res.data.map((date, i) => {
-        if (i <= res.data.length - 2) {
-          return date.map((el, j) => {
-            if (typeof el !== "string") {
-              res.data[i + 1][j].unshift(el[23]);
-              res.data[i][j].pop();
-              return res.data[i][j];
-            } else {
-              return el;
-            }
-          });
-        } else {
-          return date.map((el, j) => {
-            if (typeof el !== "string") {
-              res.data[i][j].pop();
-              return res.data[i][j];
-            } else {
-              return el;
-            }
-          });
-        }
-      });
+      const dataModified = shiftDataFromOneTo24(res.data);
+      // console.log(dataModified);
 
       // data
       let data = new Map();
-      dataModified.slice(1).forEach(day => {
+      dataModified.forEach(day => {
         let p = {};
         day.forEach((el, i) => {
           p[keys[i]] = el;
         });
         data.set(day[0], p);
       });
+      // console.log(data);
 
       // convert dates from standard time to local time
       let results = [];
       this.hourlyLocalDates.forEach(date => {
-        const timeZoneAbbreviation = date
-          .toString()
-          .split(" ")
-          .slice(-1)[0];
+        // console.log(date);
+        const timeZoneAbbreviation = new Date(date)
+          .toLocaleTimeString("en-us", { timeZoneName: "short" })
+          .split(" ")[2];
         const time = getHours(date);
-        const day = format(date, "YYYY-MM-DD");
+        const day = formatDate(date);
+        // console.log(time, day);
 
         let p = {};
         keys.forEach(el => {
           el === "date"
             ? (p["date"] = `${format(
                 date,
-                "YYYY-MM-DD HH:00"
+                "YYYY-MM-dd HH:00"
               )} ${timeZoneAbbreviation}`)
             : (p[el] =
                 data.get(day)[el][time] === "M"
                   ? this.radioButton
                   : data.get(day)[el][time]);
         });
+        // console.log(p);
 
         // implement heat index (there is no call for this)
         p["hidx"] =
@@ -372,7 +370,7 @@ export default class ParamsStore {
 
         results.push(p);
       });
-
+      // console.log(results);
       this.data = results;
     });
 
